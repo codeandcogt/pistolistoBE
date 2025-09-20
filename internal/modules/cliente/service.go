@@ -2,6 +2,7 @@ package cliente
 
 type ClienteService interface {
 	CreateCliente(client *Cliente) error
+	GetClienteByID(id uint) (*Cliente, error)
 }
 
 type clienteService struct {
@@ -14,4 +15,8 @@ func NewClientService(repo ClienteRepository) ClienteService {
 
 func (s *clienteService) CreateCliente(client *Cliente) error {
 	return s.repo.Create(client)
+}
+
+func (s *clienteService) GetClienteByID(id uint) (*Cliente, error) {
+	return s.repo.GetByID(id)
 }

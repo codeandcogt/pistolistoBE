@@ -6,24 +6,17 @@ import (
 	"net/http"
 	"os"
 	"pistolistoBE/db"
-	"pistolistoBE/internal/config"
-	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/server"
 	"time"
 
-	// "github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	// migration.Migration()
 	db := db.Database()
-	// mux := mux.NewRouter()
 
-	clientRepo := cliente.NewClient(db)
-	clientService := cliente.NewClientService(clientRepo)
-	clientHandler := cliente.NewClientHandler(clientService)
-
-	r := config.SetupRoutes(clientHandler)
+	srv := server.NewServer(db)
 
 	errorVariables := godotenv.Load()
 	if errorVariables != nil {
@@ -32,7 +25,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:         ":" + os.Getenv("PORT"),
-		Handler:      r,
+		Handler:      srv.Router,
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
 	}
