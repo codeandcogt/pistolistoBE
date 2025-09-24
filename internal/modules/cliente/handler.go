@@ -2,10 +2,13 @@ package cliente
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"pistolistoBE/internal/common"
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type ClientHandler struct {
@@ -22,6 +25,10 @@ func (h *ClientHandler) CreateCliente(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	fmt.Println("cliente", client)
+	hash, _ := bcrypt.GenerateFromPassword([]byte(client.Contrasena), bcrypt.DefaultCost)
+	fmt.Println("cliente hash", hash)
+	client.Contrasena = string(hash)
 
 	if err := h.service.CreateCliente(&client); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -29,7 +36,8 @@ func (h *ClientHandler) CreateCliente(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(client)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, client, common.HTTP_CREATED)
+
 }
 
 func (h *ClientHandler) GetClienteByID(w http.ResponseWriter, r *http.Request) {
@@ -53,5 +61,5 @@ func (h *ClientHandler) GetClienteByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(client)
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
 }
