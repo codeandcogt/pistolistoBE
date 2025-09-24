@@ -13,8 +13,9 @@ import (
 )
 
 func main() {
-	// migration.Migration()
 	db := db.Database()
+
+	// migration.Migration()
 
 	srv := server.NewServer(db)
 

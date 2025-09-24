@@ -2,6 +2,7 @@ package routes
 
 import (
 	"pistolistoBE/internal/middleware"
+	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/cliente"
 
 	"github.com/gorilla/mux"
@@ -9,6 +10,7 @@ import (
 
 type RouteHandlers interface {
 	GetClienteHandler() *cliente.ClientHandler
+	GetAuthHandler() *auth.AuthHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -21,4 +23,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 
 	// Configurar rutas por módulos
 	cliente.SetupClienteRoutes(api, handlers.GetClienteHandler())
+	auth.SetUpAuthRoutes(api, handlers.GetAuthHandler())
 }
