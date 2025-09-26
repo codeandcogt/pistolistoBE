@@ -19,7 +19,7 @@ Backend para sistema de gestión desarrollado en Go.
 1. Clonar repositorio
 ```bash
 git clone https://github.com/tu-usuario/pisto-listo-backend.git
-cd pisto-listo-backend
+cd pistolistoBE
 ```
 
 2. Instalar dependencias
