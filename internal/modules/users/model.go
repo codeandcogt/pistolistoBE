@@ -12,7 +12,7 @@ type Usuario struct {
 	Email             string
 	Telefono          string
 	NombreUsuario     string
-	SucursalId        int64
+	IdSucursal        int64
 	FechaNacimiento   time.Time
 	Genero            string
 	PrimerLogIn       bool

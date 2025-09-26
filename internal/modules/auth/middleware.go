@@ -35,7 +35,6 @@ func JWTMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		// Guardamos en el contexto con una clave tipada
 		ctx := context.WithValue(r.Context(), clientIDKey, claims["id_cliente"])
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})

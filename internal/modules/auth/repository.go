@@ -8,6 +8,7 @@ import (
 
 type AuthRepository interface {
 	FindByEmail(email string) (*cliente.Cliente, error)
+	LogLoginCliente(log *LogLoginCliente) error
 }
 
 type authRepository struct {
@@ -24,4 +25,8 @@ func (r *authRepository) FindByEmail(email string) (*cliente.Cliente, error) {
 		return nil, err
 	}
 	return &client, nil
+}
+
+func (r *authRepository) LogLoginCliente(log *LogLoginCliente) error {
+	return r.db.Create(log).Error
 }

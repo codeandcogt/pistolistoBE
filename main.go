@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"pistolistoBE/db"
 	"pistolistoBE/internal/server"
+
+	// "pistolistoBE/migration"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -30,6 +31,5 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
 	}
-	fmt.Println("Hello mi ruta es http://192.168.31.57:8080")
 	log.Fatal(server.ListenAndServe())
 }
