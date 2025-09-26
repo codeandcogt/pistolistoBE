@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"pistolistoBE/db"
+	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/server"
 
 	// "pistolistoBE/migration"
@@ -14,6 +15,8 @@ import (
 )
 
 func main() {
+	config.Init()
+
 	db := db.Database()
 
 	// migration.Migration()
