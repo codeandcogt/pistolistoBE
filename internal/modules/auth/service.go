@@ -29,15 +29,26 @@ func (s *authService) Login(email, password string) (*string, error) {
 		return nil, errors.New("usuario no encontrado")
 	}
 
+	estado := true
+	logEntry := &LogLoginCliente{
+		IdCliente: int(client.IdCliente),
+		Estado:    &estado,
+		Exito:     false,
+	}
+
 	err = bcrypt.CompareHashAndPassword([]byte(client.Contrasena), []byte(password))
 	if err != nil {
+		s.repo.LogLoginCliente(logEntry)
 		return nil, errors.New("contraseña incorrecta")
 	}
 
 	token, err := s.jwt.GenerateToken(client.IdCliente)
 	if err != nil {
+		s.repo.LogLoginCliente(logEntry)
 		return nil, errors.New("no se pudo generar token")
 	}
 
+	logEntry.Exito = true
+	s.repo.LogLoginCliente(logEntry)
 	return &token, nil
 }

@@ -2,7 +2,6 @@ package auth
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"pistolistoBE/internal/common"
 )
@@ -28,7 +27,6 @@ func (h *AuthHandler) LoginClient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token, err := h.service.Login(creds.Email, creds.Contrasena)
-	fmt.Println("token", token, "error", err)
 
 	if err != nil {
 		common.ErrorResponse(w, http.StatusUnauthorized, common.HTTP_UNAUTHORIZED, common.ERR_UNAUTHORIZED, nil)
