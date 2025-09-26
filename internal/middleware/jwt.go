@@ -1,15 +1,15 @@
-package auth
+package middleware
 
 import (
 	"context"
+	"fmt"
 	"net/http"
+	"pistolistoBE/internal/common"
 	"pistolistoBE/internal/config"
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
 )
-
-var jwtKey = []byte(config.JwtSecret)
 
 type contextKey string
 
@@ -19,19 +19,24 @@ func JWTMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
-			http.Error(w, "Token requerido", http.StatusUnauthorized)
+			fmt.Println("valores de error")
+
+			common.ErrorResponse(w, http.StatusUnauthorized, common.HTTP_UNAUTHORIZED, common.ERR_UNAUTHORIZED, nil)
 			return
 		}
 
-		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		tokenString := strings.TrimSpace(strings.TrimPrefix(authHeader, "Bearer "))
 
 		claims := jwt.MapClaims{}
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(t *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
+			return config.JwtSecret, nil
 		})
 
+		// fmt.Println(token, err, "valores token")
 		if err != nil || !token.Valid {
-			http.Error(w, "Token inválido", http.StatusUnauthorized)
+			fmt.Println(err, "valores de error")
+
+			common.ErrorResponse(w, http.StatusUnauthorized, common.HTTP_UNAUTHORIZED, common.ERR_UNAUTHORIZED, nil)
 			return
 		}
 

@@ -22,7 +22,7 @@ func NewJwtManager(secret []byte, expiry time.Duration) JwtManager {
 func (j *jwtManager) GenerateToken(idCliente uint) (string, error) {
 	claims := jwt.MapClaims{
 		"id_cliente": idCliente,
-		"exp":        time.Now().Add(j.expiry).Unix(),
+		"exp":        time.Now().Add(time.Duration(j.expiry) * time.Hour).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

@@ -7,6 +7,7 @@ import (
 type ClienteRepository interface {
 	Create(cliente *Cliente) error
 	GetByID(id uint) (*Cliente, error)
+	GetAll() ([]*Cliente, error)
 }
 
 type clienteRepository struct {
@@ -28,4 +29,14 @@ func (r *clienteRepository) GetByID(id uint) (*Cliente, error) {
 		return nil, err
 	}
 	return &cliente, nil
+}
+
+func (r *clienteRepository) GetAll() ([]*Cliente, error) {
+	var clientes []*Cliente
+	err := r.db.Find(&clientes).Error
+
+	if err != nil {
+		return nil, err
+	}
+	return clientes, nil
 }
