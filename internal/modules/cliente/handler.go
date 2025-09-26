@@ -2,7 +2,6 @@ package cliente
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"pistolistoBE/internal/common"
 	"strconv"
@@ -25,9 +24,7 @@ func (h *ClientHandler) CreateCliente(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println("cliente", client)
 	hash, _ := bcrypt.GenerateFromPassword([]byte(client.Contrasena), bcrypt.DefaultCost)
-	fmt.Println("cliente hash", hash)
 	client.Contrasena = string(hash)
 
 	if err := h.service.CreateCliente(&client); err != nil {
@@ -44,19 +41,31 @@ func (h *ClientHandler) GetClienteByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
-		http.Error(w, "ID is required", http.StatusBadRequest)
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
 		return
 	}
 
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
-		http.Error(w, "Invalid ID format", http.StatusBadRequest)
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
 	client, err := h.service.GetClienteByID(uint(id))
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
+}
+
+func (h *ClientHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+
+	client, err := h.service.GetAll()
+	if err != nil {
+		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
 	}
 
