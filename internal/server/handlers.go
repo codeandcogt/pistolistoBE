@@ -3,7 +3,9 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/moneda"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -17,8 +19,20 @@ func (s *Server) initializeHandlers() *Handlers {
 	clienteService := cliente.NewClientService(clienteRepo)
 	clienteHandler := cliente.NewClientHandler(clienteService)
 
+	// Moneda module
+	monedaRepo := moneda.NewMonedaRepository(s.db)
+	monedaService := moneda.NewMonedaService(monedaRepo)
+	monedaHandler := moneda.NewMonedaHandler(monedaService)
+
+	// Banco module
+	bancoRepo := banco.NewBancoRepository(s.db)
+	bancoService := banco.NewBancoService(bancoRepo)
+	bancoHandler := banco.NewBancoHandler(bancoService)
+
 	return &Handlers{
 		Cliente: clienteHandler,
 		Auth:    authHandler,
+		Moneda:  monedaHandler,
+		Banco:   bancoHandler,
 	}
 }

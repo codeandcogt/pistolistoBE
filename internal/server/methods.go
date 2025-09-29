@@ -2,7 +2,9 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/moneda"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -11,4 +13,12 @@ func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
 
 func (h *Handlers) GetAuthHandler() *auth.AuthHandler {
 	return h.Auth
+}
+
+func (h *Handlers) GetMonedaHandler() *moneda.MonedaHandler {
+	return h.Moneda
+}
+
+func (h *Handlers) GetBancoHandler() *banco.BancoHandler {
+	return h.Banco
 }
