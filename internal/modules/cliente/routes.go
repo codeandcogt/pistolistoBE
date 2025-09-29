@@ -17,4 +17,5 @@ func SetupClienteRoutes(api *mux.Router, handler *ClientHandler) {
 
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetClienteByID).Methods("GET")
+	protected.HandleFunc("/{id}", handler.DeleteCliente).Methods("DELETE")
 }

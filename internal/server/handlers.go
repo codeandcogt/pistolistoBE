@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/rol"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -16,9 +17,14 @@ func (s *Server) initializeHandlers() *Handlers {
 	clienteRepo := cliente.NewClient(s.db)
 	clienteService := cliente.NewClientService(clienteRepo)
 	clienteHandler := cliente.NewClientHandler(clienteService)
+	// Cliente module
+	rolRepo := rol.NewRol(s.db)
+	rolService := rol.NewRolService(rolRepo)
+	rolHandler := rol.NewRolHandler(rolService)
 
 	return &Handlers{
 		Cliente: clienteHandler,
 		Auth:    authHandler,
+		Rol:     rolHandler,
 	}
 }
