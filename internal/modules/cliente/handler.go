@@ -57,7 +57,6 @@ func (h *ClientHandler) GetClienteByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
 }
 
@@ -69,7 +68,6 @@ func (h *ClientHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
 }
 
@@ -95,6 +93,5 @@ func (h *ClientHandler) DeleteCliente(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, text, common.HTTP_OK)
 }

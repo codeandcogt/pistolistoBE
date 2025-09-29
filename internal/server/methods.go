@@ -3,6 +3,7 @@ package server
 import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/rol"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -11,4 +12,8 @@ func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
 
 func (h *Handlers) GetAuthHandler() *auth.AuthHandler {
 	return h.Auth
+}
+
+func (h *Handlers) GetRolHandler() *rol.RolHandler {
+	return h.Rol
 }
