@@ -1,6 +1,10 @@
 # Variables de entorno
 .env
 
+# go
+go.sum
+go.mod
+
 #tmp
 runner-build.exe
 runner-build.exe~
