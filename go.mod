@@ -1,6 +1,6 @@
 module pistolistoBE
 
-go 1.24.5
+go 1.23
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
