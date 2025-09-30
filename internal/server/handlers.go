@@ -6,6 +6,7 @@ import (
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/moneda"
+	"pistolistoBE/internal/modules/rol"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -18,6 +19,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	clienteRepo := cliente.NewClient(s.db)
 	clienteService := cliente.NewClientService(clienteRepo)
 	clienteHandler := cliente.NewClientHandler(clienteService)
+	// Cliente module
+	rolRepo := rol.NewRol(s.db)
+	rolService := rol.NewRolService(rolRepo)
+	rolHandler := rol.NewRolHandler(rolService)
 
 	// Moneda module
 	monedaRepo := moneda.NewMonedaRepository(s.db)
@@ -34,5 +39,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Auth:    authHandler,
 		Moneda:  monedaHandler,
 		Banco:   bancoHandler,
+		Rol:     rolHandler,
 	}
 }
