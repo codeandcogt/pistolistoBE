@@ -3,7 +3,9 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
+
 	"pistolistoBE/internal/modules/rol"
+	//"pistolistoBE/internal/modules/departamento"
 	// "pistolistoBE/internal/modules/auth"
 	// "pistolistoBE/internal/modules/cliente"
 	// "pistolistoBE/internal/modules/cliente"
