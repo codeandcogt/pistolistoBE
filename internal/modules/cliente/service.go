@@ -4,6 +4,7 @@ type ClienteService interface {
 	CreateCliente(client *Cliente) error
 	GetClienteByID(id uint) (*Cliente, error)
 	GetAll() ([]*Cliente, error)
+	DeleteCliente(id uint) (string, error)
 }
 
 type clienteService struct {
@@ -24,4 +25,8 @@ func (s *clienteService) GetClienteByID(id uint) (*Cliente, error) {
 
 func (s *clienteService) GetAll() ([]*Cliente, error) {
 	return s.repo.GetAll()
+}
+
+func (s *clienteService) DeleteCliente(id uint) (string, error) {
+	return s.repo.DeleteCliente(id)
 }

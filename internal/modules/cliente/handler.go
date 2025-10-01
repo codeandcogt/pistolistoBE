@@ -57,7 +57,6 @@ func (h *ClientHandler) GetClienteByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
 }
 
@@ -69,6 +68,30 @@ func (h *ClientHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
+}
+
+func (h *ClientHandler) DeleteCliente(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idStr, exists := vars["id"]
+
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	text, err := h.service.DeleteCliente(uint(id))
+	if err != nil {
+		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, text, common.HTTP_OK)
 }

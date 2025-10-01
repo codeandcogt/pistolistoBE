@@ -5,6 +5,7 @@ import (
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/moneda"
+	"pistolistoBE/internal/modules/rol"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -20,4 +21,5 @@ type Handlers struct {
 	Auth    *auth.AuthHandler
 	Moneda  *moneda.MonedaHandler
 	Banco   *banco.BancoHandler
+	Rol     *rol.RolHandler
 }
