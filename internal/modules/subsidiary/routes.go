@@ -1,6 +1,8 @@
 package subsidiary
 
 import (
+	"pistolistoBE/internal/middleware"
+
 	"github.com/gorilla/mux"
 )
 
@@ -12,7 +14,7 @@ func SetupSubsidiaryRoutes(api *mux.Router, handler *SubsidiaryHandler) {
 
 	// Rutas protegidas con JWT
 	protected := subsidiaryRouter.NewRoute().Subrouter()
-	//protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.JWTMiddleware)
 
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetByID).Methods("GET")
