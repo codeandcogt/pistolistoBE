@@ -1,4 +1,4 @@
-package subsidiary
+package bankaccount
 
 import (
 	"pistolistoBE/internal/middleware"
@@ -6,11 +6,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func SetupSubsidiaryRoutes(api *mux.Router, handler *SubsidiaryHandler) {
-	subsidiaryRouter := api.PathPrefix("/subsidiaries").Subrouter()
+func SetupBankAccountRoutes(api *mux.Router, handler *BankAccountHandler) {
+	bankAccountRouter := api.PathPrefix("/bank-accounts").Subrouter()
 
 	// Rutas protegidas con JWT
-	protected := subsidiaryRouter.NewRoute().Subrouter()
+	protected := bankAccountRouter.NewRoute().Subrouter()
 	protected.Use(middleware.JWTMiddleware)
 
 	protected.HandleFunc("", handler.Create).Methods("POST")
