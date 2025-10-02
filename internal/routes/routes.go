@@ -3,7 +3,9 @@ package routes
 import (
 	"pistolistoBE/internal/middleware"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 
 	"github.com/gorilla/mux"
@@ -12,6 +14,8 @@ import (
 type RouteHandlers interface {
 	GetClienteHandler() *cliente.ClientHandler
 	GetAuthHandler() *auth.AuthHandler
+	GetMonedaHandler() *moneda.MonedaHandler
+	GetBancoHandler() *banco.BancoHandler
 	GetRolHandler() *rol.RolHandler
 }
 
@@ -26,5 +30,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	// Configurar rutas por módulos
 	cliente.SetupClienteRoutes(api, handlers.GetClienteHandler())
 	auth.SetUpAuthRoutes(api, handlers.GetAuthHandler())
+	moneda.SetupMonedaRoutes(api, handlers.GetMonedaHandler())
+	banco.SetupBancoRoutes(api, handlers.GetBancoHandler())
 	rol.SetUpRolRoutes(api, handlers.GetRolHandler())
 }
