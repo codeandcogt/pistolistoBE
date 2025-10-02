@@ -6,8 +6,6 @@ type BancoService interface {
 	GetAll() ([]*Banco, error)
 	UpdateBanco(id uint, banco *Banco) error
 	DeleteBanco(id uint) error
-	GetBancoByCodigo(codigo string) (*Banco, error)
-	GetBancosByTipo(tipo string) ([]*Banco, error)
 }
 
 type bancoService struct {
@@ -36,12 +34,4 @@ func (s *bancoService) UpdateBanco(id uint, banco *Banco) error {
 
 func (s *bancoService) DeleteBanco(id uint) error {
 	return s.repo.Delete(id)
-}
-
-func (s *bancoService) GetBancoByCodigo(codigo string) (*Banco, error) {
-	return s.repo.GetByCodigo(codigo)
-}
-
-func (s *bancoService) GetBancosByTipo(tipo string) ([]*Banco, error) {
-	return s.repo.GetByTipo(tipo)
 }

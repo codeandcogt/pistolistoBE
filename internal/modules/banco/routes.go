@@ -12,7 +12,6 @@ func SetupBancoRoutes(api *mux.Router, handler *BancoHandler) {
 	// Rutas públicas
 	bancoRouter.HandleFunc("", handler.GetAll).Methods("GET")
 	bancoRouter.HandleFunc("/{id}", handler.GetBancoByID).Methods("GET")
-	bancoRouter.HandleFunc("/tipo/{tipo}", handler.GetBancosByTipo).Methods("GET")
 
 	// Rutas protegidas -> subrouter con middleware
 	protected := bancoRouter.NewRoute().Subrouter()
