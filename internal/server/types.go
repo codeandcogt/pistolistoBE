@@ -2,8 +2,10 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
 
 	"github.com/gorilla/mux"
@@ -20,4 +22,6 @@ type Handlers struct {
 	Auth         *auth.AuthHandler
 	Rol          *rol.RolHandler
 	Departamento *departamento.DepartamentoHandler
+	Categoria    *categoria.CategoriaHandler
+	Descuento    *descuento.DescuentoHandler
 }

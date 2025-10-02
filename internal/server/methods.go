@@ -2,8 +2,10 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
 )
 
@@ -21,4 +23,12 @@ func (h *Handlers) GetRolHandler() *rol.RolHandler {
 
 func (h *Handlers) GetDepartamentoHandler() *departamento.DepartamentoHandler {
 	return h.Departamento
+}
+
+func (h *Handlers) GetCategoriaHandler() *categoria.CategoriaHandler {
+	return h.Categoria
+}
+
+func (h *Handlers) GetDescuentoHandler() *descuento.DescuentoHandler {
+	return h.Descuento
 }

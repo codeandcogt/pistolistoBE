@@ -3,8 +3,10 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
 )
 
@@ -26,11 +28,21 @@ func (s *Server) initializeHandlers() *Handlers {
 	departamentoRepo := departamento.NewDepartamento(s.db)
 	departamentoService := departamento.NewDepartamentoService(departamentoRepo)
 	departamentoHandler := departamento.NewDepartamentoHandler(departamentoService)
+	//Categoria module
+	categoriaRepo := categoria.NewCategoria(s.db)
+	categoriaService := categoria.NewCategoriaService(categoriaRepo)
+	categoriaHandler := categoria.NewCategoriaHandler(categoriaService)
+	//Descuento module
+	descuentoRepo := descuento.NewDescuento(s.db)
+	descuentoService := descuento.NewDescuentoService(descuentoRepo)
+	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
 
 	return &Handlers{
 		Cliente:      clienteHandler,
 		Auth:         authHandler,
 		Rol:          rolHandler,
 		Departamento: departamentoHandler,
+		Categoria:    categoriaHandler,
+		Descuento:    descuentoHandler,
 	}
 }
