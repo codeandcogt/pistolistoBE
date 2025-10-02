@@ -8,7 +8,7 @@ import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/server"
 
-	// "pistolistoBE/migration"
+	//"pistolistoBE/migration"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -19,7 +19,7 @@ func main() {
 
 	db := db.Database()
 
-	// migration.Migration()
+	//migration.Migration()
 
 	srv := server.NewServer(db)
 
