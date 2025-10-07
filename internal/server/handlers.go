@@ -5,6 +5,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 )
@@ -34,11 +35,17 @@ func (s *Server) initializeHandlers() *Handlers {
 	bancoService := banco.NewBancoService(bancoRepo)
 	bancoHandler := banco.NewBancoHandler(bancoService)
 
+	// Cupon module
+	cuponRepo := cupon.NewCuponRepository(s.db)
+	cuponService := cupon.NewCuponService(cuponRepo)
+	cuponHandler := cupon.NewCuponHandler(cuponService)
+
 	return &Handlers{
 		Cliente: clienteHandler,
 		Auth:    authHandler,
 		Moneda:  monedaHandler,
 		Banco:   bancoHandler,
 		Rol:     rolHandler,
+		Cupon:   cuponHandler,
 	}
 }
