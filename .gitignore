@@ -1,6 +1,11 @@
 # Variables de entorno
 .env
 
+# go
+go.sum
+go.mod
+pistolistoBE.exe
+
 #tmp
 runner-build.exe
 runner-build.exe~

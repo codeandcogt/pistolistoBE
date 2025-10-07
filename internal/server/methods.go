@@ -2,10 +2,13 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 )
 
@@ -15,6 +18,14 @@ func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
 
 func (h *Handlers) GetAuthHandler() *auth.AuthHandler {
 	return h.Auth
+}
+
+func (h *Handlers) GetMonedaHandler() *moneda.MonedaHandler {
+	return h.Moneda
+}
+
+func (h *Handlers) GetBancoHandler() *banco.BancoHandler {
+	return h.Banco
 }
 
 func (h *Handlers) GetRolHandler() *rol.RolHandler {
@@ -31,4 +42,8 @@ func (h *Handlers) GetCategoriaHandler() *categoria.CategoriaHandler {
 
 func (h *Handlers) GetDescuentoHandler() *descuento.DescuentoHandler {
 	return h.Descuento
+}
+
+func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
+	return h.Cupon
 }
