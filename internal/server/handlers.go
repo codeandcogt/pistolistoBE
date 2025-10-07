@@ -4,8 +4,11 @@ import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 )
@@ -24,6 +27,18 @@ func (s *Server) initializeHandlers() *Handlers {
 	rolRepo := rol.NewRol(s.db)
 	rolService := rol.NewRolService(rolRepo)
 	rolHandler := rol.NewRolHandler(rolService)
+	// Departamento module
+	departamentoRepo := departamento.NewDepartamento(s.db)
+	departamentoService := departamento.NewDepartamentoService(departamentoRepo)
+	departamentoHandler := departamento.NewDepartamentoHandler(departamentoService)
+	//Categoria module
+	categoriaRepo := categoria.NewCategoria(s.db)
+	categoriaService := categoria.NewCategoriaService(categoriaRepo)
+	categoriaHandler := categoria.NewCategoriaHandler(categoriaService)
+	//Descuento module
+	descuentoRepo := descuento.NewDescuento(s.db)
+	descuentoService := descuento.NewDescuentoService(descuentoRepo)
+	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
 
 	// Moneda module
 	monedaRepo := moneda.NewMonedaRepository(s.db)
@@ -41,11 +56,14 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponHandler := cupon.NewCuponHandler(cuponService)
 
 	return &Handlers{
-		Cliente: clienteHandler,
-		Auth:    authHandler,
-		Moneda:  monedaHandler,
-		Banco:   bancoHandler,
-		Rol:     rolHandler,
-		Cupon:   cuponHandler,
+		Cliente:      clienteHandler,
+		Auth:         authHandler,
+		Rol:          rolHandler,
+		Departamento: departamentoHandler,
+		Categoria:    categoriaHandler,
+		Descuento:    descuentoHandler,
+		Moneda:       monedaHandler,
+		Banco:        bancoHandler,
+		Cupon:        cuponHandler,
 	}
 }

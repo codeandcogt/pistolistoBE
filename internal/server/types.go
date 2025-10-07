@@ -3,8 +3,11 @@ package server
 import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 
@@ -18,10 +21,13 @@ type Server struct {
 }
 
 type Handlers struct {
-	Cliente *cliente.ClientHandler
-	Auth    *auth.AuthHandler
-	Moneda  *moneda.MonedaHandler
-	Banco   *banco.BancoHandler
-	Rol     *rol.RolHandler
-	Cupon   *cupon.CuponHandler
+	Cliente      *cliente.ClientHandler
+	Auth         *auth.AuthHandler
+	Rol          *rol.RolHandler
+	Departamento *departamento.DepartamentoHandler
+	Categoria    *categoria.CategoriaHandler
+	Descuento    *descuento.DescuentoHandler
+	Moneda       *moneda.MonedaHandler
+	Banco        *banco.BancoHandler
+	Cupon        *cupon.CuponHandler
 }

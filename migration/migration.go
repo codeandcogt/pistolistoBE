@@ -3,6 +3,8 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
+
+	//"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
