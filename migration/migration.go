@@ -5,6 +5,10 @@ import (
 	"pistolistoBE/db"
 
 	//"pistolistoBE/internal/modules/rol"
+	//"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/moneda"
 	// "pistolistoBE/internal/modules/auth"
 	// "pistolistoBE/internal/modules/cliente"
 	// "pistolistoBE/internal/modules/cliente"
@@ -21,6 +25,8 @@ func Migration() {
 		&municipality.Municipality{},
 		&bankAccount.BankAccount{},
 	)
+	err := database.AutoMigrate(&moneda.Moneda{}, &banco.Banco{}, &cupon.Cupon{})
+
 	// err := database.AutoMigrate()
 
 	// --- Municipality → Departamento

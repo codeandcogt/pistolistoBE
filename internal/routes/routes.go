@@ -3,7 +3,14 @@ package routes
 import (
 	"pistolistoBE/internal/middleware"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
+
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
 
@@ -13,8 +20,14 @@ import (
 type RouteHandlers interface {
 	GetClienteHandler() *cliente.ClientHandler
 	GetAuthHandler() *auth.AuthHandler
+	GetMonedaHandler() *moneda.MonedaHandler
+	GetBancoHandler() *banco.BancoHandler
 	GetRolHandler() *rol.RolHandler
 	GetSubsidiaryHandler() *subsidiary.SubsidiaryHandler
+	GetDepartamentoHandler() *departamento.DepartamentoHandler
+	GetCategoriaHandler() *categoria.CategoriaHandler
+	GetDescuentoHandler() *descuento.DescuentoHandler
+	GetCuponHandler() *cupon.CuponHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -28,6 +41,12 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	// Configurar rutas por módulos
 	cliente.SetupClienteRoutes(api, handlers.GetClienteHandler())
 	auth.SetUpAuthRoutes(api, handlers.GetAuthHandler())
+	moneda.SetupMonedaRoutes(api, handlers.GetMonedaHandler())
+	banco.SetupBancoRoutes(api, handlers.GetBancoHandler())
 	rol.SetUpRolRoutes(api, handlers.GetRolHandler())
 	subsidiary.SetupSubsidiaryRoutes(api, handlers.GetSubsidiaryHandler())
+	departamento.SetupDepartamentoRoutes(api, handlers.GetDepartamentoHandler())
+	categoria.SetupCategoriaRoutes(api, handlers.GetCategoriaHandler())
+	descuento.SetupDescuentoRoutes(api, handlers.GetDescuentoHandler())
+	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
 }

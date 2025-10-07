@@ -5,6 +5,13 @@ import (
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/categoria"
+	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/departamento"
+	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
 
@@ -24,4 +31,10 @@ type Handlers struct {
 	Subsidiary   *subsidiary.SubsidiaryHandler
 	BankAccount  *bankAccount.BankAccountHandler
 	Municipality *municipality.MunicipalityHandler
+	Departamento *departamento.DepartamentoHandler
+	Categoria    *categoria.CategoriaHandler
+	Descuento    *descuento.DescuentoHandler
+	Moneda       *moneda.MonedaHandler
+	Banco        *banco.BancoHandler
+	Cupon        *cupon.CuponHandler
 }
