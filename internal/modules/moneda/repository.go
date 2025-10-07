@@ -27,7 +27,7 @@ func (r *monedaRepository) Create(moneda *Moneda) error {
 
 func (r *monedaRepository) GetByID(id uint) (*Moneda, error) {
 	var moneda Moneda
-	err := r.db.First(&moneda, id).Error
+	err := r.db.Where("id_moneda = ? AND estado = ?", id, true).First(&moneda).Error
 	if err != nil {
 		return nil, err
 	}
@@ -44,11 +44,11 @@ func (r *monedaRepository) GetAll() ([]*Moneda, error) {
 }
 
 func (r *monedaRepository) Update(id uint, moneda *Moneda) error {
-	return r.db.Model(&Moneda{}).Where("id_moneda = ?", id).Updates(moneda).Error
+	return r.db.Model(&Moneda{}).Where("id_moneda = ? AND estado = ?", id, true).Updates(moneda).Error
 }
 
 func (r *monedaRepository) Delete(id uint) error {
-	return r.db.Model(&Moneda{}).Where("id_moneda = ?", id).Update("estado", false).Error
+	return r.db.Model(&Moneda{}).Where("id_moneda = ? AND estado = ?", id, true).Update("estado", false).Error
 }
 
 func (r *monedaRepository) GetByCodigo(codigo string) (*Moneda, error) {

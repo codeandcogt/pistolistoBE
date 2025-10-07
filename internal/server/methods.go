@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 )
@@ -26,4 +27,8 @@ func (h *Handlers) GetBancoHandler() *banco.BancoHandler {
 
 func (h *Handlers) GetRolHandler() *rol.RolHandler {
 	return h.Rol
+}
+
+func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
+	return h.Cupon
 }

@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 
@@ -22,4 +23,5 @@ type Handlers struct {
 	Moneda  *moneda.MonedaHandler
 	Banco   *banco.BancoHandler
 	Rol     *rol.RolHandler
+	Cupon   *cupon.CuponHandler
 }
