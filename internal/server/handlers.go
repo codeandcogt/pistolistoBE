@@ -3,6 +3,7 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -27,10 +28,16 @@ func (s *Server) initializeHandlers() *Handlers {
 	subsidiaryService := subsidiary.NewSubsidiaryService(subsidiaryRepo)
 	subsidiaryHandler := subsidiary.NewSubsidiaryHandler(subsidiaryService)
 
+	// BankAccount module
+	bankAccountRepo := bankAccount.NewBankAccountRepository(s.db)
+	bankAccountService := bankAccount.NewBankAccountService(bankAccountRepo)
+	bankAccountHandler := bankAccount.NewBankAccountHandler(bankAccountService)
+
 	return &Handlers{
-		Cliente:    clienteHandler,
-		Auth:       authHandler,
-		Rol:        rolHandler,
-		Subsidiary: subsidiaryHandler,
+		Cliente:     clienteHandler,
+		Auth:        authHandler,
+		Rol:         rolHandler,
+		Subsidiary:  subsidiaryHandler,
+		BankAccount: bankAccountHandler,
 	}
 }

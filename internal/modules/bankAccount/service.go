@@ -1,10 +1,10 @@
-package bankaccount
+package bankAccount
 
 type BankAccountService interface {
 	Create(bankAccount *BankAccount) error
 	GetByID(id uint) (*BankAccount, error)
 	GetAll() ([]*BankAccount, error)
-	Update(bankAccount *BankAccount) error
+	Update(bankAccount *BankAccount) (string, error)
 	Delete(id uint) (string, error)
 }
 
@@ -28,7 +28,7 @@ func (s *bankAccountService) GetAll() ([]*BankAccount, error) {
 	return s.repo.GetAll()
 }
 
-func (s *bankAccountService) Update(bankAccount *BankAccount) error {
+func (s *bankAccountService) Update(bankAccount *BankAccount) (string, error) {
 	return s.repo.Update(bankAccount)
 }
 

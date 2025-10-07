@@ -2,7 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
-	"pistolistoBE/internal/modules/bankaccount"
+	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -21,5 +21,5 @@ type Handlers struct {
 	Auth        *auth.AuthHandler
 	Rol         *rol.RolHandler
 	Subsidiary  *subsidiary.SubsidiaryHandler
-	BankAccount *bankaccount.BankAccountHandler
+	BankAccount *bankAccount.BankAccountHandler
 }

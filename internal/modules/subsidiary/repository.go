@@ -10,7 +10,7 @@ type SubsidiaryRepository interface {
 	Create(subsidiary *Subsidiary) error
 	GetByID(id uint) (*Subsidiary, error)
 	GetAll() ([]*Subsidiary, error)
-	Update(subsidiary *Subsidiary) error
+	Update(subsidiary *Subsidiary) (string, error)
 	Delete(id uint) (string, error)
 }
 
@@ -44,8 +44,20 @@ func (r *subsidiaryRepository) GetAll() ([]*Subsidiary, error) {
 	return subsidiaries, nil
 }
 
-func (r *subsidiaryRepository) Update(subsidiary *Subsidiary) error {
-	return r.db.Model(&Subsidiary{}).Where("id_sucursal = ?", subsidiary.IdSucursal).Updates(subsidiary).Error
+func (r *subsidiaryRepository) Update(subsidiary *Subsidiary) (string, error) {
+	result := r.db.Model(&Subsidiary{}).
+		Where("id_sucursal = ? AND estado = ?", subsidiary.IdSucursal, true).
+		Updates(subsidiary)
+
+	if result.Error != nil {
+		return common.ERR_DATABASE_ERROR, result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return common.ERR_NOT_FOUND, gorm.ErrRecordNotFound
+	}
+
+	return common.SUCCESS_UPDATED, nil
 }
 
 func (r *subsidiaryRepository) Delete(id uint) (string, error) {

@@ -2,7 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
-	"pistolistoBE/internal/modules/bankaccount"
+	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -24,6 +24,6 @@ func (h *Handlers) GetSubsidiaryHandler() *subsidiary.SubsidiaryHandler {
 	return h.Subsidiary
 }
 
-func (h *Handlers) GetBankAccountHandler() *bankaccount.BankAccountHandler {
+func (h *Handlers) GetBankAccountHandler() *bankAccount.BankAccountHandler {
 	return h.BankAccount
 }

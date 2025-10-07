@@ -1,4 +1,4 @@
-package bankaccount
+package bankAccount
 
 import (
 	"time"

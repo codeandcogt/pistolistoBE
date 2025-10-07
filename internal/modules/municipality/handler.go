@@ -1,4 +1,4 @@
-package subsidiary
+package municipality
 
 import (
 	"encoding/json"
@@ -9,30 +9,30 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type SubsidiaryHandler struct {
-	service SubsidiaryService
+type MunicipalityHandler struct {
+	service MunicipalityService
 }
 
-func NewSubsidiaryHandler(service SubsidiaryService) *SubsidiaryHandler {
-	return &SubsidiaryHandler{service}
+func NewMunicipalityHandler(service MunicipalityService) *MunicipalityHandler {
+	return &MunicipalityHandler{service}
 }
 
-func (h *SubsidiaryHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var subsidiary Subsidiary
-	if err := json.NewDecoder(r.Body).Decode(&subsidiary); err != nil {
+func (h *MunicipalityHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var municipality Municipality
+	if err := json.NewDecoder(r.Body).Decode(&municipality); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	if err := h.service.Create(&subsidiary); err != nil {
+	if err := h.service.Create(&municipality); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_CREATED, subsidiary, common.HTTP_CREATED)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, municipality, common.HTTP_CREATED)
 }
 
-func (h *SubsidiaryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
+func (h *MunicipalityHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -46,26 +46,26 @@ func (h *SubsidiaryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	subsidiary, err := h.service.GetByID(uint(id))
+	municipality, err := h.service.GetByID(uint(id))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, subsidiary, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, municipality, common.HTTP_OK)
 }
 
-func (h *SubsidiaryHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	subsidiaries, err := h.service.GetAll()
+func (h *MunicipalityHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+	municipalities, err := h.service.GetAll()
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, subsidiaries, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, municipalities, common.HTTP_OK)
 }
 
-func (h *SubsidiaryHandler) Update(w http.ResponseWriter, r *http.Request) {
+func (h *MunicipalityHandler) Update(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -79,24 +79,24 @@ func (h *SubsidiaryHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var subsidiary Subsidiary
-	if err := json.NewDecoder(r.Body).Decode(&subsidiary); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	var municipality Municipality
+	if err := json.NewDecoder(r.Body).Decode(&municipality); err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
-	subsidiary.IdSucursal = uint(id)
+	municipality.IdMunicipio = uint(id)
 
-	updatedSubsidiary, err := h.service.Update(&subsidiary)
+	updatedText, err := h.service.Update(&municipality)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_UPDATED, updatedSubsidiary, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, updatedText, common.HTTP_OK)
 }
 
-func (h *SubsidiaryHandler) Delete(w http.ResponseWriter, r *http.Request) {
+func (h *MunicipalityHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {

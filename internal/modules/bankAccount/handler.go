@@ -1,4 +1,4 @@
-package bankaccount
+package bankAccount
 
 import (
 	"encoding/json"
@@ -30,6 +30,7 @@ func (h *BankAccountHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	common.SuccessResponse(w, common.SUCCESS_CREATED, bankAccount, common.HTTP_CREATED)
+	return
 }
 
 func (h *BankAccountHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -81,17 +82,19 @@ func (h *BankAccountHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	var bankAccount BankAccount
 	if err := json.NewDecoder(r.Body).Decode(&bankAccount); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
 	bankAccount.IdCuentaBancaria = uint(id)
-	if err := h.service.Update(&bankAccount); err != nil {
+
+	updatedText, err := h.service.Update(&bankAccount)
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_UPDATED, bankAccount, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, updatedText, common.HTTP_OK)
 }
 
 func (h *BankAccountHandler) Delete(w http.ResponseWriter, r *http.Request) {
