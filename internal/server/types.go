@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
 
@@ -17,9 +18,10 @@ type Server struct {
 }
 
 type Handlers struct {
-	Cliente     *cliente.ClientHandler
-	Auth        *auth.AuthHandler
-	Rol         *rol.RolHandler
-	Subsidiary  *subsidiary.SubsidiaryHandler
-	BankAccount *bankAccount.BankAccountHandler
+	Cliente      *cliente.ClientHandler
+	Auth         *auth.AuthHandler
+	Rol          *rol.RolHandler
+	Subsidiary   *subsidiary.SubsidiaryHandler
+	BankAccount  *bankAccount.BankAccountHandler
+	Municipality *municipality.MunicipalityHandler
 }

@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
 )
@@ -26,4 +27,8 @@ func (h *Handlers) GetSubsidiaryHandler() *subsidiary.SubsidiaryHandler {
 
 func (h *Handlers) GetBankAccountHandler() *bankAccount.BankAccountHandler {
 	return h.BankAccount
+}
+
+func (h *Handlers) GetMunicipalityHandler() *municipality.MunicipalityHandler {
+	return h.Municipality
 }
