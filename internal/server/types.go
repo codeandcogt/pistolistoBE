@@ -2,16 +2,15 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/auth"
-	"pistolistoBE/internal/modules/bankAccount"
-	"pistolistoBE/internal/modules/cliente"
-	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
+	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subsidiary"
 
