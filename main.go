@@ -7,7 +7,6 @@ import (
 	"pistolistoBE/db"
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/server"
-	"pistolistoBE/migration"
 
 	// "pistolistoBE/migration"
 	"time"
@@ -20,7 +19,7 @@ func main() {
 
 	db := db.Database()
 
-	migration.Migration()
+	// migration.Migration()
 
 	srv := server.NewServer(db)
 

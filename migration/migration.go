@@ -24,56 +24,56 @@ func Migration() {
 	// err := database.AutoMigrate()
 
 	// --- Municipality → Departamento
-	err = database.Exec(`
-		ALTER TABLE municipalities
-		ADD CONSTRAINT fk_municipality_departamento
-		FOREIGN KEY (id_departamento)
-		REFERENCES departamentos(id_departamento)
-		ON UPDATE CASCADE
-		ON DELETE RESTRICT;
-	`).Error
-	if err != nil {
-		fmt.Println("⚠️ Advertencia: No se pudo crear FK municipality → departamento:", err)
-	}
+	// err = database.Exec(`
+	// 	ALTER TABLE municipalities
+	// 	ADD CONSTRAINT fk_municipality_departamento
+	// 	FOREIGN KEY (id_departamento)
+	// 	REFERENCES departamentos(id_departamento)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT;
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("⚠️ Advertencia: No se pudo crear FK municipality → departamento:", err)
+	// }
 
-	// --- BankAccount → Cliente
-	err = database.Exec(`
-		ALTER TABLE bank_accounts
-		ADD CONSTRAINT fk_bank_account_cliente
-		FOREIGN KEY (id_cliente)
-		REFERENCES clientes(id_cliente)
-		ON UPDATE CASCADE
-		ON DELETE RESTRICT;
-	`).Error
-	if err != nil {
-		fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → cliente:", err)
-	}
+	// // --- BankAccount → Cliente
+	// err = database.Exec(`
+	// 	ALTER TABLE bank_accounts
+	// 	ADD CONSTRAINT fk_bank_account_cliente
+	// 	FOREIGN KEY (id_cliente)
+	// 	REFERENCES clientes(id_cliente)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT;
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → cliente:", err)
+	// }
 
-	// --- BankAccount → Moneda
-	err = database.Exec(`
-		ALTER TABLE bank_accounts
-		ADD CONSTRAINT fk_bank_account_moneda
-		FOREIGN KEY (id_moneda)
-		REFERENCES monedas(id_moneda)
-		ON UPDATE CASCADE
-		ON DELETE RESTRICT;
-	`).Error
-	if err != nil {
-		fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → moneda:", err)
-	}
+	// // --- BankAccount → Moneda
+	// err = database.Exec(`
+	// 	ALTER TABLE bank_accounts
+	// 	ADD CONSTRAINT fk_bank_account_moneda
+	// 	FOREIGN KEY (id_moneda)
+	// 	REFERENCES monedas(id_moneda)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT;
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → moneda:", err)
+	// }
 
-	// --- BankAccount → Banco
-	err = database.Exec(`
-		ALTER TABLE bank_accounts
-		ADD CONSTRAINT fk_bank_account_banco
-		FOREIGN KEY (id_banco)
-		REFERENCES bancos(id_banco)
-		ON UPDATE CASCADE
-		ON DELETE RESTRICT;
-	`).Error
-	if err != nil {
-		fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → banco:", err)
-	}
+	// // --- BankAccount → Banco
+	// err = database.Exec(`
+	// 	ALTER TABLE bank_accounts
+	// 	ADD CONSTRAINT fk_bank_account_banco
+	// 	FOREIGN KEY (id_banco)
+	// 	REFERENCES bancos(id_banco)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT;
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("⚠️ Advertencia: No se pudo crear FK bank_account → banco:", err)
+	// }
 
 	// database.Exec("ALTER TABLE log_login_clientes ADD CONSTRAINT fk_log_login_cliente_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)")
 
