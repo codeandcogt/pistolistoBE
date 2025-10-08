@@ -9,9 +9,11 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 )
 
@@ -61,4 +63,12 @@ func (h *Handlers) GetDescuentoHandler() *descuento.DescuentoHandler {
 
 func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
 	return h.Cupon
+}
+
+func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
+	return h.SubCategory
+}
+
+func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
+	return h.Direccion
 }

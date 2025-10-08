@@ -9,9 +9,11 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
 	"github.com/gorilla/mux"
@@ -36,4 +38,6 @@ type Handlers struct {
 	Moneda       *moneda.MonedaHandler
 	Banco        *banco.BancoHandler
 	Cupon        *cupon.CuponHandler
+	SubCategory  *subCategory.SubCategoryHandler
+	Direccion    *direccion.DireccionHandler
 }
