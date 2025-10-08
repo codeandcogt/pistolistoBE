@@ -266,4 +266,5 @@ func (s *Server) initializeHandlers() *Handlers {
 		LogUbicacion:   logUbicacionHandler,
 		Formulario:     formularioHandler,
 	}
+
 }
