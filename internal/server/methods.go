@@ -81,6 +81,8 @@ func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
 
 func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 	return h.RolPermiso
+}
+
 func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
 	return h.SubCategory
 }
