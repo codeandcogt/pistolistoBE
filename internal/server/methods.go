@@ -12,7 +12,9 @@ import (
 	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
+	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 )
@@ -71,4 +73,12 @@ func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
 
 func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
 	return h.Direccion
+}
+
+func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
+	return h.Permiso
+}
+
+func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
+	return h.RolPermiso
 }

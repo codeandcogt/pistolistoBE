@@ -1,4 +1,4 @@
-package rol
+package permiso
 
 import (
 	"pistolistoBE/internal/middleware"
@@ -6,12 +6,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func SetUpRolRoutes(api *mux.Router, handler *RolHandler) {
+func SetUpPermisoRoutes(api *mux.Router, handler *PermisoHandler) {
 	rolRouter := api.PathPrefix("/rol").Subrouter()
 
 	rolRouter.Use(middleware.JWTMiddleware)
 
-	rolRouter.HandleFunc("", handler.CreateRol).Methods("POST")
+	rolRouter.HandleFunc("", handler.Create).Methods("POST")
 	rolRouter.HandleFunc("/all", handler.GetAll).Methods("GET")
 	rolRouter.HandleFunc("/{id}", handler.GetByID).Methods("GET")
 	rolRouter.HandleFunc("/{id}", handler.Update).Methods("PUT")
