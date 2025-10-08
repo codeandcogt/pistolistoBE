@@ -15,7 +15,7 @@ type Cliente struct {
 	FechaNacimiento   *time.Time `gorm:"type:date;column:fecha_nacimiento" json:"fecha_nacimiento"`
 	Genero            *string    `gorm:"type:varchar(20);column:genero" json:"genero"`
 	TipoCliente       *string    `gorm:"type:varchar(50);column:tipo_cliente" json:"tipo_cliente"`
-	PrimerLogin       *time.Time `gorm:"type:timestamp;column:primer_login" json:"primer_login"`
+	PrimerLogin       *bool      `gorm:"type:boolean;column:primer_login;default:false" json:"primer_login"`
 	Estado            *bool      `gorm:"type:boolean;column:estado;default:true" json:"estado"`
 	FechaModificacion *time.Time `gorm:"type:timestamp;column:fecha_modificacion;autoUpdateTime" json:"fecha_modificacion"`
 	FechaCreacion     *time.Time `gorm:"type:timestamp;column:fecha_creacion;autoCreateTime" json:"fecha_creacion"`
