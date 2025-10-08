@@ -40,8 +40,6 @@ type Handlers struct {
 	Moneda       *moneda.MonedaHandler
 	Banco        *banco.BancoHandler
 	Cupon        *cupon.CuponHandler
-	SubCategory  *subCategory.SubCategoryHandler
-	Direccion    *direccion.DireccionHandler
 	Permiso      *permiso.PermisoHandler
 	RolPermiso   *rolpermiso.RolPermisoHandler
 	SubCategory  *subCategory.SubCategoryHandler

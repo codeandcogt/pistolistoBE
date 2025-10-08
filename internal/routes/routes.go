@@ -40,8 +40,6 @@ type RouteHandlers interface {
 	GetDireccionHandler() *direccion.DireccionHandler
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
-	GetSubCategoryHandler() *subCategory.SubCategoryHandler
-	GetDireccionHandler() *direccion.DireccionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
