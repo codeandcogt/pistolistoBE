@@ -36,7 +36,6 @@ import (
 	//rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
-	//"pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/rolPermiso"
 	// "pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/rol"
@@ -198,6 +197,7 @@ func Migration() {
 	// 	ON UPDATE CASCADE
 	// 	ON DELETE RESTRICT
 	// `).Error
+	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 
 	// database.Exec("ALTER TABLE log_login_clientes ADD CONSTRAINT fk_log_login_cliente_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)")
 	// // Foreign key para id_rol que referencia a la tabla rol
