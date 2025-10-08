@@ -11,7 +11,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
+	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
 )
 
@@ -61,4 +63,12 @@ func (h *Handlers) GetDescuentoHandler() *descuento.DescuentoHandler {
 
 func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
 	return h.Cupon
+}
+
+func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
+	return h.Permiso
+}
+
+func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
+	return h.RolPermiso
 }

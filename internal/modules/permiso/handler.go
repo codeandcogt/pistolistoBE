@@ -1,4 +1,4 @@
-package rol
+package permiso
 
 import (
 	"encoding/json"
@@ -9,34 +9,34 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type RolHandler struct {
-	service RolService
+type PermisoHandler struct {
+	service PermisoService
 }
 
-func NewRolHandler(service RolService) *RolHandler {
-	return &RolHandler{service}
+func NewPermisoHandler(service PermisoService) *PermisoHandler {
+	return &PermisoHandler{service}
 }
 
-func (h *RolHandler) CreateRol(w http.ResponseWriter, r *http.Request) {
-	var rol Rol
+func (h *PermisoHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var permiso Permiso
 
-	if err := json.NewDecoder(r.Body).Decode(&rol); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&permiso); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	if err := h.service.CreateRol(&rol); err != nil {
+	if err := h.service.Create(&permiso); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	common.SuccessResponse(w, common.SUCCESS_CREATED, rol, common.HTTP_CREATED)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, permiso, common.HTTP_CREATED)
 
 }
 
-func (h *RolHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	rol, err := h.service.GetAll()
+func (h *PermisoHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+	permiso, err := h.service.GetAll()
 
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
@@ -44,11 +44,11 @@ func (h *RolHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	common.SuccessResponse(w, common.SUCCESS_CREATED, rol, common.HTTP_CREATED)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, permiso, common.HTTP_CREATED)
 
 }
 
-func (h *RolHandler) Update(w http.ResponseWriter, r *http.Request) {
+func (h *PermisoHandler) Update(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -62,15 +62,15 @@ func (h *RolHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var rol Rol
-	if err := json.NewDecoder(r.Body).Decode(&rol); err != nil {
+	var permiso Permiso
+	if err := json.NewDecoder(r.Body).Decode(&permiso); err != nil {
 		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
-	rol.IdRol = uint(id)
+	permiso.IdPermiso = uint(id)
 
-	updatedText, err := h.service.Update(&rol)
+	updatedText, err := h.service.Update(&permiso)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -80,7 +80,7 @@ func (h *RolHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (h *RolHandler) GetByID(w http.ResponseWriter, r *http.Request) {
+func (h *PermisoHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -103,7 +103,7 @@ func (h *RolHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, client, common.HTTP_OK)
 }
 
-func (h *RolHandler) Delete(w http.ResponseWriter, r *http.Request) {
+func (h *PermisoHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 
