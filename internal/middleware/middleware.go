@@ -15,7 +15,7 @@ func CORS(next http.Handler) http.Handler {
 		if origin != "" &&
 			(strings.HasPrefix(origin, "http://localhost:") ||
 				strings.HasPrefix(origin, "http://169.254.") ||
-				strings.HasPrefix(origin, "https://pistolisto-web.vercel.app/") ||
+				strings.HasPrefix(origin, "https://pistolisto-web.vercel.app") ||
 				strings.HasPrefix(origin, "https://")) {
 
 			w.Header().Set("Access-Control-Allow-Origin", origin)
