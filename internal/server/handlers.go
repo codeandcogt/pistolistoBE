@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
@@ -40,6 +41,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponService := cupon.NewCuponService(cuponRepo)
 	cuponHandler := cupon.NewCuponHandler(cuponService)
 
+	// Carrito module
+	carritoRepo := carrito.NewCarritoRepository(s.db)
+	carritoService := carrito.NewCarritoService(carritoRepo)
+	carritoHandler := carrito.NewCarritoHandler(carritoService)
+
 	return &Handlers{
 		Cliente: clienteHandler,
 		Auth:    authHandler,
@@ -47,5 +53,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Banco:   bancoHandler,
 		Rol:     rolHandler,
 		Cupon:   cuponHandler,
+		Carrito: carritoHandler,
 	}
 }

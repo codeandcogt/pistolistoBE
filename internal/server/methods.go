@@ -3,6 +3,7 @@ package server
 import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
@@ -31,4 +32,8 @@ func (h *Handlers) GetRolHandler() *rol.RolHandler {
 
 func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
 	return h.Cupon
+}
+
+func (h *Handlers) GetCarritoHandler() *carrito.CarritoHandler {
+	return h.Carrito
 }

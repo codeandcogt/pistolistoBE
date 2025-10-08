@@ -4,6 +4,7 @@ import (
 	"pistolistoBE/internal/middleware"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
@@ -19,6 +20,7 @@ type RouteHandlers interface {
 	GetBancoHandler() *banco.BancoHandler
 	GetRolHandler() *rol.RolHandler
 	GetCuponHandler() *cupon.CuponHandler
+	GetCarritoHandler() *carrito.CarritoHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -36,4 +38,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	banco.SetupBancoRoutes(api, handlers.GetBancoHandler())
 	rol.SetUpRolRoutes(api, handlers.GetRolHandler())
 	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
+	carrito.SetupCarritoRoutes(api, handlers.GetCarritoHandler())
 }
