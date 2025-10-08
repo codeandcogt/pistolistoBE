@@ -92,3 +92,11 @@ func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
 }
+
+func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
+	return h.SubCategory
+}
+
+func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
+	return h.Direccion
+}
