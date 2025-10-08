@@ -44,4 +44,6 @@ type Handlers struct {
 	Direccion    *direccion.DireccionHandler
 	Permiso      *permiso.PermisoHandler
 	RolPermiso   *rolpermiso.RolPermisoHandler
+	SubCategory  *subCategory.SubCategoryHandler
+	Direccion    *direccion.DireccionHandler
 }

@@ -95,6 +95,16 @@ func (s *Server) initializeHandlers() *Handlers {
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
 
+	// SubCategory module
+	subCategoryRepo := subCategory.NewSubCategoryRepository(s.db)
+	subCategoryService := subCategory.NewSubCategoryService(subCategoryRepo)
+	subCategoryHandler := subCategory.NewSubCategoryHandler(subCategoryService)
+
+	// Direccion module
+	direccionRepo := direccion.NewDireccionRepository(s.db)
+	direccionService := direccion.NewDireccionService(direccionRepo)
+	direccionHandler := direccion.NewDireccionHandler(direccionService)
+
 	return &Handlers{
 		Cliente:      clienteHandler,
 		Auth:         authHandler,
@@ -112,5 +122,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		Direccion:    direccionHandler,
 		Permiso:      permisoHandler,
 		RolPermiso:   rolPermisoHandler,
+		SubCategory:  subCategoryHandler,
+		Direccion:    direccionHandler,
 	}
 }
