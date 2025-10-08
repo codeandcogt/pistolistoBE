@@ -11,7 +11,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
+	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
 
 	"github.com/gorilla/mux"
@@ -36,4 +38,6 @@ type Handlers struct {
 	Moneda       *moneda.MonedaHandler
 	Banco        *banco.BancoHandler
 	Cupon        *cupon.CuponHandler
+	Permiso      *permiso.PermisoHandler
+	RolPermiso   *rolpermiso.RolPermisoHandler
 }

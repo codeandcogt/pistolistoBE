@@ -12,7 +12,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
+	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
 )
 
@@ -72,6 +74,16 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponService := cupon.NewCuponService(cuponRepo)
 	cuponHandler := cupon.NewCuponHandler(cuponService)
 
+	//Permiso module
+	permisoRepo := permiso.NewPermisoRepository(s.db)
+	permisoService := permiso.NewPermisoService(permisoRepo)
+	permisoHandler := permiso.NewPermisoHandler(permisoService)
+
+	//Rol Permiso modulo
+	rolPermisoRepo := rolpermiso.NewRolPermiso(s.db)
+	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
+	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
+
 	return &Handlers{
 		Cliente:      clienteHandler,
 		Auth:         authHandler,
@@ -85,5 +97,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		Moneda:       monedaHandler,
 		Banco:        bancoHandler,
 		Cupon:        cuponHandler,
+		Permiso:      permisoHandler,
+		RolPermiso:   rolPermisoHandler,
 	}
 }

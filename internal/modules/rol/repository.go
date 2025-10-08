@@ -9,8 +9,8 @@ import (
 type RolRepository interface {
 	Create(rol *Rol) error
 	GetAll() ([]*Rol, error)
-	GetByID(id int64) (*Rol, error)
-	Delete(id int64) (string, error)
+	GetByID(id uint) (*Rol, error)
+	Delete(id uint) (string, error)
 	Update(rol *Rol) (string, error)
 }
 
@@ -38,7 +38,7 @@ func (r *rolRepository) GetAll() ([]*Rol, error) {
 	return rol, nil
 }
 
-func (r *rolRepository) GetByID(id int64) (*Rol, error) {
+func (r *rolRepository) GetByID(id uint) (*Rol, error) {
 	var rol Rol
 	err := r.db.Where("estado = ?", true).First(&rol, id).Error
 	if err != nil {
@@ -47,7 +47,7 @@ func (r *rolRepository) GetByID(id int64) (*Rol, error) {
 	return &rol, nil
 }
 
-func (r *rolRepository) Delete(id int64) (string, error) {
+func (r *rolRepository) Delete(id uint) (string, error) {
 	result := r.db.Model(&Rol{}).Where("id_rol = ?", id).Update("estado", false)
 
 	if result.Error != nil {

@@ -68,7 +68,7 @@ func (h *RolHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rol.IdRol = int64(id)
+	rol.IdRol = uint(id)
 
 	updatedText, err := h.service.Update(&rol)
 	if err != nil {
@@ -94,7 +94,7 @@ func (h *RolHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := h.service.GetByID(int64(id))
+	client, err := h.service.GetByID(uint(id))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
@@ -119,7 +119,7 @@ func (h *RolHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	text, err := h.service.Delete(int64(id))
+	text, err := h.service.Delete(uint(id))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
