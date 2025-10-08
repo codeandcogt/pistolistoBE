@@ -44,6 +44,8 @@ type RouteHandlers interface {
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
 	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
+	GetSubCategoryHandler() *subCategory.SubCategoryHandler
+	GetDireccionHandler() *direccion.DireccionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -73,4 +75,6 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
+	subCategory.SetupSubCategoryRoutes(api, handlers.GetSubCategoryHandler())
+	direccion.SetupDireccionRoutes(api, handlers.GetDireccionHandler())
 }
