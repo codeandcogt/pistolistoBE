@@ -44,7 +44,7 @@ type Server struct {
 type Handlers struct {
 	Carrito        *carrito.CarritoHandler
 	Cliente        *cliente.ClientHandler
-	Auth           *auth.AuthHandler
+	auth           *auth.AuthHandler
 	Rol            *rol.RolHandler
 	Subsidiary     *subsidiary.SubsidiaryHandler
 	BankAccount    *bankAccount.BankAccountHandler

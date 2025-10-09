@@ -79,6 +79,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	descuentoRepo := descuento.NewDescuento(s.db)
 	descuentoService := descuento.NewDescuentoService(descuentoRepo)
 	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
+	//Wishlist module
+	wishlistRepo := wishlist.NewWishlist(s.db)
+	WishlistService := wishlist.NewWishlistService(wishlistRepo)
+	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
 	// Moneda module
 	monedaRepo := moneda.NewMonedaRepository(s.db)
@@ -94,10 +98,6 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponRepo := cupon.NewCuponRepository(s.db)
 	cuponService := cupon.NewCuponService(cuponRepo)
 	cuponHandler := cupon.NewCuponHandler(cuponService)
-	//Wishlist module
-	wishlistRepo := wishlist.NewWishlist(s.db)
-	WishlistService := wishlist.NewWishlistService(wishlistRepo)
-	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
 	// Carrito module
 	carritoRepo := carrito.NewCarritoRepository(s.db)
