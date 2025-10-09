@@ -8,6 +8,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/wishlist"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -36,6 +37,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	descuentoRepo := descuento.NewDescuento(s.db)
 	descuentoService := descuento.NewDescuentoService(descuentoRepo)
 	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
+	//Wishlist module
+	wishlistRepo := wishlist.NewWishlist(s.db)
+	WishlistService := wishlist.NewWishlistService(wishlistRepo)
+	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
 	return &Handlers{
 		Cliente:      clienteHandler,
@@ -44,5 +49,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Departamento: departamentoHandler,
 		Categoria:    categoriaHandler,
 		Descuento:    descuentoHandler,
+		Wishlist:     WishlistHandler,
 	}
 }

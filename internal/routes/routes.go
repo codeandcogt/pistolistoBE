@@ -7,6 +7,7 @@ import (
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/wishlist"
 
 	"pistolistoBE/internal/modules/rol"
 
@@ -20,6 +21,7 @@ type RouteHandlers interface {
 	GetDepartamentoHandler() *departamento.DepartamentoHandler
 	GetCategoriaHandler() *categoria.CategoriaHandler
 	GetDescuentoHandler() *descuento.DescuentoHandler
+	GetWishlistHandler() *wishlist.WishlistHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -37,4 +39,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	departamento.SetupDepartamentoRoutes(api, handlers.GetDepartamentoHandler())
 	categoria.SetupCategoriaRoutes(api, handlers.GetCategoriaHandler())
 	descuento.SetupDescuentoRoutes(api, handlers.GetDescuentoHandler())
+	wishlist.SetupWishlistRoutes(api, handlers.GetWishlistHandler())
 }

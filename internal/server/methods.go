@@ -7,6 +7,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/wishlist"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -31,4 +32,8 @@ func (h *Handlers) GetCategoriaHandler() *categoria.CategoriaHandler {
 
 func (h *Handlers) GetDescuentoHandler() *descuento.DescuentoHandler {
 	return h.Descuento
+}
+
+func (h *Handlers) GetWishlistHandler() *wishlist.WishlistHandler {
+	return h.Wishlist
 }

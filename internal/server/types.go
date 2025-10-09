@@ -7,6 +7,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/wishlist"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -24,4 +25,5 @@ type Handlers struct {
 	Departamento *departamento.DepartamentoHandler
 	Categoria    *categoria.CategoriaHandler
 	Descuento    *descuento.DescuentoHandler
+	Wishlist     *wishlist.WishlistHandler
 }
