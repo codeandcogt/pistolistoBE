@@ -10,6 +10,7 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/wishlist"
 
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -32,6 +33,7 @@ type RouteHandlers interface {
 	GetDepartamentoHandler() *departamento.DepartamentoHandler
 	GetCategoriaHandler() *categoria.CategoriaHandler
 	GetDescuentoHandler() *descuento.DescuentoHandler
+	GetWishlistHandler() *wishlist.WishlistHandler
 	GetCuponHandler() *cupon.CuponHandler
 	GetMunicipalityHandler() *municipality.MunicipalityHandler
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
@@ -58,6 +60,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	departamento.SetupDepartamentoRoutes(api, handlers.GetDepartamentoHandler())
 	categoria.SetupCategoriaRoutes(api, handlers.GetCategoriaHandler())
 	descuento.SetupDescuentoRoutes(api, handlers.GetDescuentoHandler())
+	wishlist.SetupWishlistRoutes(api, handlers.GetWishlistHandler())
 	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
 	municipality.SetupMunicipalityRoutes(api, handlers.GetMunicipalityHandler())
 	bankAccount.SetupBankAccountRoutes(api, handlers.GetBankAccountHandler())

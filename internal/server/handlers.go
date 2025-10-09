@@ -17,6 +17,7 @@ import (
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/wishlist"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -74,6 +75,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponRepo := cupon.NewCuponRepository(s.db)
 	cuponService := cupon.NewCuponService(cuponRepo)
 	cuponHandler := cupon.NewCuponHandler(cuponService)
+	//Wishlist module
+	wishlistRepo := wishlist.NewWishlist(s.db)
+	WishlistService := wishlist.NewWishlistService(wishlistRepo)
+	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
 	//Permiso module
 	permisoRepo := permiso.NewPermisoRepository(s.db)
@@ -106,5 +111,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Permiso:        permisoHandler,
 		RolPermiso:     rolPermisoHandler,
 		Administrativo: adminHandler,
+		Wishlist:       WishlistHandler,
 	}
 }

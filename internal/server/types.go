@@ -16,6 +16,7 @@ import (
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/wishlist"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -42,4 +43,5 @@ type Handlers struct {
 	Permiso        *permiso.PermisoHandler
 	RolPermiso     *rolpermiso.RolPermisoHandler
 	Administrativo *administrativo.AdministrativoHandler
+	Wishlist       *wishlist.WishlistHandler
 }

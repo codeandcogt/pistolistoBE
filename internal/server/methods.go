@@ -16,6 +16,7 @@ import (
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/wishlist"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -76,4 +77,8 @@ func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
+}
+
+func (h *Handlers) GetWishlistHandler() *wishlist.WishlistHandler {
+	return h.Wishlist
 }
