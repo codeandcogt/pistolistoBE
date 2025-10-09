@@ -87,7 +87,6 @@ func (r *adminRepository) FirstAuth(id uint) (string, error) {
 		return common.ERR_DATABASE_ERROR, result.Error
 	}
 
-	// Verificar si se actualizó algún registro
 	if result.RowsAffected == 0 {
 		return common.ERR_NOT_FOUND, result.Error
 	}

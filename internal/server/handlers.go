@@ -2,6 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/config"
+	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
@@ -101,23 +102,29 @@ func (s *Server) initializeHandlers() *Handlers {
 	articuloService := articulo.NewArticuloService(articuloRepo)
 	articuloHandler := articulo.NewArticuloHandler(articuloService)
 
+	//Rol Permiso modulo
+	adminRepo := administrativo.NewAdminRepository(s.db)
+	adminService := administrativo.NewAdministrativoService(adminRepo)
+	adminHandler := administrativo.NewAdministrativoHandler(adminService)
+
 	return &Handlers{
-		Cliente:      clienteHandler,
-		Auth:         authHandler,
-		Rol:          rolHandler,
-		Subsidiary:   subsidiaryHandler,
-		BankAccount:  bankAccountHandler,
-		Municipality: municipalityHandler,
-		Departamento: departamentoHandler,
-		Categoria:    categoriaHandler,
-		Descuento:    descuentoHandler,
-		Moneda:       monedaHandler,
-		Banco:        bancoHandler,
-		Cupon:        cuponHandler,
-		SubCategory:  subCategoryHandler,
-		Direccion:    direccionHandler,
-		Permiso:      permisoHandler,
-		RolPermiso:   rolPermisoHandler,
-		Articulo:     articuloHandler,
+		Cliente:        clienteHandler,
+		Auth:           authHandler,
+		Rol:            rolHandler,
+		Subsidiary:     subsidiaryHandler,
+		BankAccount:    bankAccountHandler,
+		Municipality:   municipalityHandler,
+		Departamento:   departamentoHandler,
+		Categoria:      categoriaHandler,
+		Descuento:      descuentoHandler,
+		Moneda:         monedaHandler,
+		Banco:          bancoHandler,
+		Cupon:          cuponHandler,
+		SubCategory:    subCategoryHandler,
+		Direccion:      direccionHandler,
+		Permiso:        permisoHandler,
+		RolPermiso:     rolPermisoHandler,
+		Articulo:       articuloHandler,
+		Administrativo: adminHandler,
 	}
 }

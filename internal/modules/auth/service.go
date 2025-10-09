@@ -2,13 +2,16 @@ package auth
 
 import (
 	"errors"
+	"pistolistoBE/internal/common"
+	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/cliente"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type AuthService interface {
-	Login(email, password string) (*string, error)
-	LoginAdmin(email, password string) (*string, error)
+	Login(email, password string) (*DataCliente, error)
+	LoginAdmin(email, password string) (*DataAdmin, error)
 }
 
 type authService struct {
@@ -16,18 +19,28 @@ type authService struct {
 	jwt  JwtManager
 }
 
+type DataAdmin struct {
+	Admin *administrativo.Administrativo `json:"admin"`
+	Token string                         `json:"token"`
+}
+
+type DataCliente struct {
+	Cliente *cliente.Cliente `json:"cliente"`
+	Token   string           `json:"token"`
+}
+
 func NewAuthService(repo AuthRepository, jwt JwtManager) AuthService {
 	return &authService{repo: repo, jwt: jwt}
 }
 
-func (s *authService) Login(email, password string) (*string, error) {
+func (s *authService) Login(email, password string) (*DataCliente, error) {
 	if email == "" || password == "" {
-		return nil, errors.New("email y contraseña son requeridos")
+		return nil, errors.New(common.ERR_REQUIRED_FIELD)
 	}
 
 	client, err := s.repo.FindByEmail(email)
 	if err != nil {
-		return nil, errors.New("usuario no encontrado")
+		return nil, errors.New(common.ERR_NOT_FOUND)
 	}
 
 	estado := true
@@ -40,50 +53,58 @@ func (s *authService) Login(email, password string) (*string, error) {
 	err = bcrypt.CompareHashAndPassword([]byte(client.Contrasena), []byte(password))
 	if err != nil {
 		s.repo.LogLoginCliente(logEntry)
-		return nil, errors.New("contraseña incorrecta")
+		return nil, errors.New(common.ERR_INVALID_LOGIN)
 	}
 
 	token, err := s.jwt.GenerateToken(client.IdCliente)
 	if err != nil {
 		s.repo.LogLoginCliente(logEntry)
-		return nil, errors.New("no se pudo generar token")
+		return nil, errors.New(common.ERR_INVALID_LOGIN)
 	}
 
 	logEntry.Exito = true
 	s.repo.LogLoginCliente(logEntry)
-	return &token, nil
+
+	dataCliente := &DataCliente{
+		Cliente: client,
+		Token:   token,
+	}
+	return dataCliente, nil
 }
 
-func (s *authService) LoginAdmin(email, password string) (*string, error) {
-	// if email == "" || password == "" {
-	// 	return nil, errors.New("email y contraseña son requeridos")
-	// }
+func (s *authService) LoginAdmin(email, password string) (*DataAdmin, error) {
+	if email == "" || password == "" {
+		return nil, errors.New(common.ERR_REQUIRED_FIELD)
+	}
 
-	// admin, err := s.repo.FindByEmailAdmin(email)
-	// if err != nil {
-	// 	return nil, errors.New("usuario no encontrado")
-	// }
+	admin, err := s.repo.FindByEmailAdmin(email)
 
-	// estado := true
-	// logEntry := &LogLoginCliente{
-	// 	IdCliente: int(admin.IdAdministrativo),
-	// 	Estado:    &estado,
-	// 	Exito:     false,
-	// }
+	if err != nil {
+		return nil, errors.New(common.ERR_NOT_FOUND)
+	}
 
-	// err = bcrypt.CompareHashAndPassword([]byte(client.Contrasena), []byte(password))
-	// if err != nil {
-	// 	s.repo.LogLoginCliente(logEntry)
-	// 	return nil, errors.New("contraseña incorrecta")
-	// }
+	logEntry := &LogLoginAdmin{
+		IdAdministrativo: admin.IdAdministrativo,
+		Exito:            false,
+	}
 
-	// token, err := s.jwt.GenerateToken(client.IdCliente)
-	// if err != nil {
-	// 	s.repo.LogLoginCliente(logEntry)
-	// 	return nil, errors.New("no se pudo generar token")
-	// }
+	err = bcrypt.CompareHashAndPassword([]byte(admin.Contrasenia), []byte(password))
+	if err != nil {
+		s.repo.LogLoginAdmin(logEntry)
+		return nil, errors.New(common.ERR_INVALID_LOGIN)
+	}
 
-	// logEntry.Exito = true
-	// s.repo.LogLoginCliente(logEntry)
-	return nil, nil
+	token, err := s.jwt.GenerateTokenAdmin(admin.IdAdministrativo, admin.IdRol)
+	if err != nil {
+		s.repo.LogLoginAdmin(logEntry)
+		return nil, errors.New(common.ERR_INVALID_LOGIN)
+	}
+
+	logEntry.Exito = true
+	s.repo.LogLoginAdmin(logEntry)
+	data := &DataAdmin{
+		Admin: admin,
+		Token: token,
+	}
+	return data, nil
 }

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
@@ -86,4 +87,8 @@ func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 
 func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 	return h.Articulo
+}
+
+func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
+	return h.Administrativo
 }
