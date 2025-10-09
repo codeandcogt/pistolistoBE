@@ -9,6 +9,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/wishlist"
 
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 
 	"github.com/gorilla/mux"
@@ -17,11 +20,14 @@ import (
 type RouteHandlers interface {
 	GetClienteHandler() *cliente.ClientHandler
 	GetAuthHandler() *auth.AuthHandler
+	GetMonedaHandler() *moneda.MonedaHandler
+	GetBancoHandler() *banco.BancoHandler
 	GetRolHandler() *rol.RolHandler
 	GetDepartamentoHandler() *departamento.DepartamentoHandler
 	GetCategoriaHandler() *categoria.CategoriaHandler
 	GetDescuentoHandler() *descuento.DescuentoHandler
 	GetWishlistHandler() *wishlist.WishlistHandler
+	GetCuponHandler() *cupon.CuponHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -35,9 +41,12 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	// Configurar rutas por módulos
 	cliente.SetupClienteRoutes(api, handlers.GetClienteHandler())
 	auth.SetUpAuthRoutes(api, handlers.GetAuthHandler())
+	moneda.SetupMonedaRoutes(api, handlers.GetMonedaHandler())
+	banco.SetupBancoRoutes(api, handlers.GetBancoHandler())
 	rol.SetUpRolRoutes(api, handlers.GetRolHandler())
 	departamento.SetupDepartamentoRoutes(api, handlers.GetDepartamentoHandler())
 	categoria.SetupCategoriaRoutes(api, handlers.GetCategoriaHandler())
 	descuento.SetupDescuentoRoutes(api, handlers.GetDescuentoHandler())
 	wishlist.SetupWishlistRoutes(api, handlers.GetWishlistHandler())
+	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
 }

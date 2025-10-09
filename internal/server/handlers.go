@@ -3,10 +3,13 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/wishlist"
 )
@@ -37,6 +40,21 @@ func (s *Server) initializeHandlers() *Handlers {
 	descuentoRepo := descuento.NewDescuento(s.db)
 	descuentoService := descuento.NewDescuentoService(descuentoRepo)
 	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
+
+	// Moneda module
+	monedaRepo := moneda.NewMonedaRepository(s.db)
+	monedaService := moneda.NewMonedaService(monedaRepo)
+	monedaHandler := moneda.NewMonedaHandler(monedaService)
+
+	// Banco module
+	bancoRepo := banco.NewBancoRepository(s.db)
+	bancoService := banco.NewBancoService(bancoRepo)
+	bancoHandler := banco.NewBancoHandler(bancoService)
+
+	// Cupon module
+	cuponRepo := cupon.NewCuponRepository(s.db)
+	cuponService := cupon.NewCuponService(cuponRepo)
+	cuponHandler := cupon.NewCuponHandler(cuponService)
 	//Wishlist module
 	wishlistRepo := wishlist.NewWishlist(s.db)
 	WishlistService := wishlist.NewWishlistService(wishlistRepo)
@@ -49,6 +67,5 @@ func (s *Server) initializeHandlers() *Handlers {
 		Departamento: departamentoHandler,
 		Categoria:    categoriaHandler,
 		Descuento:    descuentoHandler,
-		Wishlist:     WishlistHandler,
 	}
 }
