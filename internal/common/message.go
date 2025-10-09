@@ -52,6 +52,9 @@ const (
 	ERR_SERVICE_ERROR  = "SERVICE_ERROR"  // Servicio externo falló
 	ERR_TIMEOUT        = "TIMEOUT"        // Operación tardó demasiado
 	ERR_RATE_LIMIT     = "RATE_LIMIT"     // Demasiadas peticiones
+
+	//ERROR DE LOGIN - Uso en auth
+
 )
 
 const (

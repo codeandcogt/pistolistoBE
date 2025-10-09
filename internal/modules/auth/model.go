@@ -14,10 +14,10 @@ type LogLoginCliente struct {
 }
 
 type LogLoginAdmin struct {
-	IdLoginAdmin      uint      `json:"id_login_admin" gorm:"primaryKey;autoIncrement;column:id_login_admin"`
-	IdAdministrativo  uint      `json:"id_administrativo" gorm:"not null;column:id_administrativo;index"`
-	Estado            *bool     `json:"estado,omitempty" gorm:"column:estado;default:true"`
-	Exito             bool      `json:"exito" gorm:"column:exito;not null;default:false"`
-	FechaCreacion     time.Time `json:"fecha_creacion" gorm:"column:fecha_creacion;autoCreateTime"`
-	FechaModificacion time.Time `json:"fecha_modificacion" gorm:"column:fecha_modificacion;autoUpdateTime"`
+	IdLoginAdmin      uint       `json:"id_login_admin" gorm:"primaryKey;autoIncrement;column:id_login_admin"`
+	IdAdministrativo  uint       `json:"id_administrativo" gorm:"not null;column:id_administrativo;index"`
+	Estado            *bool      `json:"estado,omitempty" gorm:"column:estado;default:true"`
+	Exito             bool       `json:"exito" gorm:"column:exito;not null;default:false"`
+	FechaCreacion     *time.Time `json:"fecha_creacion,omitempty" gorm:"column:fecha_creacion;autoCreateTime"`
+	FechaModificacion *time.Time `json:"fecha_modificacion,omitempty" gorm:"column:fecha_modificacion;autoUpdateTime"`
 }

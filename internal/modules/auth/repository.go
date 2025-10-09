@@ -11,6 +11,7 @@ type AuthRepository interface {
 	FindByEmail(email string) (*cliente.Cliente, error)
 	LogLoginCliente(log *LogLoginCliente) error
 	FindByEmailAdmin(email string) (*administrativo.Administrativo, error)
+	LogLoginAdmin(log *LogLoginAdmin) error
 }
 
 type authRepository struct {
@@ -39,4 +40,8 @@ func (r *authRepository) FindByEmailAdmin(email string) (*administrativo.Adminis
 		return nil, err
 	}
 	return &admin, nil
+}
+
+func (r *authRepository) LogLoginAdmin(log *LogLoginAdmin) error {
+	return r.db.Create(log).Error
 }
