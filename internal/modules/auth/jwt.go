@@ -8,6 +8,7 @@ import (
 
 type JwtManager interface {
 	GenerateToken(idCliente uint) (string, error)
+	GenerateTokenAdmin(idAdmin uint, idRol uint) (string, error)
 }
 
 type jwtManager struct {
@@ -29,13 +30,13 @@ func (j *jwtManager) GenerateToken(idCliente uint) (string, error) {
 	return token.SignedString(j.secret)
 }
 
-func (j *jwtManager) GenerateTokenAdmin(idAdministrativo uint, IdRol uint) (string, error) {
-	claims := jwt.MapClaims{
-		"id_admin": idAdministrativo,
-		"rol":      IdRol,
-		"exp":      time.Now().Add(24 * time.Hour).Unix(),
+func (j *jwtManager) GenerateTokenAdmin(idAdmin uint, IdRol uint) (string, error) {
+	claimsAdmin := jwt.MapClaims{
+		"id_administrativo": idAdmin,
+		"rol":               IdRol,
+		"exp":               time.Now().Add(time.Duration(j.expiry) * time.Hour).Unix(),
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claimsAdmin)
 	return token.SignedString(j.secret)
 }

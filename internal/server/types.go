@@ -1,6 +1,7 @@
 package server
 
 import (
+	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -27,19 +28,20 @@ type Server struct {
 }
 
 type Handlers struct {
-	Cliente      *cliente.ClientHandler
-	Auth         *auth.AuthHandler
-	Moneda       *moneda.MonedaHandler
-	Banco        *banco.BancoHandler
-	Rol          *rol.RolHandler
-	Cupon        *cupon.CuponHandler
-	Carrito      *carrito.CarritoHandler
-	Subsidiary   *subsidiary.SubsidiaryHandler
-	BankAccount  *bankAccount.BankAccountHandler
-	Municipality *municipality.MunicipalityHandler
-	Departamento *departamento.DepartamentoHandler
-	Categoria    *categoria.CategoriaHandler
-	Descuento    *descuento.DescuentoHandler
-	Permiso      *permiso.PermisoHandler
-	RolPermiso   *rolpermiso.RolPermisoHandler
+	Carrito        *carrito.CarritoHandler
+	Cliente        *cliente.ClientHandler
+	Auth           *auth.AuthHandler
+	Rol            *rol.RolHandler
+	Subsidiary     *subsidiary.SubsidiaryHandler
+	BankAccount    *bankAccount.BankAccountHandler
+	Municipality   *municipality.MunicipalityHandler
+	Departamento   *departamento.DepartamentoHandler
+	Categoria      *categoria.CategoriaHandler
+	Descuento      *descuento.DescuentoHandler
+	Moneda         *moneda.MonedaHandler
+	Banco          *banco.BancoHandler
+	Cupon          *cupon.CuponHandler
+	Permiso        *permiso.PermisoHandler
+	RolPermiso     *rolpermiso.RolPermisoHandler
+	Administrativo *administrativo.AdministrativoHandler
 }

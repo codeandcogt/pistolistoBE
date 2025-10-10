@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"pistolistoBE/db"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cupon"
@@ -34,11 +35,12 @@ func Migration() {
 		&carrito.Carrito{},
 		&carrito.CarritoItem{},
 	)
+	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 
 	// database.Exec("ALTER TABLE log_login_clientes ADD CONSTRAINT fk_log_login_cliente_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)")
 
 	// // Foreign key para id_rol que referencia a la tabla rol
-	// database.Exec("ALTER TABLE rol_permisos ADD CONSTRAINT fk_rol_permiso_rol FOREIGN KEY (id_rol) REFERENCES rols(id_rol)")
+	//err := database.Exec("ALTER TABLE log_login_admins ADD CONSTRAINT fk_log_sesion_admin FOREIGN KEY (id_administrativo) REFERENCES administrativos(id_administrativo)")
 
 	// // Foreign key para id_permiso que referencia a la tabla permiso
 	// database.Exec("ALTER TABLE rol_permisos ADD CONSTRAINT fk_rol_permiso_permiso FOREIGN KEY (id_permiso) REFERENCES permisos(id_permiso)")

@@ -2,6 +2,7 @@ package routes
 
 import (
 	"pistolistoBE/internal/middleware"
+	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -37,6 +38,7 @@ type RouteHandlers interface {
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
+	GetAdminHandler() *administrativo.AdministrativoHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -63,4 +65,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	bankAccount.SetupBankAccountRoutes(api, handlers.GetBankAccountHandler())
 	permiso.SetUpPermisoRoutes(api, handlers.GetPermisoHandler())
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
+	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
 }

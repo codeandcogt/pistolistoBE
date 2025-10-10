@@ -34,11 +34,6 @@ func AdminJWTMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		if role, ok := claims["rol"].(uint); !ok || role != 1 {
-			common.ErrorResponse(w, http.StatusForbidden, common.HTTP_FORBIDDEN, "Acceso restringido a administradores", nil)
-			return
-		}
-
 		ctx := context.WithValue(r.Context(), adminIDKey, claims["id_administrativo"])
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
