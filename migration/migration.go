@@ -4,6 +4,10 @@ import (
 	"fmt"
 	"pistolistoBE/db"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/carrito"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
@@ -23,7 +27,13 @@ import (
 func Migration() {
 	database := db.Database()
 	// err := database.AutoMigrate(&cliente.Cliente{}, &auth.LogLoginCliente{})
-	err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
+	err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{},
+		&moneda.Moneda{},
+		&banco.Banco{},
+		&cupon.Cupon{},
+		&carrito.Carrito{},
+		&carrito.CarritoItem{},
+	)
 
 	// database.Exec("ALTER TABLE log_login_clientes ADD CONSTRAINT fk_log_login_cliente_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)")
 
