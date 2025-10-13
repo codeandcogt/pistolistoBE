@@ -40,8 +40,6 @@ type RouteHandlers interface {
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
 	GetSubCategoryHandler() *subCategory.SubCategoryHandler
 	GetDireccionHandler() *direccion.DireccionHandler
-	GetPermisoHandler() *permiso.PermisoHandler
-	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
 	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
 }
