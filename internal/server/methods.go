@@ -83,12 +83,6 @@ func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
 
 func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 	return h.RolPermiso
-func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
-	return h.SubCategory
-}
-
-func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
-	return h.Direccion
 }
 
 func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
@@ -97,8 +91,4 @@ func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
-}
-
-func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
-	return h.Articulo
 }

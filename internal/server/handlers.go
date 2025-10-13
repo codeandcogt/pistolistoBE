@@ -107,21 +107,6 @@ func (s *Server) initializeHandlers() *Handlers {
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
 
-	// SubCategory module
-	subCategoryRepo := subCategory.NewSubCategoryRepository(s.db)
-	subCategoryService := subCategory.NewSubCategoryService(subCategoryRepo)
-	subCategoryHandler := subCategory.NewSubCategoryHandler(subCategoryService)
-
-	// Direccion module
-	direccionRepo := direccion.NewDireccionRepository(s.db)
-	direccionService := direccion.NewDireccionService(direccionRepo)
-	direccionHandler := direccion.NewDireccionHandler(direccionService)
-
-	// Articulo module
-	articuloRepo := articulo.NewArticuloRepository(s.db)
-	articuloService := articulo.NewArticuloService(articuloRepo)
-	articuloHandler := articulo.NewArticuloHandler(articuloService)
-
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -141,7 +126,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		RolPermiso:     rolPermisoHandler,
 		Articulo:       articuloHandler,
 		Administrativo: adminHandler,
-		Articulo:       articuloHandler,
 	}
 
 }

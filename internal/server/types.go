@@ -48,7 +48,4 @@ type Handlers struct {
 	Direccion      *direccion.DireccionHandler
 	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
-	SubCategory    *subCategory.SubCategoryHandler
-	Direccion      *direccion.DireccionHandler
-	Articulo       *articulo.ArticuloHandler
 }

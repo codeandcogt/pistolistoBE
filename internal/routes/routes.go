@@ -38,6 +38,8 @@ type RouteHandlers interface {
 	GetCuponHandler() *cupon.CuponHandler
 	GetMunicipalityHandler() *municipality.MunicipalityHandler
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
+	GetPermisoHandler() *permiso.PermisoHandler
+	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
 	GetSubCategoryHandler() *subCategory.SubCategoryHandler
 	GetDireccionHandler() *direccion.DireccionHandler
 	GetArticuloHandler() *articulo.ArticuloHandler
