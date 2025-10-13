@@ -2,6 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/config"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -95,6 +96,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
 
+	// Articulo module
+	articuloRepo := articulo.NewArticuloRepository(s.db)
+	articuloService := articulo.NewArticuloService(articuloRepo)
+	articuloHandler := articulo.NewArticuloHandler(articuloService)
+
 	return &Handlers{
 		Cliente:      clienteHandler,
 		Auth:         authHandler,
@@ -112,5 +118,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Direccion:    direccionHandler,
 		Permiso:      permisoHandler,
 		RolPermiso:   rolPermisoHandler,
+		Articulo:     articuloHandler,
 	}
 }

@@ -10,6 +10,7 @@ import (
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cupon"
@@ -40,6 +41,7 @@ type RouteHandlers interface {
 	GetDireccionHandler() *direccion.DireccionHandler
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
+	GetArticuloHandler() *articulo.ArticuloHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -69,4 +71,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	subCategory.SetupSubCategoryRoutes(api, handlers.GetSubCategoryHandler())
 	direccion.SetupDireccionRoutes(api, handlers.GetDireccionHandler())
+	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 }

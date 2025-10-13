@@ -1,6 +1,7 @@
 package server
 
 import (
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -44,4 +45,5 @@ type Handlers struct {
 	RolPermiso   *rolpermiso.RolPermisoHandler
 	SubCategory  *subCategory.SubCategoryHandler
 	Direccion    *direccion.DireccionHandler
+	Articulo     *articulo.ArticuloHandler
 }
