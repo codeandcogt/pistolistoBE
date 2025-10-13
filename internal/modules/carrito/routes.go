@@ -10,7 +10,7 @@ func SetupCarritoRoutes(api *mux.Router, handler *CarritoHandler) {
 	carritoRouter := api.PathPrefix("/carritos").Subrouter()
 
 	// Rutas protegidas con middleware
-	carritoRouter.Use(middleware.JWTMiddleware)
+	carritoRouter.Use(middleware.AdminJWTMiddleware)
 
 	// Carrito CRUD
 	carritoRouter.HandleFunc("", handler.CreateCarrito).Methods("POST")

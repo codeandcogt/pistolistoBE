@@ -14,6 +14,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -44,4 +45,5 @@ type Handlers struct {
 	Permiso        *permiso.PermisoHandler
 	RolPermiso     *rolpermiso.RolPermisoHandler
 	Administrativo *administrativo.AdministrativoHandler
+	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 }

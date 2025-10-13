@@ -14,6 +14,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -81,4 +82,8 @@ func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
+}
+
+func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler {
+	return h.ResenaEmpresa
 }

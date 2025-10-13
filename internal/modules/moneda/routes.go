@@ -15,7 +15,7 @@ func SetupMonedaRoutes(api *mux.Router, handler *MonedaHandler) {
 
 	// Rutas protegidas -> subrouter con middleware
 	protected := monedaRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.CreateMoneda).Methods("POST")
 	protected.HandleFunc("/{id}", handler.UpdateMoneda).Methods("PUT")

@@ -15,6 +15,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -39,6 +40,7 @@ type RouteHandlers interface {
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
+	GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -66,4 +68,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	permiso.SetUpPermisoRoutes(api, handlers.GetPermisoHandler())
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
+	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
 }

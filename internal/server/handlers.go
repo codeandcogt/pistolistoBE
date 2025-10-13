@@ -15,6 +15,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -96,6 +97,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
 
+	// ResenaEmpresa module
+	resenaEmpresaRepo := resenaEmpresa.NewResenaEmpresaRepository(s.db)
+	resenaEmpresaService := resenaEmpresa.NewResenaEmpresaService(resenaEmpresaRepo)
+	resenaEmpresaHandler := resenaEmpresa.NewResenaEmpresaHandler(resenaEmpresaService)
+
 	return &Handlers{
 		Carrito:      carritoHandler,
 		Permiso:      permisoHandler,
@@ -115,5 +121,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		// Permiso:        permisoHandler,
 		// RolPermiso:     rolPermisoHandler,
 		Administrativo: adminHandler,
+		ResenaEmpresa:  resenaEmpresaHandler,
 	}
 }
