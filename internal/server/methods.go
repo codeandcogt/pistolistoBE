@@ -98,3 +98,7 @@ func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
 }
+
+func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
+	return h.Articulo
+}

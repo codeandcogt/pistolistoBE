@@ -50,4 +50,5 @@ type Handlers struct {
 	Administrativo *administrativo.AdministrativoHandler
 	SubCategory    *subCategory.SubCategoryHandler
 	Direccion      *direccion.DireccionHandler
+	Articulo       *articulo.ArticuloHandler
 }
