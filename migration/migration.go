@@ -274,10 +274,10 @@ func Migration() {
 	//err := database.Exec("ALTER TABLE log_login_admins ADD CONSTRAINT fk_log_sesion_admin FOREIGN KEY (id_administrativo) REFERENCES administrativos(id_administrativo)")
 	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
-	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
-	//err := database.AutoMigrate(&rol.Rol{})
 
-	//err := database.AutoMigrate(
+	//err := database.AutoMigrate(&articulo.Articulo{})
+
+	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 	//	&subCategory.SubCategory{},
 	//	&direccion.Direccion{},
 	//)
