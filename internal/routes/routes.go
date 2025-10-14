@@ -16,12 +16,16 @@ import (
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
 	"github.com/gorilla/mux"
@@ -43,11 +47,15 @@ type RouteHandlers interface {
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
+	GetSubCategoryHandler() *subCategory.SubCategoryHandler
+	GetDireccionHandler() *direccion.DireccionHandler
+	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
 	GetWishListItemHandler() *wishlistitem.WishListItemHandler
 	GetAlmacenHandler() *almacen.AlmacenHandler
 	GetAlmacenSeccionHandler() *almacenseccion.AlmacenSeccionHandler
 	GetSeccionHandler() *seccion.SeccionHandler
+	GetProductoHandler() *producto.ProductoHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -72,11 +80,15 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
 	municipality.SetupMunicipalityRoutes(api, handlers.GetMunicipalityHandler())
 	bankAccount.SetupBankAccountRoutes(api, handlers.GetBankAccountHandler())
+	subCategory.SetupSubCategoryRoutes(api, handlers.GetSubCategoryHandler())
+	direccion.SetupDireccionRoutes(api, handlers.GetDireccionHandler())
 	permiso.SetUpPermisoRoutes(api, handlers.GetPermisoHandler())
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
+	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
 	wishlistitem.SetupWishListItemRoutes(api, handlers.GetWishListItemHandler())
 	almacen.SetupAlmacenRoutes(api, handlers.GetAlmacenHandler())
 	almacenseccion.SetupAlmacenSeccionRoutes(api, handlers.GetAlmacenSeccionHandler())
 	seccion.SetupSeccionRoutes(api, handlers.GetSeccionHandler())
+	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
 }
