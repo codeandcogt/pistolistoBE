@@ -42,7 +42,8 @@ import (
 	//"pistolistoBE/internal/modules/municipality"
 	//"pistolistoBE/internal/modules/direccion"
 	//"pistolistoBE/internal/modules/subCategory"
-	"pistolistoBE/internal/modules/articulo"
+	//"pistolistoBE/internal/modules/articulo"
+	"pistolistoBE/internal/modules/producto"
 )
 
 func Migration() {
@@ -50,7 +51,7 @@ func Migration() {
 	// err := database.AutoMigrate(&cliente.Cliente{}, &auth.LogLoginCliente{})
 	//err := database.AutoMigrate(&rol.Rol{})
 
-	err := database.AutoMigrate(&articulo.Articulo{})
+	err := database.AutoMigrate(&producto.Producto{})
 
 	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
@@ -60,6 +61,30 @@ func Migration() {
 	//	&subCategory.SubCategory{},
 	//	&direccion.Direccion{},
 	//)
+
+	err = database.Exec(`
+		ALTER TABLE productos
+		ADD CONSTRAINT fk_producto_articulo
+		FOREIGN KEY (id_articulo)
+		REFERENCES articulos(id_articulo)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+	`).Error
+	if err != nil {
+		fmt.Println("No se pudo crear FK fk_producto_articulo:", err)
+	}
+
+	err = database.Exec(`
+		ALTER TABLE productos
+		ADD CONSTRAINT fk_producto_descuento
+		FOREIGN KEY (id_descuento)
+		REFERENCES descuentos(id_descuento)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL
+	`).Error
+	if err != nil {
+		fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
+	}
 
 	// err = database.Exec(`
 	// 	ALTER TABLE sub_categories
