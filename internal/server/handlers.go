@@ -3,6 +3,7 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -11,11 +12,14 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 )
 
@@ -75,6 +79,15 @@ func (s *Server) initializeHandlers() *Handlers {
 	cuponService := cupon.NewCuponService(cuponRepo)
 	cuponHandler := cupon.NewCuponHandler(cuponService)
 
+	// SubCategory module
+	subCategoryRepo := subCategory.NewSubCategoryRepository(s.db)
+	subCategoryService := subCategory.NewSubCategoryService(subCategoryRepo)
+	subCategoryHandler := subCategory.NewSubCategoryHandler(subCategoryService)
+
+	// Direccion module
+	direccionRepo := direccion.NewDireccionRepository(s.db)
+	direccionService := direccion.NewDireccionService(direccionRepo)
+	direccionHandler := direccion.NewDireccionHandler(direccionService)
 	//Permiso module
 	permisoRepo := permiso.NewPermisoRepository(s.db)
 	permisoService := permiso.NewPermisoService(permisoRepo)
@@ -85,10 +98,20 @@ func (s *Server) initializeHandlers() *Handlers {
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
 
+	// Articulo module
+	articuloRepo := articulo.NewArticuloRepository(s.db)
+	articuloService := articulo.NewArticuloService(articuloRepo)
+	articuloHandler := articulo.NewArticuloHandler(articuloService)
+
 	//Rol Permiso modulo
 	adminRepo := administrativo.NewAdminRepository(s.db)
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
+
+	// Producto module
+	productoRepo := producto.NewProductoRepository(s.db)
+	productoService := producto.NewProductoService(productoRepo)
+	productoHandler := producto.NewProductoHandler(productoService)
 
 	return &Handlers{
 		Cliente:        clienteHandler,
@@ -103,8 +126,13 @@ func (s *Server) initializeHandlers() *Handlers {
 		Moneda:         monedaHandler,
 		Banco:          bancoHandler,
 		Cupon:          cuponHandler,
+		SubCategory:    subCategoryHandler,
+		Direccion:      direccionHandler,
 		Permiso:        permisoHandler,
 		RolPermiso:     rolPermisoHandler,
+		Articulo:       articuloHandler,
 		Administrativo: adminHandler,
+		Producto:       productoHandler,
 	}
+
 }

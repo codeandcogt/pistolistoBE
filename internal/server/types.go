@@ -2,6 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -10,11 +11,14 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
 	"github.com/gorilla/mux"
@@ -41,5 +45,9 @@ type Handlers struct {
 	Cupon          *cupon.CuponHandler
 	Permiso        *permiso.PermisoHandler
 	RolPermiso     *rolpermiso.RolPermisoHandler
+	SubCategory    *subCategory.SubCategoryHandler
+	Direccion      *direccion.DireccionHandler
+	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
+	Producto       *producto.ProductoHandler
 }
