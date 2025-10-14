@@ -16,6 +16,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
@@ -107,6 +108,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
 
+	// Producto module
+	productoRepo := producto.NewProductoRepository(s.db)
+	productoService := producto.NewProductoService(productoRepo)
+	productoHandler := producto.NewProductoHandler(productoService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -126,6 +132,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		RolPermiso:     rolPermisoHandler,
 		Articulo:       articuloHandler,
 		Administrativo: adminHandler,
+		Producto:       productoHandler,
 	}
 
 }

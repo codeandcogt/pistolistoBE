@@ -15,6 +15,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
@@ -48,4 +49,5 @@ type Handlers struct {
 	Direccion      *direccion.DireccionHandler
 	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
+	Producto       *producto.ProductoHandler
 }

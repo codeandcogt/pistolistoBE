@@ -15,6 +15,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
@@ -91,4 +92,8 @@ func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
+}
+
+func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
+	return h.Producto
 }

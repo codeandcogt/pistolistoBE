@@ -5,10 +5,10 @@ import (
 	"pistolistoBE/db"
 
 	//"pistolistoBE/internal/modules/rol"
-	"pistolistoBE/internal/modules/administrativo"
-	"pistolistoBE/internal/modules/permiso"
-	"pistolistoBE/internal/modules/rol"
-	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	//"pistolistoBE/internal/modules/administrativo"
+	//"pistolistoBE/internal/modules/permiso"
+	//"pistolistoBE/internal/modules/rol"
+	//rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
 	//"pistolistoBE/internal/modules/rolPermiso"
@@ -42,6 +42,7 @@ import (
 	//"pistolistoBE/internal/modules/municipality"
 	//"pistolistoBE/internal/modules/direccion"
 	//"pistolistoBE/internal/modules/subCategory"
+	"pistolistoBE/internal/modules/articulo"
 )
 
 func Migration() {
@@ -49,7 +50,9 @@ func Migration() {
 	// err := database.AutoMigrate(&cliente.Cliente{}, &auth.LogLoginCliente{})
 	//err := database.AutoMigrate(&rol.Rol{})
 
-	err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
+	err := database.AutoMigrate(&articulo.Articulo{})
+
+	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 	//err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{})
 	//err := database.AutoMigrate(&rol.Rol{})
 

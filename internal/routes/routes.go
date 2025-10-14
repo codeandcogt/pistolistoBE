@@ -18,6 +18,7 @@ import (
 	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -44,6 +45,7 @@ type RouteHandlers interface {
 	GetDireccionHandler() *direccion.DireccionHandler
 	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
+	GetProductoHandler() *producto.ProductoHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -73,4 +75,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
+	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
 }

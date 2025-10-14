@@ -11,7 +11,7 @@ type Articulo struct {
 	Peso              *float64   `gorm:"type:decimal(10,2);column:peso" json:"peso"`
 	Dimension         *string    `gorm:"type:varchar(50);column:dimension" json:"dimension"`
 	Color             *string    `gorm:"type:varchar(50);column:color" json:"color"`
-	IdCategoria       int        `gorm:"column:id_categoria;not null" json:"idCategoria"`
+	IdSubCategoria    int        `gorm:"column:id_sub_categoria;not null" json:"idSubCategoria"`
 	Estado            *bool      `gorm:"type:boolean;column:estado;default:true" json:"estado"`
 	FechaModificacion *time.Time `gorm:"type:timestamp;column:fecha_modificacion;autoUpdateTime" json:"fecha_modificacion"`
 	FechaCreacion     *time.Time `gorm:"type:timestamp;column:fecha_creacion;autoCreateTime" json:"fecha_creacion"`
