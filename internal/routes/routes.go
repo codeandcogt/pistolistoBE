@@ -111,4 +111,8 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
 	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
 	wishlist.SetupWishlistRoutes(api, handlers.GetWishlistHandler())
+	wishlistitem.SetupWishListItemRoutes(api, handlers.GetWishListItemHandler())
+	almacen.SetupAlmacenRoutes(api, handlers.GetAlmacenHandler())
+	almacenseccion.SetupAlmacenSeccionRoutes(api, handlers.GetAlmacenSeccionHandler())
+	seccion.SetupSeccionRoutes(api, handlers.GetSeccionHandler())
 }
