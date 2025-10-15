@@ -2,6 +2,7 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -11,12 +12,15 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 )
 
@@ -72,6 +76,14 @@ func (h *Handlers) GetCarritoHandler() *carrito.CarritoHandler {
 	return h.Carrito
 }
 
+func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
+	return h.SubCategory
+}
+
+func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
+	return h.Direccion
+}
+
 func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
 	return h.Permiso
 }
@@ -80,10 +92,18 @@ func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 	return h.RolPermiso
 }
 
+func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
+	return h.Articulo
+}
+
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
 }
 
 func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler {
 	return h.ResenaEmpresa
+}
+
+func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
+	return h.Producto
 }
