@@ -2,6 +2,8 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -15,8 +17,10 @@ import (
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -81,4 +85,20 @@ func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 
 func (h *Handlers) GetWishlistHandler() *wishlist.WishlistHandler {
 	return h.Wishlist
+}
+
+func (h *Handlers) GetWishListItemHandler() *wishlistitem.WishListItemHandler {
+	return h.WishListItem
+}
+
+func (h *Handlers) GetAlmacenHandler() *almacen.AlmacenHandler {
+	return h.Almacen
+}
+
+func (h *Handlers) GetAlmacenSeccionHandler() *almacenseccion.AlmacenSeccionHandler {
+	return h.AlmacenSeccion
+}
+
+func (h *Handlers) GetSeccionHandler() *seccion.SeccionHandler {
+	return h.Seccion
 }
