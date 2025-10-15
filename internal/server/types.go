@@ -2,6 +2,8 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -15,8 +17,10 @@ import (
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -44,4 +48,8 @@ type Handlers struct {
 	RolPermiso     *rolpermiso.RolPermisoHandler
 	Administrativo *administrativo.AdministrativoHandler
 	Wishlist       *wishlist.WishlistHandler
+	WishListItem   *wishlistitem.WishListItemHandler
+	Almacen        *almacen.AlmacenHandler
+	AlmacenSeccion *almacenseccion.AlmacenSeccionHandler
+	Seccion        *seccion.SeccionHandler
 }

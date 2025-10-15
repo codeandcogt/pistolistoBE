@@ -3,6 +3,8 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -16,8 +18,10 @@ import (
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -95,6 +99,26 @@ func (s *Server) initializeHandlers() *Handlers {
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
 
+	//WishListItem Modulo
+	wishListItemRepo := wishlistitem.NewWishListItemRepository(s.db)
+	wishListItemService := wishlistitem.NewWishListItemService(wishListItemRepo)
+	wishListItemHandler := wishlistitem.NewWishListItemHandler(wishListItemService)
+
+	//Almacen
+	almacenRepo := almacen.NewAlmacenRepository(s.db)
+	almacenService := almacen.NewAlmacenService(almacenRepo)
+	almacenHandler := almacen.NewAlmacenHandler(almacenService)
+
+	//AlmacenSeccion
+	almacenSeccionRepo := almacenseccion.NewAlmacenSeccionRepository(s.db)
+	almacenSeccionService := almacenseccion.NewAlmacenSeccionService(almacenSeccionRepo)
+	almacenSeccionHandler := almacenseccion.NewAlmacenSeccionHandler(almacenSeccionService)
+
+	//Seccion
+	seccionRepo := seccion.NewSeccionRepository(s.db)
+	seccionService := seccion.NewSeccionService(seccionRepo)
+	seccionHandler := seccion.NewSeccionHandler(seccionService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -112,5 +136,9 @@ func (s *Server) initializeHandlers() *Handlers {
 		RolPermiso:     rolPermisoHandler,
 		Administrativo: adminHandler,
 		Wishlist:       WishlistHandler,
+		WishListItem:   wishListItemHandler,
+		Almacen:        almacenHandler,
+		AlmacenSeccion: almacenSeccionHandler,
+		Seccion:        seccionHandler,
 	}
 }

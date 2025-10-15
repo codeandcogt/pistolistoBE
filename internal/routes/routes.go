@@ -3,6 +3,8 @@ package routes
 import (
 	"pistolistoBE/internal/middleware"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
@@ -10,7 +12,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
@@ -40,6 +44,10 @@ type RouteHandlers interface {
 	GetPermisoHandler() *permiso.PermisoHandler
 	GetRolPermisoHandler() *rolpermiso.RolPermisoHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
+	GetWishListItemHandler() *wishlistitem.WishListItemHandler
+	GetAlmacenHandler() *almacen.AlmacenHandler
+	GetAlmacenSeccionHandler() *almacenseccion.AlmacenSeccionHandler
+	GetSeccionHandler() *seccion.SeccionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -67,4 +75,8 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	permiso.SetUpPermisoRoutes(api, handlers.GetPermisoHandler())
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
+	wishlistitem.SetupWishListItemRoutes(api, handlers.GetWishListItemHandler())
+	almacen.SetupAlmacenRoutes(api, handlers.GetAlmacenHandler())
+	almacenseccion.SetupAlmacenSeccionRoutes(api, handlers.GetAlmacenSeccionHandler())
+	seccion.SetupSeccionRoutes(api, handlers.GetSeccionHandler())
 }
