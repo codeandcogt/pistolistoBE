@@ -12,10 +12,16 @@ func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
 
-		// Permite localhost y cualquier dominio HTTPS
-		if origin == "http://localhost:3000" || (len(origin) > 8 && origin[:8] == "https://") {
+		if origin != "" &&
+			(strings.HasPrefix(origin, "http://localhost:") ||
+				strings.HasPrefix(origin, "http://169.254.") ||
+				strings.HasPrefix(origin, "https://pistolisto-web.vercel.app/") ||
+				strings.HasPrefix(origin, "https://")) {
+
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Vary", "Origin")
+		} else {
+			log.Println("Origin no permitido:", origin)
 		}
 
 		if origin != "" &&
