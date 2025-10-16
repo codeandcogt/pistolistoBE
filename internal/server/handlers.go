@@ -9,6 +9,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
@@ -19,6 +20,7 @@ import (
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/seccion"
@@ -34,14 +36,17 @@ func (s *Server) initializeHandlers() *Handlers {
 	jwtManager := auth.NewJwtManager(config.JwtSecret, config.JwtExpiry)
 	authService := auth.NewAuthService(authRepo, jwtManager)
 	authHandler := auth.NewAuthHandler(authService)
+
 	// Cliente module
 	clienteRepo := cliente.NewClient(s.db)
 	clienteService := cliente.NewClientService(clienteRepo)
 	clienteHandler := cliente.NewClientHandler(clienteService)
-	// Cliente module
+
+	// Rol module
 	rolRepo := rol.NewRol(s.db)
 	rolService := rol.NewRolService(rolRepo)
 	rolHandler := rol.NewRolHandler(rolService)
+
 	// Subsidiary module
 	subsidiaryRepo := subsidiary.NewSubsidiaryRepository(s.db)
 	subsidiaryService := subsidiary.NewSubsidiaryService(subsidiaryRepo)
@@ -56,15 +61,18 @@ func (s *Server) initializeHandlers() *Handlers {
 	municipalityRepo := municipality.NewMunicipalityRepository(s.db)
 	municipalityService := municipality.NewMunicipalityService(municipalityRepo)
 	municipalityHandler := municipality.NewMunicipalityHandler(municipalityService)
+
 	// Departamento module
 	departamentoRepo := departamento.NewDepartamento(s.db)
 	departamentoService := departamento.NewDepartamentoService(departamentoRepo)
 	departamentoHandler := departamento.NewDepartamentoHandler(departamentoService)
-	//Categoria module
+
+	// Categoria module
 	categoriaRepo := categoria.NewCategoria(s.db)
 	categoriaService := categoria.NewCategoriaService(categoriaRepo)
 	categoriaHandler := categoria.NewCategoriaHandler(categoriaService)
-	//Descuento module
+
+	// Descuento module
 	descuentoRepo := descuento.NewDescuento(s.db)
 	descuentoService := descuento.NewDescuentoService(descuentoRepo)
 	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
@@ -88,6 +96,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	WishlistService := wishlist.NewWishlistService(wishlistRepo)
 	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
+	// Carrito module
+	carritoRepo := carrito.NewCarritoRepository(s.db)
+	carritoService := carrito.NewCarritoService(carritoRepo)
+	carritoHandler := carrito.NewCarritoHandler(carritoService)
+
 	// SubCategory module
 	subCategoryRepo := subCategory.NewSubCategoryRepository(s.db)
 	subCategoryService := subCategory.NewSubCategoryService(subCategoryRepo)
@@ -97,12 +110,13 @@ func (s *Server) initializeHandlers() *Handlers {
 	direccionRepo := direccion.NewDireccionRepository(s.db)
 	direccionService := direccion.NewDireccionService(direccionRepo)
 	direccionHandler := direccion.NewDireccionHandler(direccionService)
-	//Permiso module
+
+	// Permiso module
 	permisoRepo := permiso.NewPermisoRepository(s.db)
 	permisoService := permiso.NewPermisoService(permisoRepo)
 	permisoHandler := permiso.NewPermisoHandler(permisoService)
 
-	//Rol Permiso modulo
+	// Rol Permiso module
 	rolPermisoRepo := rolpermiso.NewRolPermiso(s.db)
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
@@ -112,7 +126,7 @@ func (s *Server) initializeHandlers() *Handlers {
 	articuloService := articulo.NewArticuloService(articuloRepo)
 	articuloHandler := articulo.NewArticuloHandler(articuloService)
 
-	//Rol Permiso modulo
+	// Administrativo module
 	adminRepo := administrativo.NewAdminRepository(s.db)
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
@@ -136,6 +150,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	seccionRepo := seccion.NewSeccionRepository(s.db)
 	seccionService := seccion.NewSeccionService(seccionRepo)
 	seccionHandler := seccion.NewSeccionHandler(seccionService)
+	// ResenaEmpresa module
+	resenaEmpresaRepo := resenaEmpresa.NewResenaEmpresaRepository(s.db)
+	resenaEmpresaService := resenaEmpresa.NewResenaEmpresaService(resenaEmpresaRepo)
+	resenaEmpresaHandler := resenaEmpresa.NewResenaEmpresaHandler(resenaEmpresaService)
+
 	// Producto module
 	productoRepo := producto.NewProductoRepository(s.db)
 	productoService := producto.NewProductoService(productoRepo)
@@ -154,6 +173,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		Moneda:         monedaHandler,
 		Banco:          bancoHandler,
 		Cupon:          cuponHandler,
+		Carrito:        carritoHandler,
 		SubCategory:    subCategoryHandler,
 		Direccion:      direccionHandler,
 		Permiso:        permisoHandler,
@@ -165,7 +185,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		Almacen:        almacenHandler,
 		AlmacenSeccion: almacenSeccionHandler,
 		Seccion:        seccionHandler,
+		ResenaEmpresa:  resenaEmpresaHandler,
 		Producto:       productoHandler,
 	}
-
 }

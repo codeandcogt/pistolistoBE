@@ -57,6 +57,15 @@ func Migration() {
 	database := db.Database()
 	// err := database.AutoMigrate(&cliente.Cliente{}, &auth.LogLoginCliente{})
 	err := database.AutoMigrate(&wishlist.Wishlist{}, &wishlistitem.WishListItem{}, &almacen.Almacen{}, &almacenseccion.AlmacenSeccion{}, &seccion.Seccion{})
+	// err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{},
+	// 	&moneda.Moneda{},
+	// 	&banco.Banco{},
+	// 	&cupon.Cupon{},
+	// 	&carrito.Carrito{},
+	// 	&carrito.CarritoItem{},
+	// 	&resenaEmpresa.ResenaEmpresa{},
+	// )
+	// err = database.AutoMigrate(&auth.LogLoginAdmin{})
 	//err := database.AutoMigrate(&rol.Rol{})
 
 	//err := database.AutoMigrate(&producto.Producto{})

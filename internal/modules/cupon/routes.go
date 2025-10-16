@@ -16,7 +16,7 @@ func SetupCuponRoutes(api *mux.Router, handler *CuponHandler) {
 
 	// Rutas protegidas
 	protected := cuponRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.CreateCupon).Methods("POST")
 	protected.HandleFunc("/{id}", handler.UpdateCupon).Methods("PUT")
