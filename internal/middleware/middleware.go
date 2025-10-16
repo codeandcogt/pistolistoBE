@@ -10,10 +10,20 @@ import (
 // CORS middleware compatible con Next.js y redes locales (IP dinámica o localhost)
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Permitir solicitudes desde tu frontend local y producción
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		// Si ya desplegaste tu frontend, agrégalo también:
-		// w.Header().Set("Access-Control-Allow-Origin", "https://tusitiofrontend.com")
+		origin := r.Header.Get("Origin")
+
+		// Lista de orígenes permitidos
+		allowedOrigins := map[string]bool{
+			"http://localhost:3000":              true, // para desarrollo local
+			"http://192.168.31.57:3000":          true,
+			"https://pistolisto-web.vercel.app/": true, // cambia por el dominio real de tu frontend
+		}
+
+		// Si el origen está permitido, se agrega el header
+		if allowedOrigins[origin] {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Vary", "Origin") // Evita problemas de cache
+		}
 
 		if origin != "" &&
 			(strings.HasPrefix(origin, "http://localhost:") ||
