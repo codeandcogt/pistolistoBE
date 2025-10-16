@@ -122,12 +122,13 @@ func (s *Server) initializeHandlers() *Handlers {
 	direccionRepo := direccion.NewDireccionRepository(s.db)
 	direccionService := direccion.NewDireccionService(direccionRepo)
 	direccionHandler := direccion.NewDireccionHandler(direccionService)
-	//Permiso module
+
+	// Permiso module
 	permisoRepo := permiso.NewPermisoRepository(s.db)
 	permisoService := permiso.NewPermisoService(permisoRepo)
 	permisoHandler := permiso.NewPermisoHandler(permisoService)
 
-	//Rol Permiso modulo
+	// Rol Permiso module
 	rolPermisoRepo := rolpermiso.NewRolPermiso(s.db)
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
@@ -266,5 +267,4 @@ func (s *Server) initializeHandlers() *Handlers {
 		LogUbicacion:   logUbicacionHandler,
 		Formulario:     formularioHandler,
 	}
-
 }
