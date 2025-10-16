@@ -9,16 +9,26 @@ import (
 // CORS middleware
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Permitir solicitudes desde tu frontend local y producción
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		// Si ya desplegaste tu frontend, agrégalo también:
-		// w.Header().Set("Access-Control-Allow-Origin", "https://tusitiofrontend.com")
+		origin := r.Header.Get("Origin")
+
+		// Lista de orígenes permitidos
+		allowedOrigins := map[string]bool{
+			"http://localhost:3000":              true, // para desarrollo local
+			"http://192.168.31.57:3000":          true,
+			"https://pistolisto-web.vercel.app/": true, // cambia por el dominio real de tu frontend
+		}
+
+		// Si el origen está permitido, se agrega el header
+		if allowedOrigins[origin] {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Vary", "Origin") // Evita problemas de cache
+		}
 
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
-		// Manejo de preflight (OPTIONS)
+		// Responde a la solicitud preflight (OPTIONS)
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusOK)
 			return
