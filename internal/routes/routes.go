@@ -61,7 +61,6 @@ type RouteHandlers interface {
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	router.Use(middleware.Recovery)
 	router.Use(middleware.Logger)
-	router.Use(middleware.CORS)
 	router.Use(middleware.ContentTypeJSON)
 	// API versioning
 	api := router.PathPrefix("/api").Subrouter()
