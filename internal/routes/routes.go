@@ -8,6 +8,8 @@ import (
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 
@@ -18,6 +20,7 @@ import (
 	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/rol"
 	"pistolistoBE/internal/modules/subCategory"
@@ -46,6 +49,9 @@ type RouteHandlers interface {
 	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
 	GetProductoHandler() *producto.ProductoHandler
+	GetPedidoHandler() *pedido.PedidoHandler
+	GetPagoHandler() *pago.PagoHandler
+	GetFacturaHandler() *factura.FacturaHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -76,4 +82,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
+	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
+	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
+	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
 }
