@@ -11,22 +11,40 @@ func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
 
+		// Lista de orígenes permitidos (SIN barra final)
 		allowedOrigins := map[string]bool{
-			"http://localhost:3000":              true,
-			"https://pistolisto-web.vercel.app/": true,
+			"http://localhost:3000":             true,
+			"http://localhost:3001":             true, // Por si usas otro puerto
+			"https://pistolisto-web.vercel.app": true, // SIN / al final
 		}
 
+		// Si el origen está permitido, configura los headers
 		if allowedOrigins[origin] {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
+		} else {
+			// Si no está permitido, NO envías el header Allow-Origin
+			// Esto causará el error CORS en el navegador (que es lo que quieres)
+			log.Printf("CORS: Origen no permitido: %s", origin)
+
+			// Para debugging, puedes ver qué origen está llegando
+			if origin != "" {
+				log.Printf("Origen recibido: '%s'", origin)
+			}
 		}
 
+		// Estos headers siempre se envían
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH")
 		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization, X-CSRF-Token")
 		w.Header().Set("Access-Control-Max-Age", "86400")
 
+		// Maneja las solicitudes preflight
 		if r.Method == "OPTIONS" {
-			w.WriteHeader(http.StatusNoContent)
+			if allowedOrigins[origin] {
+				w.WriteHeader(http.StatusNoContent)
+			} else {
+				w.WriteHeader(http.StatusForbidden)
+			}
 			return
 		}
 
