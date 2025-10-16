@@ -9,42 +9,18 @@ import (
 // CORS middleware
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Header.Get("Origin")
+		// Permitir solicitudes desde tu frontend local y producción
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		// Si ya desplegaste tu frontend, agrégalo también:
+		// w.Header().Set("Access-Control-Allow-Origin", "https://tusitiofrontend.com")
 
-		// Lista de orígenes permitidos (SIN barra final)
-		allowedOrigins := map[string]bool{
-			"http://localhost:3000":             true,
-			"http://localhost:3001":             true, // Por si usas otro puerto
-			"https://pistolisto-web.vercel.app": true, // SIN / al final
-		}
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
-		// Si el origen está permitido, configura los headers
-		if allowedOrigins[origin] {
-			w.Header().Set("Access-Control-Allow-Origin", origin)
-			w.Header().Set("Access-Control-Allow-Credentials", "true")
-		} else {
-			// Si no está permitido, NO envías el header Allow-Origin
-			// Esto causará el error CORS en el navegador (que es lo que quieres)
-			log.Printf("CORS: Origen no permitido: %s", origin)
-
-			// Para debugging, puedes ver qué origen está llegando
-			if origin != "" {
-				log.Printf("Origen recibido: '%s'", origin)
-			}
-		}
-
-		// Estos headers siempre se envían
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH")
-		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization, X-CSRF-Token")
-		w.Header().Set("Access-Control-Max-Age", "86400")
-
-		// Maneja las solicitudes preflight
-		if r.Method == "OPTIONS" {
-			if allowedOrigins[origin] {
-				w.WriteHeader(http.StatusNoContent)
-			} else {
-				w.WriteHeader(http.StatusForbidden)
-			}
+		// Manejo de preflight (OPTIONS)
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusOK)
 			return
 		}
 
