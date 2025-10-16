@@ -6,6 +6,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
@@ -16,6 +17,7 @@ import (
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
@@ -31,6 +33,7 @@ type Server struct {
 }
 
 type Handlers struct {
+	Carrito        *carrito.CarritoHandler
 	Cliente        *cliente.ClientHandler
 	Auth           *auth.AuthHandler
 	Rol            *rol.RolHandler
@@ -49,5 +52,6 @@ type Handlers struct {
 	Direccion      *direccion.DireccionHandler
 	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
+	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 	Producto       *producto.ProductoHandler
 }

@@ -15,7 +15,7 @@ func SetupBancoRoutes(api *mux.Router, handler *BancoHandler) {
 
 	// Rutas protegidas -> subrouter con middleware
 	protected := bancoRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.CreateBanco).Methods("POST")
 	protected.HandleFunc("/{id}", handler.UpdateBanco).Methods("PUT")

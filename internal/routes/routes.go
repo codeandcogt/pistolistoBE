@@ -14,12 +14,20 @@ import (
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
+
 	"pistolistoBE/internal/modules/cupon"
-	"pistolistoBE/internal/modules/direccion"
+
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
-	"pistolistoBE/internal/modules/producto"
+
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
+
+	"pistolistoBE/internal/modules/direccion"
+
+	"pistolistoBE/internal/modules/producto"
+
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
@@ -37,6 +45,7 @@ type RouteHandlers interface {
 	GetCategoriaHandler() *categoria.CategoriaHandler
 	GetDescuentoHandler() *descuento.DescuentoHandler
 	GetCuponHandler() *cupon.CuponHandler
+	GetCarritoHandler() *carrito.CarritoHandler
 	GetMunicipalityHandler() *municipality.MunicipalityHandler
 	GetBankAccountHandler() *bankAccount.BankAccountHandler
 	GetPermisoHandler() *permiso.PermisoHandler
@@ -45,6 +54,7 @@ type RouteHandlers interface {
 	GetDireccionHandler() *direccion.DireccionHandler
 	GetArticuloHandler() *articulo.ArticuloHandler
 	GetAdminHandler() *administrativo.AdministrativoHandler
+	GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 	GetProductoHandler() *producto.ProductoHandler
 }
 
@@ -67,6 +77,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	categoria.SetupCategoriaRoutes(api, handlers.GetCategoriaHandler())
 	descuento.SetupDescuentoRoutes(api, handlers.GetDescuentoHandler())
 	cupon.SetupCuponRoutes(api, handlers.GetCuponHandler())
+	carrito.SetupCarritoRoutes(api, handlers.GetCarritoHandler())
 	municipality.SetupMunicipalityRoutes(api, handlers.GetMunicipalityHandler())
 	bankAccount.SetupBankAccountRoutes(api, handlers.GetBankAccountHandler())
 	subCategory.SetupSubCategoryRoutes(api, handlers.GetSubCategoryHandler())
@@ -75,5 +86,6 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	rolpermiso.SetUpRolPermisoRoutes(api, handlers.GetRolPermisoHandler())
 	articulo.SetupArticuloRoutes(api, handlers.GetArticuloHandler())
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
+	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
 }

@@ -6,6 +6,7 @@ import (
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
@@ -16,6 +17,7 @@ import (
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
@@ -70,6 +72,10 @@ func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
 	return h.Cupon
 }
 
+func (h *Handlers) GetCarritoHandler() *carrito.CarritoHandler {
+	return h.Carrito
+}
+
 func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
 	return h.SubCategory
 }
@@ -92,6 +98,10 @@ func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
+}
+
+func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler {
+	return h.ResenaEmpresa
 }
 
 func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
