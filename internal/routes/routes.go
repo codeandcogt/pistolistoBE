@@ -69,11 +69,8 @@ type RouteHandlers interface {
 	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
 	GetRutaHandler() *ruta.RutaHandler
 	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
-	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
 }
 
-func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
-	router.Use(middleware.Recovery)
 	router.Use(middleware.Logger)
 	router.Use(middleware.ContentTypeJSON)
 	// API versioning
