@@ -109,7 +109,7 @@ func (s *Server) initializeHandlers() *Handlers {
 	permisoService := permiso.NewPermisoService(permisoRepo)
 	permisoHandler := permiso.NewPermisoHandler(permisoService)
 
-	//Rol Permiso modulo
+	// Rol Permiso module
 	rolPermisoRepo := rolpermiso.NewRolPermiso(s.db)
 	rolPermisoService := rolpermiso.NewRolPermosoService(rolPermisoRepo)
 	rolPermisoHandler := rolpermiso.NewRolPermisoHandler(rolPermisoService)
