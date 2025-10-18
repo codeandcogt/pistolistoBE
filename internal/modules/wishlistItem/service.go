@@ -3,7 +3,7 @@ package wishlistitem
 type WishListItemService interface {
 	AddWishListItem(wishListItem *WishListItem) error
 	GetWishListItemByID(id uint) (*WishListItem, error)
-	GetWishListItemByWishlist(wishlistId uint) ([]*WishListItem, error)
+	GetWishListItemByWishlist(IdWishlist uint) ([]*WishListItem, error)
 	UpdateWishListItem(id uint, updated *WishListItem) (*WishListItem, error)
 	DeleteWishListItem(id uint) (string, error)
 }
@@ -24,8 +24,8 @@ func (s *wishListItemService) GetWishListItemByID(id uint) (*WishListItem, error
 	return s.repo.GetByID(id)
 }
 
-func (s *wishListItemService) GetWishListItemByWishlist(wishlistId uint) ([]*WishListItem, error) {
-	return s.repo.GetByWishlistID(wishlistId)
+func (s *wishListItemService) GetWishListItemByWishlist(IdWishlist uint) ([]*WishListItem, error) {
+	return s.repo.GetByWishlistID(IdWishlist)
 }
 
 func (s *wishListItemService) UpdateWishListItem(id uint, updated *WishListItem) (*WishListItem, error) {

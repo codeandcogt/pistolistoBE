@@ -9,7 +9,7 @@ import (
 type WishListItemRepository interface {
 	Create(wishListItem *WishListItem) error
 	GetByID(id uint) (*WishListItem, error)
-	GetByWishlistID(wishlistId uint) ([]*WishListItem, error)
+	GetByWishlistID(IdWishlist uint) ([]*WishListItem, error)
 	UpdateWishListItem(id uint, updated *WishListItem) (*WishListItem, error)
 	DeleteWishListItem(id uint) (string, error)
 }
@@ -35,9 +35,9 @@ func (r *wishListItemRepository) GetByID(id uint) (*WishListItem, error) {
 	return &item, nil
 }
 
-func (r *wishListItemRepository) GetByWishlistID(wishlistId uint) ([]*WishListItem, error) {
+func (r *wishListItemRepository) GetByWishlistID(IdWishlist uint) ([]*WishListItem, error) {
 	var items []*WishListItem
-	err := r.db.Where("wishlist_id = ? AND estado = ?", wishlistId, true).Find(&items).Error
+	err := r.db.Where("id_wishlist = ? AND estado = ?", IdWishlist, true).Find(&items).Error
 	if err != nil {
 		return nil, err
 	}

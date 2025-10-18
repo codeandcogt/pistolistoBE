@@ -58,19 +58,19 @@ func (h *WishListItemHandler) GetWishListItemByID(w http.ResponseWriter, r *http
 
 func (h *WishListItemHandler) GetWishListItemByWishlist(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	idStr, exists := vars["wishlist_id"]
+	idStr, exists := vars["id_wishlist"]
 	if !exists {
 		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
 		return
 	}
 
-	wishlistId, err := strconv.ParseUint(idStr, 10, 32)
+	IdWishlist, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
-	items, err := h.service.GetWishListItemByWishlist(uint(wishlistId))
+	items, err := h.service.GetWishListItemByWishlist(uint(IdWishlist))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return

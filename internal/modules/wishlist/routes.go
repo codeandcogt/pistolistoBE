@@ -16,7 +16,7 @@ func SetupWishlistRoutes(api *mux.Router, handler *WishlistHandler) {
 	protected := wishlistRouter.NewRoute().Subrouter()
 	protected.Use(middleware.JWTMiddleware)
 
-	protected.HandleFunc("/cliente/{cliente_id}", handler.GetAllByCliente).Methods("GET")
+	protected.HandleFunc("/cliente/{id_cliente}", handler.GetAllByCliente).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetWishlistByID).Methods("GET")
 	protected.HandleFunc("/{id}", handler.UpdateWishlist).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteWishlist).Methods("DELETE")

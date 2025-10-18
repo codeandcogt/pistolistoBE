@@ -64,13 +64,13 @@ func (h *WishlistHandler) GetAllByCliente(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	IdCliente, err := strconv.ParseUint(idStr, 10, 32)
+	idCliente, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
 		return
 	}
 
-	wishlists, err := h.service.GetAllByCliente(uint(IdCliente))
+	wishlists, err := h.service.GetAllByCliente(uint(idCliente))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return

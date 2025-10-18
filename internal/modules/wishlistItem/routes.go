@@ -18,7 +18,7 @@ func SetupWishListItemRoutes(api *mux.Router, handler *WishListItemHandler) {
 	protected.Use(middleware.JWTMiddleware)
 
 	// Obtener todos los ítems de una wishlist por cliente
-	protected.HandleFunc("/wishlist/{wishlist_id}", handler.GetWishListItemByWishlist).Methods("GET")
+	protected.HandleFunc("/wishlist/{id_wishlist}", handler.GetWishListItemByWishlist).Methods("GET")
 
 	// Obtener un ítem por ID
 	protected.HandleFunc("/{id}", handler.GetWishListItemByID).Methods("GET")
