@@ -24,8 +24,6 @@ import (
 	"pistolistoBE/internal/modules/pago"
 	"pistolistoBE/internal/modules/producto"
 
-	"pistolistoBE/internal/modules/pago"
-	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 
