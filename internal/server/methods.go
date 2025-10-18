@@ -13,8 +13,12 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
@@ -106,4 +110,16 @@ func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 
 func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
 	return h.Producto
+}
+
+func (h *Handlers) GetPedidoHandler() *pedido.PedidoHandler {
+	return h.Pedido
+}
+
+func (h *Handlers) GetPagoHandler() *pago.PagoHandler {
+	return h.Pago
+}
+
+func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
+	return h.Factura
 }

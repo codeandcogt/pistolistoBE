@@ -8,6 +8,8 @@ import (
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 
@@ -20,13 +22,13 @@ import (
 
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/producto"
 
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 
 	"pistolistoBE/internal/modules/direccion"
-
-	"pistolistoBE/internal/modules/producto"
 
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
@@ -56,6 +58,9 @@ type RouteHandlers interface {
 	GetAdminHandler() *administrativo.AdministrativoHandler
 	GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 	GetProductoHandler() *producto.ProductoHandler
+	GetPedidoHandler() *pedido.PedidoHandler
+	GetPagoHandler() *pago.PagoHandler
+	GetFacturaHandler() *factura.FacturaHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -87,4 +92,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
 	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
+	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
+	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
+	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
 }

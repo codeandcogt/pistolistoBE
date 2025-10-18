@@ -13,8 +13,12 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
@@ -54,4 +58,7 @@ type Handlers struct {
 	Administrativo *administrativo.AdministrativoHandler
 	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 	Producto       *producto.ProductoHandler
+	Pedido         *pedido.PedidoHandler
+	Pago           *pago.PagoHandler
+	Factura        *factura.FacturaHandler
 }
