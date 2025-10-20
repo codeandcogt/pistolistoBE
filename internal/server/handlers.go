@@ -14,6 +14,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
@@ -136,7 +137,7 @@ func (s *Server) initializeHandlers() *Handlers {
 
 	// Pedido module
 	pedidoRepo := pedido.NewPedidoRepository(s.db)
-	pedidoService := pedido.NewPedidoService(pedidoRepo)
+	pedidoService := pedido.NewPedidoService(pedidoRepo, carritoRepo)
 	pedidoHandler := pedido.NewPedidoHandler(pedidoService)
 
 	// Pago module
@@ -146,8 +147,13 @@ func (s *Server) initializeHandlers() *Handlers {
 
 	// Factura module
 	facturaRepo := factura.NewFacturaRepository(s.db)
-	facturaService := factura.NewFacturaService(facturaRepo)
+	facturaService := factura.NewFacturaService(facturaRepo, pedidoRepo)
 	facturaHandler := factura.NewFacturaHandler(facturaService)
+
+	// Estado Pedido module
+	estadoPedidoRepo := estadoPedido.NewEstadoPedidoRepository(s.db)
+	estadoPedidoService := estadoPedido.NewEstadoPedidoService(estadoPedidoRepo)
+	estadoPedidoHandler := estadoPedido.NewEstadoPedidoHandler(estadoPedidoService)
 
 	return &Handlers{
 		Cliente:        clienteHandler,
@@ -174,6 +180,7 @@ func (s *Server) initializeHandlers() *Handlers {
 		Pedido:         pedidoHandler,
 		Pago:           pagoHandler,
 		Factura:        facturaHandler,
+		EstadoPedido:   estadoPedidoHandler,
 	}
 
 }

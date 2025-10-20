@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -122,4 +123,8 @@ func (h *Handlers) GetPagoHandler() *pago.PagoHandler {
 
 func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
 	return h.Factura
+}
+
+func (h *Handlers) GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler {
+	return h.EstadoPedido
 }

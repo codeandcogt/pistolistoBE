@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"pistolistoBE/internal/modules/pedido"
 	"time"
 )
 
@@ -17,13 +18,15 @@ type FacturaService interface {
 }
 
 type facturaService struct {
-	repo FacturaRepository
+	repo       FacturaRepository
+	pedidoRepo pedido.PedidoRepository
 }
 
-func NewFacturaService(repo FacturaRepository) FacturaService {
-	return &facturaService{repo}
+func NewFacturaService(repo FacturaRepository, pedidoRepo pedido.PedidoRepository) FacturaService {
+	return &facturaService{repo, pedidoRepo}
 }
 
+// Generadores de datos de factura
 func generarNumeroSerie() (string, string) {
 	serie := "A"
 	numero := fmt.Sprintf("%06d", rand.Intn(999999))
@@ -34,27 +37,56 @@ func generarUUID() string {
 	return fmt.Sprintf("UUID-%d-%d", time.Now().Unix(), rand.Intn(99999))
 }
 
+// --------------------
+// Lógica de facturación
+// --------------------
 func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
-	if factura.IdPedido == 0 {
-		return nil, errors.New("pedido no válido para facturación")
+	// 1️⃣ Validar pedido existente
+	pedidoData, err := s.pedidoRepo.GetByID(uint(factura.IdPedido))
+	if err != nil {
+		return nil, fmt.Errorf("no se encontró el pedido con id %d", factura.IdPedido)
 	}
 
+	// 2️⃣ Validar que el pedido esté pagado
+	if pedidoData.IdEstadoPedido != 2 {
+		return nil, fmt.Errorf("el pedido %d aún no está pagado, no se puede emitir factura", pedidoData.IdPedido)
+	}
+
+	// 3️⃣ Verificar si ya existe factura para este pedido
+	existente, _ := s.repo.GetByPedido(uint(factura.IdPedido))
+	if existente != nil && existente.IdFactura != 0 {
+		return nil, fmt.Errorf("ya existe una factura asociada al pedido %d", factura.IdPedido)
+	}
+
+	// 4️⃣ Completar datos financieros desde el pedido
+	factura.Subtotal = pedidoData.Subtotal
+	factura.Impuestos = pedidoData.Impuesto
+	factura.Total = pedidoData.Total
+	factura.Descuento = 0 // si manejás cupones o descuentos, aquí podrías traerlo
+	factura.FechaEmision = time.Now()
+
+	// 5️⃣ Generar número, serie y UUID
 	numero, serie := generarNumeroSerie()
 	factura.Numero = numero
 	factura.Serie = serie
 	factura.UUID = generarUUID()
-	factura.FechaEmision = time.Now()
 
-	if factura.Total == 0 {
-		factura.Total = factura.Subtotal + factura.Impuestos - factura.Descuento
+	// 6️⃣ Validar campos obligatorios
+	if factura.RazonSocial == "" || factura.DireccionFiscal == "" {
+		return nil, errors.New("la razón social y la dirección fiscal son obligatorias")
 	}
 
+	// 7️⃣ Guardar factura
 	if err := s.repo.Create(factura); err != nil {
 		return nil, err
 	}
 
 	return factura, nil
 }
+
+// --------------------
+// CRUD básico
+// --------------------
 
 func (s *facturaService) GetByID(id uint) (*Factura, error) {
 	return s.repo.GetByID(id)

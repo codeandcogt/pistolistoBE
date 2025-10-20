@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -61,4 +62,5 @@ type Handlers struct {
 	Pedido         *pedido.PedidoHandler
 	Pago           *pago.PagoHandler
 	Factura        *factura.FacturaHandler
+	EstadoPedido   *estadoPedido.EstadoPedidoHandler
 }
