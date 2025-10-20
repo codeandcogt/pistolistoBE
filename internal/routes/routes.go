@@ -77,6 +77,8 @@ type RouteHandlers interface {
 	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
 }
 
+func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
+	router.Use(middleware.Recovery)
 	router.Use(middleware.Logger)
 	router.Use(middleware.ContentTypeJSON)
 	// API versioning

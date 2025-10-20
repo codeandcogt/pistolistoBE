@@ -74,7 +74,7 @@ func (s *pagoService) ProcesarPago(pago *Pago) (*Pago, error) {
 
 	// 7️⃣ Actualizar el estado del pedido a “Pagado”
 	if err := s.pedidoRepo.UpdateEstado(uint(pago.IdPedido), 2); err != nil {
-		fmt.Println("No se pudo actualizar el estado del pedido:", err)
+		fmt.Println("⚠️ No se pudo actualizar el estado del pedido:", err)
 	}
 
 	return pago, nil
