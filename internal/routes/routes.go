@@ -8,6 +8,8 @@ import (
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 
@@ -20,6 +22,8 @@ import (
 
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/producto"
 
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -62,12 +66,14 @@ type RouteHandlers interface {
 	GetProductoHandler() *producto.ProductoHandler
 	GetVehiculoHandler() *vehiculo.VehiculoHandler
 	GetPilotoHandler() *piloto.PilotoHandler
+	GetPedidoHandler() *pedido.PedidoHandler
+	GetPagoHandler() *pago.PagoHandler
+	GetFacturaHandler() *factura.FacturaHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	router.Use(middleware.Recovery)
 	router.Use(middleware.Logger)
-	router.Use(middleware.CORS)
 	router.Use(middleware.ContentTypeJSON)
 	// API versioning
 	api := router.PathPrefix("/api").Subrouter()
@@ -96,4 +102,7 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
 	vehiculo.SetupVehiculoRoutes(api, handlers.GetVehiculoHandler())
 	piloto.SetupPilotoRoutes(api, handlers.GetPilotoHandler())
+	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
+	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
+	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
 }

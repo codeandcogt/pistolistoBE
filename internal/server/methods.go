@@ -13,8 +13,12 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
@@ -116,4 +120,14 @@ func (h *Handlers) GetVehiculoHandler() *vehiculo.VehiculoHandler {
 
 func (h *Handlers) GetPilotoHandler() *piloto.PilotoHandler {
 	return h.Piloto
+func (h *Handlers) GetPedidoHandler() *pedido.PedidoHandler {
+	return h.Pedido
+}
+
+func (h *Handlers) GetPagoHandler() *pago.PagoHandler {
+	return h.Pago
+}
+
+func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
+	return h.Factura
 }

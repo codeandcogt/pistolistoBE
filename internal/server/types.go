@@ -13,8 +13,12 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
@@ -58,4 +62,7 @@ type Handlers struct {
 	Producto       *producto.ProductoHandler
 	Vehiculo       *vehiculo.VehiculoHandler
 	Piloto         *piloto.PilotoHandler
+	Pedido         *pedido.PedidoHandler
+	Pago           *pago.PagoHandler
+	Factura        *factura.FacturaHandler
 }
