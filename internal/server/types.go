@@ -16,12 +16,14 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/vehiculo"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -54,4 +56,6 @@ type Handlers struct {
 	Administrativo *administrativo.AdministrativoHandler
 	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 	Producto       *producto.ProductoHandler
+	Vehiculo       *vehiculo.VehiculoHandler
+	Piloto         *piloto.PilotoHandler
 }

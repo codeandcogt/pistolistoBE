@@ -31,6 +31,10 @@ import (
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
+	"pistolistoBE/internal/modules/vehiculo"
+
+	"pistolistoBE/internal/modules/piloto"
+
 	"github.com/gorilla/mux"
 )
 
@@ -56,6 +60,8 @@ type RouteHandlers interface {
 	GetAdminHandler() *administrativo.AdministrativoHandler
 	GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 	GetProductoHandler() *producto.ProductoHandler
+	GetVehiculoHandler() *vehiculo.VehiculoHandler
+	GetPilotoHandler() *piloto.PilotoHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -88,4 +94,6 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	administrativo.SetUpAdminRoutes(api, handlers.GetAdminHandler())
 	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
+	vehiculo.SetupVehiculoRoutes(api, handlers.GetVehiculoHandler())
+	piloto.SetupPilotoRoutes(api, handlers.GetPilotoHandler())
 }

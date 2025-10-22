@@ -16,12 +16,14 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/vehiculo"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -106,4 +108,12 @@ func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 
 func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
 	return h.Producto
+}
+
+func (h *Handlers) GetVehiculoHandler() *vehiculo.VehiculoHandler {
+	return h.Vehiculo
+}
+
+func (h *Handlers) GetPilotoHandler() *piloto.PilotoHandler {
+	return h.Piloto
 }
