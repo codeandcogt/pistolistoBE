@@ -120,6 +120,8 @@ func (h *Handlers) GetVehiculoHandler() *vehiculo.VehiculoHandler {
 
 func (h *Handlers) GetPilotoHandler() *piloto.PilotoHandler {
 	return h.Piloto
+}
+
 func (h *Handlers) GetPedidoHandler() *pedido.PedidoHandler {
 	return h.Pedido
 }

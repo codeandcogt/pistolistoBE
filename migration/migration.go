@@ -17,9 +17,6 @@ import (
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/vehiculo"
-	"pistolistoBE/internal/modules/resenaEmpresa"
-	"pistolistoBE/internal/modules/rol"
-	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	//"pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
@@ -88,7 +85,7 @@ func Migration() {
 
 	//err = database.AutoMigrate(&piloto.Piloto{})
 	//fmt.Println("Tabla pilotos creada/verificada")
-	)
+
 	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 	//err := database.AutoMigrate(&rol.Rol{})
 

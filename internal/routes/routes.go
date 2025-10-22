@@ -30,8 +30,6 @@ import (
 
 	"pistolistoBE/internal/modules/direccion"
 
-	"pistolistoBE/internal/modules/producto"
-
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 
