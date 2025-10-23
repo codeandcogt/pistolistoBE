@@ -10,7 +10,7 @@ func SetupPilotoRoutes(api *mux.Router, handler *PilotoHandler) {
 	pilotoRouter := api.PathPrefix("/pilotos").Subrouter()
 
 	// Rutas protegidas con middleware
-	pilotoRouter.Use(middleware.JWTMiddleware)
+	pilotoRouter.Use(middleware.AdminJWTMiddleware)
 
 	pilotoRouter.HandleFunc("", handler.CreatePiloto).Methods("POST")
 	pilotoRouter.HandleFunc("", handler.GetAll).Methods("GET")

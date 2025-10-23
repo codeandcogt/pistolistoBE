@@ -10,7 +10,7 @@ func SetupVehiculoRoutes(api *mux.Router, handler *VehiculoHandler) {
 	vehiculoRouter := api.PathPrefix("/vehiculos").Subrouter()
 
 	// Rutas protegidas con middleware
-	vehiculoRouter.Use(middleware.JWTMiddleware)
+	vehiculoRouter.Use(middleware.AdminJWTMiddleware)
 
 	vehiculoRouter.HandleFunc("", handler.CreateVehiculo).Methods("POST")
 	vehiculoRouter.HandleFunc("", handler.GetAll).Methods("GET")

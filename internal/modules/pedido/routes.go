@@ -10,7 +10,7 @@ func SetupPedidoRoutes(api *mux.Router, handler *PedidoHandler) {
 	pedidoRouter := api.PathPrefix("/pedidos").Subrouter()
 
 	protected := pedidoRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("/checkout", handler.Checkout).Methods("POST")
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
