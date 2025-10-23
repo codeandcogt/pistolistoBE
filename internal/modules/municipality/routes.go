@@ -13,6 +13,7 @@ func SetupMunicipalityRoutes(api *mux.Router, handler *MunicipalityHandler) {
 	municipalityRouter.HandleFunc("/{id}", handler.GetByID).Methods("GET")
 
 	// Rutas protegidas con JWT
+	municipalityRouter.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected := municipalityRouter.NewRoute().Subrouter()
 	protected.Use(middleware.AdminJWTMiddleware)
 
