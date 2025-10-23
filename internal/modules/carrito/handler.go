@@ -114,7 +114,17 @@ func (h *CarritoHandler) UpdateCarrito(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_UPDATED, carrito, common.HTTP_OK)
+	// Recalcular totales después de actualizar el carrito
+	h.service.CalcularTotales(uint(id))
+
+	// Obtener el carrito actualizado con los nuevos cálculos
+	carritoActualizado, err := h.service.GetCarritoByID(uint(id))
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, common.ERR_INTERNAL_ERROR, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, carritoActualizado, common.HTTP_OK)
 }
 
 func (h *CarritoHandler) DeleteCarrito(w http.ResponseWriter, r *http.Request) {

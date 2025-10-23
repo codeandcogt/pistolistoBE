@@ -11,7 +11,7 @@ func SetupProductoRoutes(api *mux.Router, handler *ProductoHandler) {
 
 	// Rutas protegidas con JWT
 	protected := productoRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.Create).Methods("POST")
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")

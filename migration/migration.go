@@ -4,15 +4,19 @@ import (
 	"fmt"
 	"pistolistoBE/db"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/vehiculo"
 	//"pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
@@ -72,7 +76,16 @@ func Migration() {
 		&carrito.Carrito{},
 		&carrito.CarritoItem{},
 		&resenaEmpresa.ResenaEmpresa{},
+		&producto.Producto{},
+		&articulo.Articulo{},
+		&vehiculo.Vehiculo{},
+		&piloto.Piloto{},
 	)
+	err = database.AutoMigrate(&auth.LogLoginAdmin{})
+
+	//err = database.AutoMigrate(&piloto.Piloto{})
+	//fmt.Println("Tabla pilotos creada/verificada")
+
 	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 	//err := database.AutoMigrate(&rol.Rol{})
 
