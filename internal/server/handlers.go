@@ -24,6 +24,7 @@ import (
 	"pistolistoBE/internal/modules/pago"
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -31,6 +32,7 @@ import (
 	"pistolistoBE/internal/modules/ruta"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/vehiculo"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -109,7 +111,8 @@ func (s *Server) initializeHandlers() *Handlers {
 	direccionRepo := direccion.NewDireccionRepository(s.db)
 	direccionService := direccion.NewDireccionService(direccionRepo)
 	direccionHandler := direccion.NewDireccionHandler(direccionService)
-	//Permiso module
+
+	// Permiso module
 	permisoRepo := permiso.NewPermisoRepository(s.db)
 	permisoService := permiso.NewPermisoService(permisoRepo)
 	permisoHandler := permiso.NewPermisoHandler(permisoService)
@@ -139,6 +142,15 @@ func (s *Server) initializeHandlers() *Handlers {
 	productoService := producto.NewProductoService(productoRepo)
 	productoHandler := producto.NewProductoHandler(productoService)
 
+	// Vehiculo module
+	vehiculoRepo := vehiculo.NewVehiculoRepository(s.db)
+	vehiculoService := vehiculo.NewVehiculoService(vehiculoRepo)
+	vehiculoHandler := vehiculo.NewVehiculoHandler(vehiculoService)
+
+	// Piloto module
+	pilotoRepo := piloto.NewPilotoRepository(s.db)
+	pilotoService := piloto.NewPilotoService(pilotoRepo)
+	pilotoHandler := piloto.NewPilotoHandler(pilotoService)
 	// Pedido module
 	pedidoRepo := pedido.NewPedidoRepository(s.db)
 	pedidoService := pedido.NewPedidoService(pedidoRepo, carritoRepo)
@@ -198,6 +210,8 @@ func (s *Server) initializeHandlers() *Handlers {
 		Administrativo: adminHandler,
 		ResenaEmpresa:  resenaEmpresaHandler,
 		Producto:       productoHandler,
+		Vehiculo:       vehiculoHandler,
+		Piloto:         pilotoHandler,
 		Pedido:         pedidoHandler,
 		Pago:           pagoHandler,
 		Factura:        facturaHandler,
@@ -206,5 +220,4 @@ func (s *Server) initializeHandlers() *Handlers {
 		EstadoRuta:     estadoRutaHandler,
 		LogUbicacion:   logUbicacionHandler,
 	}
-
 }
