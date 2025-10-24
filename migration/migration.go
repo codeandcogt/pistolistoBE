@@ -3,12 +3,11 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
-
 	//"pistolistoBE/internal/modules/estadoRuta"
-	"pistolistoBE/internal/modules/estadoRuta"
-	"pistolistoBE/internal/modules/logUbicacion"
-	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
-	"pistolistoBE/internal/modules/ruta"
+	// "pistolistoBE/internal/modules/estadoRuta"
+	// "pistolistoBE/internal/modules/logUbicacion"
+	// "pistolistoBE/internal/modules/logUbicacionTiempoReal"
+	// "pistolistoBE/internal/modules/ruta"
 	//"pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
@@ -78,7 +77,16 @@ func Migration() {
 	// 	&carrito.CarritoItem{},
 	// 	&resenaEmpresa.ResenaEmpresa{},
 	// )
-	err := database.AutoMigrate(&ruta.Ruta{}, &estadoRuta.EstadoRuta{}, &logUbicacion.LogUbicacion{}, &logUbicacionTiempoReal.LogUbicacionTiempoReal{})
+
+	err := database.Exec(`
+    ALTER TABLE articulos
+    ADD COLUMN IF NOT EXISTS imagen VARCHAR(255);
+`).Error
+	if err != nil {
+		fmt.Println("❌ No se pudo agregar la columna imagen en articulos:", err)
+	} else {
+		fmt.Println("✅ Columna imagen agregada (si no existía)")
+	}
 
 	//err := database.AutoMigrate(&rol.Rol{})
 
@@ -114,6 +122,54 @@ func Migration() {
 	if err != nil {
 		fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
 	}
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_articulo
+	// 	FOREIGN KEY (id_articulo)
+	// 	REFERENCES articulos(id_articulo)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_articulo:", err)
+	// }
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_descuento
+	// 	FOREIGN KEY (id_descuento)
+	// 	REFERENCES descuentos(id_descuento)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE SET NULL
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
+	// }
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_articulo
+	// 	FOREIGN KEY (id_articulo)
+	// 	REFERENCES articulos(id_articulo)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_articulo:", err)
+	// }
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_descuento
+	// 	FOREIGN KEY (id_descuento)
+	// 	REFERENCES descuentos(id_descuento)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE SET NULL
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
+	// }
 
 	// err = database.Exec(`
 	// 	ALTER TABLE productos
