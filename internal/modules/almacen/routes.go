@@ -16,7 +16,7 @@ func SetupAlmacenRoutes(api *mux.Router, handler *AlmacenHandler) {
 	protected := almacenRouter.NewRoute().Subrouter()
 	protected.Use(middleware.JWTMiddleware)
 
-	protected.HandleFunc("/sucursal/{sucursal_id}", handler.GetAllBySucursal).Methods("GET")
+	protected.HandleFunc("/sucursal/{id_sucursal}", handler.GetAllBySucursal).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetAlmacenByID).Methods("GET")
 	protected.HandleFunc("/{id}", handler.UpdateAlmacen).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteAlmacen).Methods("DELETE")

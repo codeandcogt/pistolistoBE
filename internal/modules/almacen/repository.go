@@ -9,7 +9,7 @@ import (
 type AlmacenRepository interface {
 	Create(almacen *Almacen) error
 	GetByID(id uint) (*Almacen, error)
-	GetAllBySucursal(sucursalId uint) ([]*Almacen, error)
+	GetAllBySucursal(IdSucursal uint) ([]*Almacen, error)
 	UpdateAlmacen(id uint, updated *Almacen) (*Almacen, error)
 	DeleteAlmacen(id uint) (string, error)
 }
@@ -35,9 +35,9 @@ func (r *almacenRepository) GetByID(id uint) (*Almacen, error) {
 	return &almacen, nil
 }
 
-func (r *almacenRepository) GetAllBySucursal(sucursalId uint) ([]*Almacen, error) {
+func (r *almacenRepository) GetAllBySucursal(IdSucursal uint) ([]*Almacen, error) {
 	var almacenes []*Almacen
-	err := r.db.Where("sucursal_id = ? AND estado = ?", sucursalId, true).Find(&almacenes).Error
+	err := r.db.Where("id_sucursal = ? AND estado = ?", IdSucursal, true).Find(&almacenes).Error
 	if err != nil {
 		return nil, err
 	}

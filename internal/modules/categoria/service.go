@@ -4,6 +4,7 @@ type CategoriaService interface {
 	CreateCategoria(categoria *Categoria) error
 	GetCategoriaByID(id uint) (*Categoria, error)
 	GetAll() ([]*Categoria, error)
+	UpdateCategoria(id uint, updated *Categoria) (*Categoria, error)
 	DeleteCategoria(id uint) (string, error)
 }
 
@@ -25,6 +26,10 @@ func (s *categoriaService) GetCategoriaByID(id uint) (*Categoria, error) {
 
 func (s *categoriaService) GetAll() ([]*Categoria, error) {
 	return s.repo.GetAll()
+}
+
+func (s *categoriaService) UpdateCategoria(id uint, updated *Categoria) (*Categoria, error) {
+	return s.repo.UpdateCategoria(id, updated)
 }
 
 func (s *categoriaService) DeleteCategoria(id uint) (string, error) {

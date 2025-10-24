@@ -24,8 +24,8 @@ func (s *almacenService) GetByID(id uint) (*Almacen, error) {
 	return s.repo.GetByID(id)
 }
 
-func (s *almacenService) GetAllBySucursal(sucursalId uint) ([]*Almacen, error) {
-	return s.repo.GetAllBySucursal(sucursalId)
+func (s *almacenService) GetAllBySucursal(IdSucursal uint) ([]*Almacen, error) {
+	return s.repo.GetAllBySucursal(IdSucursal)
 }
 
 func (s *almacenService) UpdateAlmacen(id uint, updated *Almacen) (*Almacen, error) {

@@ -12,6 +12,7 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/inventario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
@@ -52,4 +53,5 @@ type Handlers struct {
 	Almacen        *almacen.AlmacenHandler
 	AlmacenSeccion *almacenseccion.AlmacenSeccionHandler
 	Seccion        *seccion.SeccionHandler
+	Inventario     *inventario.InventarioHandler
 }

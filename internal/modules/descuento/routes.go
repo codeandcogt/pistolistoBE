@@ -17,5 +17,6 @@ func SetupDescuentoRoutes(api *mux.Router, handler *DescuentoHandler) {
 
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetDescuentoByID).Methods("GET")
+	protected.HandleFunc("/{id}", handler.UpdateDescuento).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteDescuento).Methods("DELETE")
 }

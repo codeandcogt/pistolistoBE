@@ -10,6 +10,7 @@ type DescuentoRepository interface {
 	Create(descuento *Descuento) error
 	GetByID(id uint) (*Descuento, error)
 	GetAll() ([]*Descuento, error)
+	UpdateDescuento(id uint, updated *Descuento) (*Descuento, error)
 	DeleteDescuento(id uint) (string, error)
 }
 
@@ -42,6 +43,30 @@ func (r *descuentoRepository) GetAll() ([]*Descuento, error) {
 		return nil, err
 	}
 	return descuento, nil
+}
+
+func (r *descuentoRepository) UpdateDescuento(id uint, updated *Descuento) (*Descuento, error) {
+	var descuento Descuento
+	err := r.db.First(&descuento, id).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// Actualiza los campos deseados
+	descuento.Nombre = updated.Nombre
+	descuento.Porcentaje = updated.Porcentaje
+	descuento.TipoDescuento = updated.TipoDescuento
+	descuento.Monto = updated.Monto
+	descuento.Descripcion = updated.Descripcion
+	descuento.Estado = updated.Estado
+	descuento.FechaModificacion = updated.FechaModificacion
+
+	err = r.db.Save(&descuento).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &descuento, nil
 }
 
 func (r *descuentoRepository) DeleteDescuento(id uint) (string, error) {

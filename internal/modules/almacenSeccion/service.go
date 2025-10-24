@@ -1,9 +1,9 @@
 package almacenseccion
 
 type AlmacenSeccionService interface {
-	Create(seccion *AlmacenSeccion) error
+	Create(almseccion *AlmacenSeccion) error
 	GetByID(id uint) (*AlmacenSeccion, error)
-	GetByAlmacen(idAlmacen uint) ([]*AlmacenSeccion, error)
+	GetByAlmacen(IdAlmacen uint) ([]*AlmacenSeccion, error)
 	UpdateAlmacenSeccion(id uint, updated *AlmacenSeccion) (*AlmacenSeccion, error)
 	DeleteAlmacenSeccion(id uint) (string, error)
 }
@@ -16,16 +16,16 @@ func NewAlmacenSeccionService(repo AlmacenSeccionRepository) AlmacenSeccionServi
 	return &almacenSeccionService{repo}
 }
 
-func (s *almacenSeccionService) Create(seccion *AlmacenSeccion) error {
-	return s.repo.Create(seccion)
+func (s *almacenSeccionService) Create(almseccion *AlmacenSeccion) error {
+	return s.repo.Create(almseccion)
 }
 
 func (s *almacenSeccionService) GetByID(id uint) (*AlmacenSeccion, error) {
 	return s.repo.GetByID(id)
 }
 
-func (s *almacenSeccionService) GetByAlmacen(idAlmacen uint) ([]*AlmacenSeccion, error) {
-	return s.repo.GetByAlmacen(idAlmacen)
+func (s *almacenSeccionService) GetByAlmacen(IdAlmacen uint) ([]*AlmacenSeccion, error) {
+	return s.repo.GetByAlmacen(IdAlmacen)
 }
 
 func (s *almacenSeccionService) UpdateAlmacenSeccion(id uint, updated *AlmacenSeccion) (*AlmacenSeccion, error) {

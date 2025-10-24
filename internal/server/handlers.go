@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/inventario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
@@ -119,6 +120,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	seccionService := seccion.NewSeccionService(seccionRepo)
 	seccionHandler := seccion.NewSeccionHandler(seccionService)
 
+	//inventario
+	inventarioRepo := inventario.NewInventarioRepository(s.db)
+	inventarioService := inventario.NewInventarioService(inventarioRepo)
+	inventarioHandler := inventario.NewInventarioHandler(inventarioService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -140,5 +146,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Almacen:        almacenHandler,
 		AlmacenSeccion: almacenSeccionHandler,
 		Seccion:        seccionHandler,
+		Inventario:     inventarioHandler,
 	}
 }

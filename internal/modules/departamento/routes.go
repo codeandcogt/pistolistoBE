@@ -17,5 +17,6 @@ func SetupDepartamentoRoutes(api *mux.Router, handler *DepartamentoHandler) {
 
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetDepartamentoByID).Methods("GET")
+	protected.HandleFunc("/{id}", handler.UpdateDepartamento).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteDepartamento).Methods("DELETE")
 }

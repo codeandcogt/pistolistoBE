@@ -66,6 +66,36 @@ func (h *DescuentoHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, des, common.HTTP_OK)
 }
+
+func (h *DescuentoHandler) UpdateDescuento(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idStr, exists := vars["id"]
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	var updated Descuento
+	if err := json.NewDecoder(r.Body).Decode(&updated); err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	des, err := h.service.UpdateDescuento(uint(id), &updated)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_BAD_REQUEST, common.ERR_DATABASE_ERROR, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, des, common.HTTP_OK)
+}
+
 func (h *DescuentoHandler) DeleteDescuento(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]

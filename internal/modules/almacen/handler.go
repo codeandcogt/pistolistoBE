@@ -50,7 +50,7 @@ func (h *AlmacenHandler) GetAlmacenByID(w http.ResponseWriter, r *http.Request) 
 }
 
 func (h *AlmacenHandler) GetAllBySucursal(w http.ResponseWriter, r *http.Request) {
-	idStr := mux.Vars(r)["sucursal_id"]
+	idStr := mux.Vars(r)["id_sucursal"]
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)

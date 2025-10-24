@@ -7,9 +7,9 @@ import (
 )
 
 type AlmacenSeccionRepository interface {
-	Create(seccion *AlmacenSeccion) error
+	Create(almseccion *AlmacenSeccion) error
 	GetByID(id uint) (*AlmacenSeccion, error)
-	GetByAlmacen(idAlmacen uint) ([]*AlmacenSeccion, error)
+	GetByAlmacen(IdAlmacen uint) ([]*AlmacenSeccion, error)
 	UpdateAlmacenSeccion(id uint, updated *AlmacenSeccion) (*AlmacenSeccion, error)
 	DeleteAlmacenSeccion(id uint) (string, error)
 }
@@ -22,47 +22,47 @@ func NewAlmacenSeccionRepository(db *gorm.DB) AlmacenSeccionRepository {
 	return &almacenSeccionRepository{db}
 }
 
-func (r *almacenSeccionRepository) Create(seccion *AlmacenSeccion) error {
-	return r.db.Create(seccion).Error
+func (r *almacenSeccionRepository) Create(almseccion *AlmacenSeccion) error {
+	return r.db.Create(almseccion).Error
 }
 
 func (r *almacenSeccionRepository) GetByID(id uint) (*AlmacenSeccion, error) {
-	var seccion AlmacenSeccion
-	err := r.db.Where("estado = ?", true).First(&seccion, id).Error
+	var almseccion AlmacenSeccion
+	err := r.db.Where("estado = ?", true).First(&almseccion, id).Error
 	if err != nil {
 		return nil, err
 	}
-	return &seccion, nil
+	return &almseccion, nil
 }
 
-func (r *almacenSeccionRepository) GetByAlmacen(idAlmacen uint) ([]*AlmacenSeccion, error) {
-	var secciones []*AlmacenSeccion
-	err := r.db.Where("id_almacen = ? AND estado = ?", idAlmacen, true).Find(&secciones).Error
+func (r *almacenSeccionRepository) GetByAlmacen(IdAlmacen uint) ([]*AlmacenSeccion, error) {
+	var almsecciones []*AlmacenSeccion
+	err := r.db.Where("id_almacen = ? AND estado = ?", IdAlmacen, true).Find(&almsecciones).Error
 	if err != nil {
 		return nil, err
 	}
-	return secciones, nil
+	return almsecciones, nil
 }
 
 func (r *almacenSeccionRepository) UpdateAlmacenSeccion(id uint, updated *AlmacenSeccion) (*AlmacenSeccion, error) {
-	var seccion AlmacenSeccion
-	err := r.db.First(&seccion, id).Error
+	var almseccion AlmacenSeccion
+	err := r.db.First(&almseccion, id).Error
 	if err != nil {
 		return nil, err
 	}
 
-	seccion.IdAlmacen = updated.IdAlmacen
-	seccion.IdSeccion = updated.IdSeccion
-	seccion.CapacidadSeccion = updated.CapacidadSeccion
-	seccion.Estado = updated.Estado
-	seccion.FechaModificacion = updated.FechaModificacion
+	almseccion.IdAlmacen = updated.IdAlmacen
+	almseccion.IdSeccion = updated.IdSeccion
+	almseccion.CapacidadSeccion = updated.CapacidadSeccion
+	almseccion.Estado = updated.Estado
+	almseccion.FechaModificacion = updated.FechaModificacion
 
-	err = r.db.Save(&seccion).Error
+	err = r.db.Save(&almseccion).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &seccion, nil
+	return &almseccion, nil
 }
 
 func (r *almacenSeccionRepository) DeleteAlmacenSeccion(id uint) (string, error) {

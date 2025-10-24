@@ -4,6 +4,7 @@ type DepartamentoService interface {
 	CreateDepartamento(departamento *Departamento) error
 	GetDepartamentoByID(id uint) (*Departamento, error)
 	GetAll() ([]*Departamento, error)
+	UpdateDepartamento(id uint, updated *Departamento) (*Departamento, error)
 	DeleteDepartamento(id uint) (string, error)
 }
 
@@ -25,6 +26,10 @@ func (s *departamentoService) GetDepartamentoByID(id uint) (*Departamento, error
 
 func (s *departamentoService) GetAll() ([]*Departamento, error) {
 	return s.repo.GetAll()
+}
+
+func (s *departamentoService) UpdateDepartamento(id uint, updated *Departamento) (*Departamento, error) {
+	return s.repo.UpdateDepartamento(id, updated)
 }
 
 func (s *departamentoService) DeleteDepartamento(id uint) (string, error) {

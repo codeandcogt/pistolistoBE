@@ -12,6 +12,7 @@ import (
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/inventario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/permiso"
@@ -101,4 +102,8 @@ func (h *Handlers) GetAlmacenSeccionHandler() *almacenseccion.AlmacenSeccionHand
 
 func (h *Handlers) GetSeccionHandler() *seccion.SeccionHandler {
 	return h.Seccion
+}
+
+func (h *Handlers) GetInventarioHandler() *inventario.InventarioHandler {
+	return h.Inventario
 }
