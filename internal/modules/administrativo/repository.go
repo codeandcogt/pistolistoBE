@@ -49,7 +49,7 @@ func (r *adminRepository) GetByID(id uint) (*Administrativo, error) {
 }
 
 func (r *adminRepository) Delete(id uint) (string, error) {
-	result := r.db.Model(&Administrativo{}).Where("id_permiso = ?", id).Update("estado", false)
+	result := r.db.Model(&Administrativo{}).Where("id_administrativo = ?", id).Update("estado", false)
 
 	if result.Error != nil {
 		return common.ERR_DATABASE_ERROR, result.Error
@@ -64,7 +64,7 @@ func (r *adminRepository) Delete(id uint) (string, error) {
 
 func (r *adminRepository) Update(permiso *Administrativo) (string, error) {
 	result := r.db.Model(&Administrativo{}).
-		Where("id_permiso = ? AND estado = ?", permiso.IdAdministrativo, true).
+		Where("id_administrativo = ? AND estado = ?", permiso.IdAdministrativo, true).
 		Updates(permiso)
 
 	if result.Error != nil {

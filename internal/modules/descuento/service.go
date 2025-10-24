@@ -4,6 +4,7 @@ type DescuentoService interface {
 	CreateDescuento(descuento *Descuento) error
 	GetDescuentoByID(id uint) (*Descuento, error)
 	GetAll() ([]*Descuento, error)
+	UpdateDescuento(id uint, updated *Descuento) (*Descuento, error)
 	DeleteDescuento(id uint) (string, error)
 }
 
@@ -25,6 +26,10 @@ func (s *descuentoService) GetDescuentoByID(id uint) (*Descuento, error) {
 
 func (s *descuentoService) GetAll() ([]*Descuento, error) {
 	return s.repo.GetAll()
+}
+
+func (s *descuentoService) UpdateDescuento(id uint, updated *Descuento) (*Descuento, error) {
+	return s.repo.UpdateDescuento(id, updated)
 }
 
 func (s *descuentoService) DeleteDescuento(id uint) (string, error) {

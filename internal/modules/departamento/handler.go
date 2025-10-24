@@ -66,6 +66,34 @@ func (h *DepartamentoHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, dep, common.HTTP_OK)
 }
+func (h *DepartamentoHandler) UpdateDepartamento(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idStr, exists := vars["id"]
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	var updated Departamento
+	if err := json.NewDecoder(r.Body).Decode(&updated); err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	dep, err := h.service.UpdateDepartamento(uint(id), &updated)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_BAD_REQUEST, common.ERR_DATABASE_ERROR, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, dep, common.HTTP_OK)
+}
 func (h *DepartamentoHandler) DeleteDepartamento(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]

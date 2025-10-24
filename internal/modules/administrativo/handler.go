@@ -74,6 +74,15 @@ func (h *AdministrativoHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	admin.IdAdministrativo = uint(id)
 
+	if admin.Contrasenia != "" {
+		hash, err := bcrypt.GenerateFromPassword([]byte(admin.Contrasenia), bcrypt.DefaultCost)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		admin.Contrasenia = string(hash)
+	}
+
 	updatedText, err := h.service.Update(&admin)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

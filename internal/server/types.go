@@ -2,6 +2,8 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
@@ -13,6 +15,11 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
+	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -25,9 +32,12 @@ import (
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/vehiculo"
+	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -58,6 +68,12 @@ type Handlers struct {
 	Direccion      *direccion.DireccionHandler
 	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
+	Wishlist       *wishlist.WishlistHandler
+	WishListItem   *wishlistitem.WishListItemHandler
+	Almacen        *almacen.AlmacenHandler
+	AlmacenSeccion *almacenseccion.AlmacenSeccionHandler
+	Seccion        *seccion.SeccionHandler
+	Inventario     *inventario.InventarioHandler
 	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 	Producto       *producto.ProductoHandler
 	Vehiculo       *vehiculo.VehiculoHandler
@@ -65,4 +81,8 @@ type Handlers struct {
 	Pedido         *pedido.PedidoHandler
 	Pago           *pago.PagoHandler
 	Factura        *factura.FacturaHandler
+	EstadoPedido   *estadoPedido.EstadoPedidoHandler
+	Ruta           *ruta.RutaHandler
+	EstadoRuta     *estadoRuta.EstadoRutaHandler
+	LogUbicacion   *logUbicacion.LogUbicacionHandler
 }

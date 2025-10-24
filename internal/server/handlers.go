@@ -3,6 +3,8 @@ package server
 import (
 	"pistolistoBE/internal/config"
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
@@ -14,7 +16,12 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/pago"
@@ -25,9 +32,13 @@ import (
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/ruta"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/vehiculo"
+	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 )
 
 func (s *Server) initializeHandlers() *Handlers {
@@ -76,6 +87,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	descuentoRepo := descuento.NewDescuento(s.db)
 	descuentoService := descuento.NewDescuentoService(descuentoRepo)
 	descuentoHandler := descuento.NewDescuentoHandler(descuentoService)
+	//Wishlist module
+	wishlistRepo := wishlist.NewWishlist(s.db)
+	WishlistService := wishlist.NewWishlistService(wishlistRepo)
+	WishlistHandler := wishlist.NewWishlistHandler(WishlistService)
 
 	// Moneda module
 	monedaRepo := moneda.NewMonedaRepository(s.db)
@@ -127,6 +142,25 @@ func (s *Server) initializeHandlers() *Handlers {
 	adminService := administrativo.NewAdministrativoService(adminRepo)
 	adminHandler := administrativo.NewAdministrativoHandler(adminService)
 
+	//WishListItem Modulo
+	wishListItemRepo := wishlistitem.NewWishListItemRepository(s.db)
+	wishListItemService := wishlistitem.NewWishListItemService(wishListItemRepo)
+	wishListItemHandler := wishlistitem.NewWishListItemHandler(wishListItemService)
+
+	//Almacen
+	almacenRepo := almacen.NewAlmacenRepository(s.db)
+	almacenService := almacen.NewAlmacenService(almacenRepo)
+	almacenHandler := almacen.NewAlmacenHandler(almacenService)
+
+	//AlmacenSeccion
+	almacenSeccionRepo := almacenseccion.NewAlmacenSeccionRepository(s.db)
+	almacenSeccionService := almacenseccion.NewAlmacenSeccionService(almacenSeccionRepo)
+	almacenSeccionHandler := almacenseccion.NewAlmacenSeccionHandler(almacenSeccionService)
+
+	//Seccion
+	seccionRepo := seccion.NewSeccionRepository(s.db)
+	seccionService := seccion.NewSeccionService(seccionRepo)
+	seccionHandler := seccion.NewSeccionHandler(seccionService)
 	// ResenaEmpresa module
 	resenaEmpresaRepo := resenaEmpresa.NewResenaEmpresaRepository(s.db)
 	resenaEmpresaService := resenaEmpresa.NewResenaEmpresaService(resenaEmpresaRepo)
@@ -148,7 +182,7 @@ func (s *Server) initializeHandlers() *Handlers {
 	pilotoHandler := piloto.NewPilotoHandler(pilotoService)
 	// Pedido module
 	pedidoRepo := pedido.NewPedidoRepository(s.db)
-	pedidoService := pedido.NewPedidoService(pedidoRepo)
+	pedidoService := pedido.NewPedidoService(pedidoRepo, carritoRepo)
 	pedidoHandler := pedido.NewPedidoHandler(pedidoService)
 
 	// Pago module
@@ -158,8 +192,35 @@ func (s *Server) initializeHandlers() *Handlers {
 
 	// Factura module
 	facturaRepo := factura.NewFacturaRepository(s.db)
-	facturaService := factura.NewFacturaService(facturaRepo)
+	facturaService := factura.NewFacturaService(facturaRepo, pedidoRepo)
 	facturaHandler := factura.NewFacturaHandler(facturaService)
+
+	//inventario
+	inventarioRepo := inventario.NewInventarioRepository(s.db)
+	inventarioService := inventario.NewInventarioService(inventarioRepo)
+	inventarioHandler := inventario.NewInventarioHandler(inventarioService)
+
+	// Estado Pedido module
+	estadoPedidoRepo := estadoPedido.NewEstadoPedidoRepository(s.db)
+	estadoPedidoService := estadoPedido.NewEstadoPedidoService(estadoPedidoRepo)
+	estadoPedidoHandler := estadoPedido.NewEstadoPedidoHandler(estadoPedidoService)
+
+	// Ruta module
+	rutaRepo := ruta.NewRutaRepository(s.db)
+	rutaService := ruta.NewRutaService(rutaRepo)
+	rutaHandler := ruta.NewRutaHandler(rutaService)
+
+	estadoRutaRepo := estadoRuta.NewEstadoRutaRepository(s.db)
+	estadoRutaService := estadoRuta.NewEstadoRutaService(estadoRutaRepo)
+	estadoRutaHandler := estadoRuta.NewEstadoRutaHandler(estadoRutaService)
+
+	// LogUbicacionTiempoReal (primero)
+	logUbicacionTiempoRealRepo := logUbicacionTiempoReal.NewLogUbicacionTiempoRealRepository(s.db)
+
+	// LogUbicacion
+	logUbicacionRepo := logUbicacion.NewLogUbicacionRepository(s.db)
+	logUbicacionService := logUbicacion.NewLogUbicacionService(logUbicacionRepo, logUbicacionTiempoRealRepo)
+	logUbicacionHandler := logUbicacion.NewLogUbicacionHandler(logUbicacionService)
 
 	return &Handlers{
 		Cliente:        clienteHandler,
@@ -181,6 +242,12 @@ func (s *Server) initializeHandlers() *Handlers {
 		RolPermiso:     rolPermisoHandler,
 		Articulo:       articuloHandler,
 		Administrativo: adminHandler,
+		Wishlist:       WishlistHandler,
+		WishListItem:   wishListItemHandler,
+		Almacen:        almacenHandler,
+		AlmacenSeccion: almacenSeccionHandler,
+		Seccion:        seccionHandler,
+		Inventario:     inventarioHandler,
 		ResenaEmpresa:  resenaEmpresaHandler,
 		Producto:       productoHandler,
 		Vehiculo:       vehiculoHandler,
@@ -188,5 +255,9 @@ func (s *Server) initializeHandlers() *Handlers {
 		Pedido:         pedidoHandler,
 		Pago:           pagoHandler,
 		Factura:        facturaHandler,
+		EstadoPedido:   estadoPedidoHandler,
+		Ruta:           rutaHandler,
+		EstadoRuta:     estadoRutaHandler,
+		LogUbicacion:   logUbicacionHandler,
 	}
 }

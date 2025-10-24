@@ -10,6 +10,7 @@ type DepartamentoRepository interface {
 	Create(departamento *Departamento) error
 	GetByID(id uint) (*Departamento, error)
 	GetAll() ([]*Departamento, error)
+	UpdateDepartamento(id uint, updated *Departamento) (*Departamento, error)
 	DeleteDepartamento(id uint) (string, error)
 }
 
@@ -42,6 +43,27 @@ func (r *departamentoRepository) GetAll() ([]*Departamento, error) {
 		return nil, err
 	}
 	return departamento, nil
+}
+func (r *departamentoRepository) UpdateDepartamento(id uint, updated *Departamento) (*Departamento, error) {
+	var departamento Departamento
+	err := r.db.First(&departamento, id).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// Actualiza los campos deseados
+	departamento.Nombre = updated.Nombre
+	departamento.Codigo = updated.Codigo
+	departamento.Descripcion = updated.Descripcion
+	departamento.Estado = updated.Estado
+	departamento.FechaModificacion = updated.FechaModificacion
+
+	err = r.db.Save(&departamento).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &departamento, nil
 }
 
 func (r *departamentoRepository) DeleteDepartamento(id uint) (string, error) {
