@@ -37,56 +37,49 @@ func generarUUID() string {
 	return fmt.Sprintf("UUID-%d-%d", time.Now().Unix(), rand.Intn(99999))
 }
 
-// --------------------
-// Lógica de facturación
-// --------------------
 func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
-	// 1️⃣ Validar pedido existente
+	// Validar pedido existente
 	pedidoData, err := s.pedidoRepo.GetByID(uint(factura.IdPedido))
 	if err != nil {
 		return nil, fmt.Errorf("no se encontró el pedido con id %d", factura.IdPedido)
 	}
 
-	// 2️⃣ Validar que el pedido esté pagado
+	// Validar que el pedido esté pagado
 	if pedidoData.IdEstadoPedido != 2 {
 		return nil, fmt.Errorf("el pedido %d aún no está pagado, no se puede emitir factura", pedidoData.IdPedido)
 	}
 
-	// 3️⃣ Verificar si ya existe factura para este pedido
+	// Verificar si ya existe factura para este pedido
 	existente, _ := s.repo.GetByPedido(uint(factura.IdPedido))
 	if existente != nil && existente.IdFactura != 0 {
 		return nil, fmt.Errorf("ya existe una factura asociada al pedido %d", factura.IdPedido)
 	}
 
-	// 4️⃣ Completar datos financieros desde el pedido
+	// Completar datos financieros desde el pedido
 	factura.Subtotal = pedidoData.Subtotal
 	factura.Impuestos = pedidoData.Impuesto
 	factura.Total = pedidoData.Total
-	factura.Descuento = 0 // si manejás cupones o descuentos, aquí podrías traerlo
+	factura.Descuento = 0
 	factura.FechaEmision = time.Now()
 
-	// 5️⃣ Generar número, serie y UUID
+	// Generar número, serie y UUID
 	numero, serie := generarNumeroSerie()
 	factura.Numero = numero
 	factura.Serie = serie
 	factura.UUID = generarUUID()
 
-	// 6️⃣ Validar campos obligatorios
+	// Validar campos obligatorios
 	if factura.RazonSocial == "" || factura.DireccionFiscal == "" {
 		return nil, errors.New("la razón social y la dirección fiscal son obligatorias")
 	}
 
-	// 7️⃣ Guardar factura
+	// Guardar factura
 	if err := s.repo.Create(factura); err != nil {
 		return nil, err
 	}
 
 	return factura, nil
 }
-
-// --------------------
-// CRUD básico
-// --------------------
 
 func (s *facturaService) GetByID(id uint) (*Factura, error) {
 	return s.repo.GetByID(id)

@@ -9,10 +9,14 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/banco"
@@ -63,6 +67,9 @@ type RouteHandlers interface {
 	GetPagoHandler() *pago.PagoHandler
 	GetFacturaHandler() *factura.FacturaHandler
 	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
+	GetRutaHandler() *ruta.RutaHandler
+	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
+	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -98,4 +105,9 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
 	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
 	estadoPedido.SetupEstadoPedidoRoutes(api, handlers.GetEstadoPedidoHandler())
+	ruta.SetupRutaRoutes(api, handlers.GetRutaHandler())
+	estadoRuta.SetupEstadoRutaRoutes(api, handlers.GetEstadoRutaHandler())
+	logUbicacion.SetupLogUbicacionRoutes(api, handlers.GetLogUbicacionHandler())
+	logUbicacionTiempoReal.SetupLogUbicacionTiempoRealRoutes(api)
+
 }

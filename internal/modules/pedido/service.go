@@ -53,7 +53,7 @@ func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
 		descuento = *cart.Descuento
 	}
 	impuesto := (subtotal - descuento) * 0.12 // IVA 12%
-	costoEnvio := 50.00                       // Temporal: fijo o según dirección
+	costoEnvio := 50.00
 	total := subtotal - descuento + impuesto + costoEnvio
 
 	// Generar datos del pedido tomando cliente desde el carrito
@@ -78,7 +78,7 @@ func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
 	cart.PedidoId = &pedido.IdPedido
 	err = s.carritoRepo.Update(cart.IdCarrito, cart)
 	if err != nil {
-		fmt.Println("⚠️ No se pudo actualizar el carrito con el pedido:", err)
+		fmt.Println("No se pudo actualizar el carrito con el pedido:", err)
 	}
 
 	return pedido, nil

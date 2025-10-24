@@ -3,7 +3,12 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
-	"pistolistoBE/internal/modules/estadoPedido"
+
+	//"pistolistoBE/internal/modules/estadoRuta"
+	"pistolistoBE/internal/modules/estadoRuta"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
+	"pistolistoBE/internal/modules/ruta"
 	//"pistolistoBE/internal/modules/rol"
 	//"pistolistoBE/internal/modules/administrativo"
 	//"pistolistoBE/internal/modules/permiso"
@@ -64,7 +69,7 @@ func Migration() {
 	// 	&carrito.CarritoItem{},
 	// 	&resenaEmpresa.ResenaEmpresa{},
 	// )
-	err := database.AutoMigrate(&estadoPedido.EstadoPedido{})
+	err := database.AutoMigrate(&ruta.Ruta{}, &estadoRuta.EstadoRuta{}, &logUbicacion.LogUbicacion{}, &logUbicacionTiempoReal.LogUbicacionTiempoReal{})
 
 	//err := database.AutoMigrate(&rol.Rol{})
 

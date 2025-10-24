@@ -14,6 +14,9 @@ import (
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -127,4 +130,16 @@ func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
 
 func (h *Handlers) GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler {
 	return h.EstadoPedido
+}
+
+func (h *Handlers) GetRutaHandler() *ruta.RutaHandler {
+	return h.Ruta
+}
+
+func (h *Handlers) GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler {
+	return h.EstadoRuta
+}
+
+func (h *Handlers) GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler {
+	return h.LogUbicacion
 }

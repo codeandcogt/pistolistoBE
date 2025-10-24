@@ -1,4 +1,4 @@
-package subsidiary
+package estadoRuta
 
 import (
 	"pistolistoBE/internal/middleware"
@@ -6,11 +6,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func SetupSubsidiaryRoutes(api *mux.Router, handler *SubsidiaryHandler) {
-	subsidiaryRouter := api.PathPrefix("/subsidiaries").Subrouter()
+func SetupEstadoRutaRoutes(api *mux.Router, handler *EstadoRutaHandler) {
+	estadoRutaRouter := api.PathPrefix("/estado-ruta").Subrouter()
 
-	// Rutas protegidas con JWT
-	protected := subsidiaryRouter.NewRoute().Subrouter()
+	protected := estadoRutaRouter.NewRoute().Subrouter()
 	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.Create).Methods("POST")
