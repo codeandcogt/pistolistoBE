@@ -24,6 +24,18 @@ func CORS(next http.Handler) http.Handler {
 			log.Println("Origin no permitido:", origin)
 		}
 
+		if origin != "" &&
+			(strings.HasPrefix(origin, "http://localhost:") ||
+				strings.HasPrefix(origin, "http://169.254.") ||
+				strings.HasPrefix(origin, "https://pistolisto-web.vercel.app") ||
+				strings.HasPrefix(origin, "https://")) {
+
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Vary", "Origin")
+		} else {
+			log.Println("Origin no permitido:", origin)
+		}
+
 		// Cabeceras permitidas
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin")

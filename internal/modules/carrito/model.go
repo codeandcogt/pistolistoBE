@@ -14,7 +14,7 @@ type Carrito struct {
 	Estado            *bool         `gorm:"type:boolean;column:estado;default:true" json:"estado"`
 	FechaModificacion *time.Time    `gorm:"type:timestamp;column:fecha_modificacion" json:"fechaModificacion"`
 	FechaCreacion     *time.Time    `gorm:"type:timestamp;column:fecha_creacion" json:"fechaCreacion"`
-	Items             []CarritoItem `gorm:"foreignKey:CarritoId" json:"items,omitempty"`
+	Items             []CarritoItem `gorm:"foreignKey:CarritoId;references:IdCarrito" json:"items,omitempty"`
 }
 
 type CarritoItem struct {

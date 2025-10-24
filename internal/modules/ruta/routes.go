@@ -1,4 +1,4 @@
-package estadoPedido
+package ruta
 
 import (
 	"pistolistoBE/internal/middleware"
@@ -6,16 +6,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func SetupEstadoPedidoRoutes(api *mux.Router, handler *EstadoPedidoHandler) {
-	estadoPedidoRouter := api.PathPrefix("/estado-pedido").Subrouter()
+func SetupRutaRoutes(api *mux.Router, handler *RutaHandler) {
+	rutaRouter := api.PathPrefix("/rutas").Subrouter()
 
-	// Rutas protegidas con JWT
-	protected := estadoPedidoRouter.NewRoute().Subrouter()
+	protected := rutaRouter.NewRoute().Subrouter()
 	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("", handler.Create).Methods("POST")
 	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetByID).Methods("GET")
 	protected.HandleFunc("/{id}", handler.Update).Methods("PUT")
+	protected.HandleFunc("/{id}/estado", handler.CambiarEstado).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.Delete).Methods("DELETE")
 }
