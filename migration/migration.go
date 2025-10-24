@@ -10,6 +10,7 @@ import (
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/producto"
@@ -98,26 +99,16 @@ func Migration() {
 		&articulo.Articulo{},
 		&vehiculo.Vehiculo{},
 		&piloto.Piloto{},
+		&formulario.Formulario{},
 	)
 	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 
-	//err = database.AutoMigrate(&piloto.Piloto{})
-	//fmt.Println("Tabla pilotos creada/verificada")
+	err = database.AutoMigrate(&formulario.Formulario{})
+	fmt.Println("Tabla formularios creada/verificada")
 
 	err = database.AutoMigrate(&auth.LogLoginAdmin{})
-	// err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{},
-	// 	&moneda.Moneda{},
-	// 	&banco.Banco{},
-	// 	&cupon.Cupon{},
-	// 	&carrito.Carrito{},
-	// 	&carrito.CarritoItem{},
-	// 	&resenaEmpresa.ResenaEmpresa{},
-	// )
 
 	//err := database.AutoMigrate(&rol.Rol{})
-
-	//err = database.AutoMigrate(&piloto.Piloto{})
-	//fmt.Println("Tabla pilotos creada/verificada")
 
 	//err := database.AutoMigrate(&producto.Producto{})
 	//err := database.AutoMigrate(
@@ -419,14 +410,14 @@ func Migration() {
 	//database.Exec("ALTER TABLE wishlists ADD CONSTRAINT fk_wishlist_cliente FOREIGN KEY (id_wishlist) REFERENCES clientes(id_cliente)")
 	//database.Exec("ALTER TABLE wish_list_items ADD CONSTRAINT fk_wishlistItem_wishlist FOREIGN KEY (id_wish_list_item) REFERENCES wishlists(id_wishlist)")
 	//database.Exec("ALTER TABLE almacens ADD CONSTRAINT fk_almacen_sucursal FOREIGN KEY (id_almacen) REFERENCES subsidiaries(id_sucursal)")
-	err := database.Exec(`
-    ALTER TABLE almacens
-    ADD CONSTRAINT fk_almacen_sucursal
-    FOREIGN KEY (id_sucursal)
-    REFERENCES subsidiaries(id_sucursal)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT;
-`).Error
+	// 	err := database.Exec(`
+	//     ALTER TABLE almacens
+	//     ADD CONSTRAINT fk_almacen_sucursal
+	//     FOREIGN KEY (id_sucursal)
+	//     REFERENCES subsidiaries(id_sucursal)
+	//     ON UPDATE CASCADE
+	//     ON DELETE RESTRICT;
+	// `).Error
 
 	if err != nil {
 		fmt.Println("❌ No se pudo crear FK fk_almacen_sucursal:", err)

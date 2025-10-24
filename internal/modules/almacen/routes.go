@@ -14,10 +14,11 @@ func SetupAlmacenRoutes(api *mux.Router, handler *AlmacenHandler) {
 
 	// Subrouter protegido con middleware JWT
 	protected := almacenRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("/sucursal/{id_sucursal}", handler.GetAllBySucursal).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetAlmacenByID).Methods("GET")
+	almacenRouter.HandleFunc("", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.UpdateAlmacen).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteAlmacen).Methods("DELETE")
 }

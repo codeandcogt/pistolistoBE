@@ -46,6 +46,7 @@ import (
 
 	"pistolistoBE/internal/modules/vehiculo"
 
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/piloto"
 
 	"github.com/gorilla/mux"
@@ -84,12 +85,11 @@ type RouteHandlers interface {
 	GetPedidoHandler() *pedido.PedidoHandler
 	GetPagoHandler() *pago.PagoHandler
 	GetFacturaHandler() *factura.FacturaHandler
-	GetVehiculoHandler() *vehiculo.VehiculoHandler
-	GetPilotoHandler() *piloto.PilotoHandler
 	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
 	GetRutaHandler() *ruta.RutaHandler
 	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
 	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
+	GetFormularioHandler() *formulario.FormularioHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -144,5 +144,6 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	estadoRuta.SetupEstadoRutaRoutes(api, handlers.GetEstadoRutaHandler())
 	logUbicacion.SetupLogUbicacionRoutes(api, handlers.GetLogUbicacionHandler())
 	logUbicacionTiempoReal.SetupLogUbicacionTiempoRealRoutes(api)
+	formulario.SetupFormularioRoutes(api, handlers.GetFormularioHandler())
 
 }
