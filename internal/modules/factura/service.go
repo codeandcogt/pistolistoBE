@@ -37,9 +37,6 @@ func generarUUID() string {
 	return fmt.Sprintf("UUID-%d-%d", time.Now().Unix(), rand.Intn(99999))
 }
 
-// --------------------
-// Lógica de facturación
-// --------------------
 func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
 	if factura.IdPedido == 0 {
 		return nil, errors.New("pedido no válido para facturación")
@@ -92,10 +89,6 @@ func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
 
 	return factura, nil
 }
-
-// --------------------
-// CRUD básico
-// --------------------
 
 func (s *facturaService) GetByID(id uint) (*Factura, error) {
 	return s.repo.GetByID(id)
