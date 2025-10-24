@@ -15,7 +15,11 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -23,6 +27,7 @@ import (
 	"pistolistoBE/internal/modules/pago"
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -30,6 +35,7 @@ import (
 	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/vehiculo"
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 
@@ -73,4 +79,10 @@ type Handlers struct {
 	Pedido         *pedido.PedidoHandler
 	Pago           *pago.PagoHandler
 	Factura        *factura.FacturaHandler
+	Vehiculo       *vehiculo.VehiculoHandler
+	Piloto         *piloto.PilotoHandler
+	EstadoPedido   *estadoPedido.EstadoPedidoHandler
+	Ruta           *ruta.RutaHandler
+	EstadoRuta     *estadoRuta.EstadoRutaHandler
+	LogUbicacion   *logUbicacion.LogUbicacionHandler
 }

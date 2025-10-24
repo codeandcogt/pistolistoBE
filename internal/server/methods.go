@@ -15,7 +15,11 @@ import (
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
 	"pistolistoBE/internal/modules/direccion"
+	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
@@ -23,6 +27,7 @@ import (
 	"pistolistoBE/internal/modules/pago"
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -30,6 +35,7 @@ import (
 	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+	"pistolistoBE/internal/modules/vehiculo"
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 )
@@ -141,6 +147,14 @@ func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
 	return h.Producto
 }
 
+func (h *Handlers) GetVehiculoHandler() *vehiculo.VehiculoHandler {
+	return h.Vehiculo
+}
+
+func (h *Handlers) GetPilotoHandler() *piloto.PilotoHandler {
+	return h.Piloto
+}
+
 func (h *Handlers) GetPedidoHandler() *pedido.PedidoHandler {
 	return h.Pedido
 }
@@ -151,4 +165,20 @@ func (h *Handlers) GetPagoHandler() *pago.PagoHandler {
 
 func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
 	return h.Factura
+}
+
+func (h *Handlers) GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler {
+	return h.EstadoPedido
+}
+
+func (h *Handlers) GetRutaHandler() *ruta.RutaHandler {
+	return h.Ruta
+}
+
+func (h *Handlers) GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler {
+	return h.EstadoRuta
+}
+
+func (h *Handlers) GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler {
+	return h.LogUbicacion
 }

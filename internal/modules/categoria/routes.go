@@ -11,11 +11,11 @@ func SetupCategoriaRoutes(api *mux.Router, handler *CategoriaHandler) {
 
 	categoriaRouter.HandleFunc("", handler.CreateCategoria).Methods("POST")
 
+	categoriaRouter.HandleFunc("/all", handler.GetAll).Methods("GET")
 	// Rutas protegidas -> subrouter con middleware
 	protected := categoriaRouter.NewRoute().Subrouter()
-	protected.Use(middleware.JWTMiddleware)
+	protected.Use(middleware.AdminJWTMiddleware)
 
-	protected.HandleFunc("/all", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetCategoriaByID).Methods("GET")
 	protected.HandleFunc("/{id}", handler.UpdateCategoria).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteCategoria).Methods("DELETE")

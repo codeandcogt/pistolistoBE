@@ -9,7 +9,7 @@ import (
 func SetUpAdminRoutes(api *mux.Router, handler *AdministrativoHandler) {
 	rolRouter := api.PathPrefix("/admin").Subrouter()
 
-	rolRouter.Use(middleware.JWTMiddleware)
+	rolRouter.Use(middleware.AdminJWTMiddleware)
 
 	rolRouter.HandleFunc("", handler.Create).Methods("POST")
 	rolRouter.HandleFunc("/all", handler.GetAll).Methods("GET")

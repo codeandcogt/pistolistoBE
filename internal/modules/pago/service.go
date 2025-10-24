@@ -41,6 +41,27 @@ func (s *pagoService) ProcesarPago(pago *Pago) (*Pago, error) {
 		return nil, errors.New("el monto del pago debe ser mayor que cero")
 	}
 
+	// 1️⃣ Validar que el pedido exista
+	pedidoExistente, err := s.pedidoRepo.GetByID(uint(pago.IdPedido))
+	if err != nil {
+		return nil, fmt.Errorf("no se encontró el pedido con id %d", pago.IdPedido)
+	}
+
+	// 2️⃣ Evitar pagos duplicados (validación extra)
+	pagosPrevios, _ := s.repo.GetByPedido(uint(pago.IdPedido))
+	if len(pagosPrevios) > 0 {
+		return nil, fmt.Errorf("el pedido %d ya tiene un pago registrado", pago.IdPedido)
+	}
+
+	// 3️⃣ Asignar el monto desde el pedido
+	pago.Monto = pedidoExistente.Total
+
+	// 4️⃣ Validar monto
+	if pago.Monto <= 0 {
+		return nil, errors.New("el monto del pedido no es válido")
+	}
+
+	// 5️⃣ Simular pasarela de pago (mock)
 	auth, err := s.procesarMockPasarela(pago)
 	if err != nil {
 		return nil, err
@@ -50,12 +71,14 @@ func (s *pagoService) ProcesarPago(pago *Pago) (*Pago, error) {
 	pago.Autorizacion = &auth
 	pago.FechaAutorizacion = &now
 
+	// 6️⃣ Guardar el pago
 	if err := s.repo.Create(pago); err != nil {
 		return nil, err
 	}
 
+	// 7️⃣ Actualizar el estado del pedido a “Pagado”
 	if err := s.pedidoRepo.UpdateEstado(uint(pago.IdPedido), 2); err != nil {
-		fmt.Println("No se pudo actualizar el estado del pedido:", err)
+		fmt.Println("⚠️ No se pudo actualizar el estado del pedido:", err)
 	}
 
 	return pago, nil

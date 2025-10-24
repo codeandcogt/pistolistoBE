@@ -10,11 +10,16 @@ import (
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/estadoPedido"
+	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/logUbicacion"
+	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/ruta"
 	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
@@ -38,6 +43,10 @@ import (
 
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
+
+	"pistolistoBE/internal/modules/vehiculo"
+
+	"pistolistoBE/internal/modules/piloto"
 
 	"github.com/gorilla/mux"
 )
@@ -73,6 +82,12 @@ type RouteHandlers interface {
 	GetPedidoHandler() *pedido.PedidoHandler
 	GetPagoHandler() *pago.PagoHandler
 	GetFacturaHandler() *factura.FacturaHandler
+	GetVehiculoHandler() *vehiculo.VehiculoHandler
+	GetPilotoHandler() *piloto.PilotoHandler
+	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
+	GetRutaHandler() *ruta.RutaHandler
+	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
+	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -113,5 +128,17 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
 	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
 	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
+	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
+	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
+	vehiculo.SetupVehiculoRoutes(api, handlers.GetVehiculoHandler())
+	piloto.SetupPilotoRoutes(api, handlers.GetPilotoHandler())
+	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
+	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
+	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
+	estadoPedido.SetupEstadoPedidoRoutes(api, handlers.GetEstadoPedidoHandler())
+	ruta.SetupRutaRoutes(api, handlers.GetRutaHandler())
+	estadoRuta.SetupEstadoRutaRoutes(api, handlers.GetEstadoRutaHandler())
+	logUbicacion.SetupLogUbicacionRoutes(api, handlers.GetLogUbicacionHandler())
+	logUbicacionTiempoReal.SetupLogUbicacionTiempoRealRoutes(api)
 
 }
