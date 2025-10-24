@@ -17,5 +17,6 @@ func SetupCategoriaRoutes(api *mux.Router, handler *CategoriaHandler) {
 	protected.Use(middleware.AdminJWTMiddleware)
 
 	protected.HandleFunc("/{id}", handler.GetCategoriaByID).Methods("GET")
+	protected.HandleFunc("/{id}", handler.UpdateCategoria).Methods("PUT")
 	protected.HandleFunc("/{id}", handler.DeleteCategoria).Methods("DELETE")
 }

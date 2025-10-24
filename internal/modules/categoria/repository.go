@@ -10,6 +10,7 @@ type CategoriaRepository interface {
 	Create(categoria *Categoria) error
 	GetByID(id uint) (*Categoria, error)
 	GetAll() ([]*Categoria, error)
+	UpdateCategoria(id uint, updated *Categoria) (*Categoria, error)
 	DeleteCategoria(id uint) (string, error)
 }
 
@@ -42,6 +43,27 @@ func (r *categoriaRepository) GetAll() ([]*Categoria, error) {
 		return nil, err
 	}
 	return categoria, nil
+}
+
+func (r *categoriaRepository) UpdateCategoria(id uint, updated *Categoria) (*Categoria, error) {
+	var categoria Categoria
+	err := r.db.First(&categoria, id).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// Actualiza los campos deseados
+	categoria.Nombre = updated.Nombre
+	categoria.Descripcion = updated.Descripcion
+	categoria.Estado = updated.Estado
+	categoria.FechaModificacion = updated.FechaModificacion
+
+	err = r.db.Save(&categoria).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &categoria, nil
 }
 
 func (r *categoriaRepository) DeleteCategoria(id uint) (string, error) {

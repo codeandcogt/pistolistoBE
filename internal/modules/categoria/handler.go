@@ -66,6 +66,36 @@ func (h *CategoriaHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, cat, common.HTTP_OK)
 }
+
+func (h *CategoriaHandler) UpdateCategoria(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idStr, exists := vars["id"]
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	var updated Categoria
+	if err := json.NewDecoder(r.Body).Decode(&updated); err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	cat, err := h.service.UpdateCategoria(uint(id), &updated)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_BAD_REQUEST, common.ERR_DATABASE_ERROR, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, cat, common.HTTP_OK)
+}
+
 func (h *CategoriaHandler) DeleteCategoria(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]

@@ -31,6 +31,22 @@ func NewPedidoService(repo PedidoRepository, carritoRepo carrito.CarritoReposito
 // Crear pedido (checkout)
 // ----------------------
 func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
+	// Generar número de pedido único
+	pedido.NumeroPedido = fmt.Sprintf("PED-%d-%04d", time.Now().Unix(), rand.Intn(10000))
+
+	// Simular cálculo de totales (en un sistema real, esto vendría del carrito)
+	if pedido.Subtotal == 0 {
+		return nil, errors.New("el subtotal no puede ser cero")
+	}
+	pedido.Impuesto = pedido.Subtotal * 0.12 // 12% IVA ejemplo
+	pedido.Total = pedido.Subtotal + pedido.Impuesto + pedido.CostoEnvio
+
+	// Estado inicial “Pendiente”
+	pedido.IdEstadoPedido = 1
+
+	if err := s.repo.Create(pedido); err != nil {
+		return nil, err
+	}
 	// 1️ Validar carrito existente
 	cart, err := s.carritoRepo.GetByID(uint(pedido.IdCarrito))
 	if err != nil {
@@ -101,6 +117,7 @@ func (s *pedidoService) CambiarEstado(idPedido uint, idEstadoPedido int) error {
 }
 
 func (s *pedidoService) CancelarPedido(idPedido uint, motivo string) error {
+	// En una implementación real se validaría si el pedido aún no fue enviado
 	return s.repo.UpdateEstado(idPedido, 6) // Estado “Cancelado”
 }
 

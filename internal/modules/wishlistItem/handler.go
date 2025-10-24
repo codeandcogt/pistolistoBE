@@ -1,4 +1,4 @@
-package descuento
+package wishlistitem
 
 import (
 	"encoding/json"
@@ -9,31 +9,31 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type DescuentoHandler struct {
-	service DescuentoService
+type WishListItemHandler struct {
+	service WishListItemService
 }
 
-func NewDescuentoHandler(service DescuentoService) *DescuentoHandler {
-	return &DescuentoHandler{service}
+func NewWishListItemHandler(service WishListItemService) *WishListItemHandler {
+	return &WishListItemHandler{service}
 }
 
-func (h *DescuentoHandler) CreateDescuento(w http.ResponseWriter, r *http.Request) {
-	var des Descuento
-	if err := json.NewDecoder(r.Body).Decode(&des); err != nil {
+func (h *WishListItemHandler) AddWishListItem(w http.ResponseWriter, r *http.Request) {
+	var item WishListItem
+	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	if err := h.service.CreateDescuento(&des); err != nil {
+	if err := h.service.AddWishListItem(&item); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	common.SuccessResponse(w, common.SUCCESS_CREATED, des, common.HTTP_CREATED)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, item, common.HTTP_CREATED)
 }
 
-func (h *DescuentoHandler) GetDescuentoByID(w http.ResponseWriter, r *http.Request) {
+func (h *WishListItemHandler) GetWishListItemByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -47,27 +47,39 @@ func (h *DescuentoHandler) GetDescuentoByID(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	des, err := h.service.GetDescuentoByID(uint(id))
+	item, err := h.service.GetWishListItemByID(uint(id))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, des, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, item, common.HTTP_OK)
 }
 
-func (h *DescuentoHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+func (h *WishListItemHandler) GetWishListItemByWishlist(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idStr, exists := vars["id_wishlist"]
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
 
-	des, err := h.service.GetAll()
+	IdWishlist, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	items, err := h.service.GetWishListItemByWishlist(uint(IdWishlist))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, des, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, items, common.HTTP_OK)
 }
 
-func (h *DescuentoHandler) UpdateDescuento(w http.ResponseWriter, r *http.Request) {
+func (h *WishListItemHandler) UpdateWishListItem(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -81,22 +93,22 @@ func (h *DescuentoHandler) UpdateDescuento(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	var updated Descuento
+	var updated WishListItem
 	if err := json.NewDecoder(r.Body).Decode(&updated); err != nil {
-		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	des, err := h.service.UpdateDescuento(uint(id), &updated)
+	item, err := h.service.UpdateWishListItem(uint(id), &updated)
 	if err != nil {
 		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_BAD_REQUEST, common.ERR_DATABASE_ERROR, nil)
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_UPDATED, des, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_UPDATED, item, common.HTTP_OK)
 }
 
-func (h *DescuentoHandler) DeleteDescuento(w http.ResponseWriter, r *http.Request) {
+func (h *WishListItemHandler) DeleteWishListItem(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	idStr, exists := vars["id"]
 	if !exists {
@@ -110,7 +122,7 @@ func (h *DescuentoHandler) DeleteDescuento(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	text, err := h.service.DeleteDescuento(uint(id))
+	text, err := h.service.DeleteWishListItem(uint(id))
 	if err != nil {
 		common.ErrorResponse(w, http.StatusNotFound, common.HTTP_NOT_FOUND, common.ERR_NOT_FOUND, nil)
 		return
