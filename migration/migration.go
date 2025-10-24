@@ -3,7 +3,6 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
-	piloto "pistolistoBE/internal/modules/Piloto"
 	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
@@ -13,6 +12,7 @@ import (
 	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
