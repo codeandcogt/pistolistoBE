@@ -3,6 +3,21 @@ package migration
 import (
 	"fmt"
 	"pistolistoBE/db"
+	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/articulo"
+	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/banco"
+	"pistolistoBE/internal/modules/carrito"
+	"pistolistoBE/internal/modules/cupon"
+	"pistolistoBE/internal/modules/formulario"
+	"pistolistoBE/internal/modules/moneda"
+	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
+	"pistolistoBE/internal/modules/rol"
+	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/vehiculo"
 	//"pistolistoBE/internal/modules/almacen"
 	//almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	//"pistolistoBE/internal/modules/categoria"
@@ -73,19 +88,27 @@ import (
 func Migration() {
 	database := db.Database()
 	// err := database.AutoMigrate(&cliente.Cliente{}, &auth.LogLoginCliente{})
-	// err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{},
-	// 	&moneda.Moneda{},
-	// 	&banco.Banco{},
-	// 	&cupon.Cupon{},
-	// 	&carrito.Carrito{},
-	// 	&carrito.CarritoItem{},
-	// 	&resenaEmpresa.ResenaEmpresa{},
-	// )
+	err := database.AutoMigrate(&permiso.Permiso{}, &rolpermiso.RolPermiso{}, &administrativo.Administrativo{}, &rol.Rol{},
+		&moneda.Moneda{},
+		&banco.Banco{},
+		&cupon.Cupon{},
+		&carrito.Carrito{},
+		&carrito.CarritoItem{},
+		&resenaEmpresa.ResenaEmpresa{},
+		&producto.Producto{},
+		&articulo.Articulo{},
+		&vehiculo.Vehiculo{},
+		&piloto.Piloto{},
+		&formulario.Formulario{},
+	)
+	err = database.AutoMigrate(&auth.LogLoginAdmin{})
+
+	err = database.AutoMigrate(&formulario.Formulario{})
+	fmt.Println("Tabla formularios creada/verificada")
+
+	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 
 	//err := database.AutoMigrate(&rol.Rol{})
-
-	//err = database.AutoMigrate(&piloto.Piloto{})
-	//fmt.Println("Tabla pilotos creada/verificada")
 
 	//err := database.AutoMigrate(&producto.Producto{})
 	//err := database.AutoMigrate(
@@ -387,14 +410,14 @@ func Migration() {
 	//database.Exec("ALTER TABLE wishlists ADD CONSTRAINT fk_wishlist_cliente FOREIGN KEY (id_wishlist) REFERENCES clientes(id_cliente)")
 	//database.Exec("ALTER TABLE wish_list_items ADD CONSTRAINT fk_wishlistItem_wishlist FOREIGN KEY (id_wish_list_item) REFERENCES wishlists(id_wishlist)")
 	//database.Exec("ALTER TABLE almacens ADD CONSTRAINT fk_almacen_sucursal FOREIGN KEY (id_almacen) REFERENCES subsidiaries(id_sucursal)")
-	err := database.Exec(`
-    ALTER TABLE almacens
-    ADD CONSTRAINT fk_almacen_sucursal
-    FOREIGN KEY (id_sucursal)
-    REFERENCES subsidiaries(id_sucursal)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT;
-`).Error
+	// 	err := database.Exec(`
+	//     ALTER TABLE almacens
+	//     ADD CONSTRAINT fk_almacen_sucursal
+	//     FOREIGN KEY (id_sucursal)
+	//     REFERENCES subsidiaries(id_sucursal)
+	//     ON UPDATE CASCADE
+	//     ON DELETE RESTRICT;
+	// `).Error
 
 	if err != nil {
 		fmt.Println("❌ No se pudo crear FK fk_almacen_sucursal:", err)

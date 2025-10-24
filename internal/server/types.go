@@ -22,6 +22,7 @@ import (
 	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/pago"
@@ -76,13 +77,14 @@ type Handlers struct {
 	Inventario     *inventario.InventarioHandler
 	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
 	Producto       *producto.ProductoHandler
+	Vehiculo       *vehiculo.VehiculoHandler
+	Piloto         *piloto.PilotoHandler
 	Pedido         *pedido.PedidoHandler
 	Pago           *pago.PagoHandler
 	Factura        *factura.FacturaHandler
-	Vehiculo       *vehiculo.VehiculoHandler
-	Piloto         *piloto.PilotoHandler
 	EstadoPedido   *estadoPedido.EstadoPedidoHandler
 	Ruta           *ruta.RutaHandler
 	EstadoRuta     *estadoRuta.EstadoRutaHandler
 	LogUbicacion   *logUbicacion.LogUbicacionHandler
+	Formulario     *formulario.FormularioHandler
 }

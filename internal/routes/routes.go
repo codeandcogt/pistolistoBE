@@ -46,6 +46,7 @@ import (
 
 	"pistolistoBE/internal/modules/vehiculo"
 
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/piloto"
 
 	"github.com/gorilla/mux"
@@ -79,15 +80,16 @@ type RouteHandlers interface {
 	GetInventarioHandler() *inventario.InventarioHandler
 	GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler
 	GetProductoHandler() *producto.ProductoHandler
+	GetVehiculoHandler() *vehiculo.VehiculoHandler
+	GetPilotoHandler() *piloto.PilotoHandler
 	GetPedidoHandler() *pedido.PedidoHandler
 	GetPagoHandler() *pago.PagoHandler
 	GetFacturaHandler() *factura.FacturaHandler
-	GetVehiculoHandler() *vehiculo.VehiculoHandler
-	GetPilotoHandler() *piloto.PilotoHandler
 	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
 	GetRutaHandler() *ruta.RutaHandler
 	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
 	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
+	GetFormularioHandler() *formulario.FormularioHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -125,6 +127,8 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	inventario.SetupInventarioRoutes(api, handlers.GetInventarioHandler())
 	resenaEmpresa.SetupResenaEmpresaRoutes(api, handlers.GetResenaEmpresaHandler())
 	producto.SetupProductoRoutes(api, handlers.GetProductoHandler())
+	vehiculo.SetupVehiculoRoutes(api, handlers.GetVehiculoHandler())
+	piloto.SetupPilotoRoutes(api, handlers.GetPilotoHandler())
 	pedido.SetupPedidoRoutes(api, handlers.GetPedidoHandler())
 	pago.SetupPagoRoutes(api, handlers.GetPagoHandler())
 	factura.SetupFacturaRoutes(api, handlers.GetFacturaHandler())
@@ -140,5 +144,6 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	estadoRuta.SetupEstadoRutaRoutes(api, handlers.GetEstadoRutaHandler())
 	logUbicacion.SetupLogUbicacionRoutes(api, handlers.GetLogUbicacionHandler())
 	logUbicacionTiempoReal.SetupLogUbicacionTiempoRealRoutes(api)
+	formulario.SetupFormularioRoutes(api, handlers.GetFormularioHandler())
 
 }
