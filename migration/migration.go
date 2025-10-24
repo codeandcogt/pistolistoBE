@@ -82,7 +82,8 @@ func Migration() {
 
 	//err := database.AutoMigrate(&rol.Rol{})
 
-	//err := database.AutoMigrate(&producto.Producto{})
+	//err = database.AutoMigrate(&piloto.Piloto{})
+	//fmt.Println("Tabla pilotos creada/verificada")
 
 	//err := database.AutoMigrate(&producto.Producto{})
 	//err := database.AutoMigrate(
@@ -113,6 +114,30 @@ func Migration() {
 	if err != nil {
 		fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
 	}
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_articulo
+	// 	FOREIGN KEY (id_articulo)
+	// 	REFERENCES articulos(id_articulo)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE RESTRICT
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_articulo:", err)
+	// }
+
+	// err = database.Exec(`
+	// 	ALTER TABLE productos
+	// 	ADD CONSTRAINT fk_producto_descuento
+	// 	FOREIGN KEY (id_descuento)
+	// 	REFERENCES descuentos(id_descuento)
+	// 	ON UPDATE CASCADE
+	// 	ON DELETE SET NULL
+	// `).Error
+	// if err != nil {
+	// 	fmt.Println("No se pudo crear FK fk_producto_descuento:", err)
+	// }
 
 	// err = database.Exec(`
 	// 	ALTER TABLE productos
