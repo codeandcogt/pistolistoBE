@@ -38,6 +38,10 @@ func generarUUID() string {
 }
 
 func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
+	if factura.IdPedido == 0 {
+		return nil, errors.New("pedido no válido para facturación")
+	}
+
 	// Validar pedido existente
 	pedidoData, err := s.pedidoRepo.GetByID(uint(factura.IdPedido))
 	if err != nil {
@@ -67,6 +71,11 @@ func (s *facturaService) EmitirFactura(factura *Factura) (*Factura, error) {
 	factura.Numero = numero
 	factura.Serie = serie
 	factura.UUID = generarUUID()
+	factura.FechaEmision = time.Now()
+
+	if factura.Total == 0 {
+		factura.Total = factura.Subtotal + factura.Impuestos - factura.Descuento
+	}
 
 	// Validar campos obligatorios
 	if factura.RazonSocial == "" || factura.DireccionFiscal == "" {

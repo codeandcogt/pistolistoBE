@@ -37,6 +37,10 @@ func (s *pagoService) procesarMockPasarela(pago *Pago) (string, error) {
 }
 
 func (s *pagoService) ProcesarPago(pago *Pago) (*Pago, error) {
+	if pago.Monto <= 0 {
+		return nil, errors.New("el monto del pago debe ser mayor que cero")
+	}
+
 	// 1️⃣ Validar que el pedido exista
 	pedidoExistente, err := s.pedidoRepo.GetByID(uint(pago.IdPedido))
 	if err != nil {

@@ -2,6 +2,8 @@ package server
 
 import (
 	"pistolistoBE/internal/modules/administrativo"
+	"pistolistoBE/internal/modules/almacen"
+	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
@@ -15,6 +17,7 @@ import (
 	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/estadoPedido"
 	"pistolistoBE/internal/modules/estadoRuta"
+	"pistolistoBE/internal/modules/inventario"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/ruta"
 
@@ -29,9 +32,12 @@ import (
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
+	"pistolistoBE/internal/modules/seccion"
 	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/vehiculo"
+	"pistolistoBE/internal/modules/wishlist"
+	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
 )
 
 func (h *Handlers) GetClienteHandler() *cliente.ClientHandler {
@@ -110,6 +116,29 @@ func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
 	return h.Administrativo
 }
 
+func (h *Handlers) GetWishlistHandler() *wishlist.WishlistHandler {
+	return h.Wishlist
+}
+
+func (h *Handlers) GetWishListItemHandler() *wishlistitem.WishListItemHandler {
+	return h.WishListItem
+}
+
+func (h *Handlers) GetAlmacenHandler() *almacen.AlmacenHandler {
+	return h.Almacen
+}
+
+func (h *Handlers) GetAlmacenSeccionHandler() *almacenseccion.AlmacenSeccionHandler {
+	return h.AlmacenSeccion
+}
+
+func (h *Handlers) GetSeccionHandler() *seccion.SeccionHandler {
+	return h.Seccion
+}
+
+func (h *Handlers) GetInventarioHandler() *inventario.InventarioHandler {
+	return h.Inventario
+}
 func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler {
 	return h.ResenaEmpresa
 }
