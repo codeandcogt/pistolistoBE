@@ -3,18 +3,35 @@ package middleware
 import (
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
-// CORS middleware
+// CORS middleware compatible con Next.js y redes locales (IP dinámica o localhost)
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		origin := r.Header.Get("Origin")
 
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(http.StatusOK)
+		if origin != "" &&
+			(strings.HasPrefix(origin, "http://localhost:") ||
+				strings.HasPrefix(origin, "http://169.254.") ||
+				strings.HasPrefix(origin, "https://pistolisto-web.vercel.app/") ||
+				strings.HasPrefix(origin, "https://")) {
+
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Vary", "Origin")
+		} else {
+			log.Println("Origin no permitido:", origin)
+		}
+
+		// Cabeceras permitidas
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		// Responder al preflight (OPTIONS)
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
 			return
 		}
 

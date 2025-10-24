@@ -4,21 +4,31 @@ import (
 	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/almacen"
 	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/inventario"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/seccion"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
@@ -72,12 +82,28 @@ func (h *Handlers) GetCuponHandler() *cupon.CuponHandler {
 	return h.Cupon
 }
 
+func (h *Handlers) GetCarritoHandler() *carrito.CarritoHandler {
+	return h.Carrito
+}
+
+func (h *Handlers) GetSubCategoryHandler() *subCategory.SubCategoryHandler {
+	return h.SubCategory
+}
+
+func (h *Handlers) GetDireccionHandler() *direccion.DireccionHandler {
+	return h.Direccion
+}
+
 func (h *Handlers) GetPermisoHandler() *permiso.PermisoHandler {
 	return h.Permiso
 }
 
 func (h *Handlers) GetRolPermisoHandler() *rolpermiso.RolPermisoHandler {
 	return h.RolPermiso
+}
+
+func (h *Handlers) GetArticuloHandler() *articulo.ArticuloHandler {
+	return h.Articulo
 }
 
 func (h *Handlers) GetAdminHandler() *administrativo.AdministrativoHandler {
@@ -106,4 +132,23 @@ func (h *Handlers) GetSeccionHandler() *seccion.SeccionHandler {
 
 func (h *Handlers) GetInventarioHandler() *inventario.InventarioHandler {
 	return h.Inventario
+}
+func (h *Handlers) GetResenaEmpresaHandler() *resenaEmpresa.ResenaEmpresaHandler {
+	return h.ResenaEmpresa
+}
+
+func (h *Handlers) GetProductoHandler() *producto.ProductoHandler {
+	return h.Producto
+}
+
+func (h *Handlers) GetPedidoHandler() *pedido.PedidoHandler {
+	return h.Pedido
+}
+
+func (h *Handlers) GetPagoHandler() *pago.PagoHandler {
+	return h.Pago
+}
+
+func (h *Handlers) GetFacturaHandler() *factura.FacturaHandler {
+	return h.Factura
 }

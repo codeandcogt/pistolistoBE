@@ -4,21 +4,31 @@ import (
 	"pistolistoBE/internal/modules/administrativo"
 	"pistolistoBE/internal/modules/almacen"
 	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
+	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
+	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
+	"pistolistoBE/internal/modules/direccion"
 	"pistolistoBE/internal/modules/inventario"
+
+	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
+	"pistolistoBE/internal/modules/pago"
+	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
+	"pistolistoBE/internal/modules/producto"
+	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
 	rolpermiso "pistolistoBE/internal/modules/rolPermiso"
 	"pistolistoBE/internal/modules/seccion"
+	"pistolistoBE/internal/modules/subCategory"
 	"pistolistoBE/internal/modules/subsidiary"
 	"pistolistoBE/internal/modules/wishlist"
 	wishlistitem "pistolistoBE/internal/modules/wishlistItem"
@@ -33,6 +43,7 @@ type Server struct {
 }
 
 type Handlers struct {
+	Carrito        *carrito.CarritoHandler
 	Cliente        *cliente.ClientHandler
 	Auth           *auth.AuthHandler
 	Rol            *rol.RolHandler
@@ -47,6 +58,9 @@ type Handlers struct {
 	Cupon          *cupon.CuponHandler
 	Permiso        *permiso.PermisoHandler
 	RolPermiso     *rolpermiso.RolPermisoHandler
+	SubCategory    *subCategory.SubCategoryHandler
+	Direccion      *direccion.DireccionHandler
+	Articulo       *articulo.ArticuloHandler
 	Administrativo *administrativo.AdministrativoHandler
 	Wishlist       *wishlist.WishlistHandler
 	WishListItem   *wishlistitem.WishListItemHandler
@@ -54,4 +68,9 @@ type Handlers struct {
 	AlmacenSeccion *almacenseccion.AlmacenSeccionHandler
 	Seccion        *seccion.SeccionHandler
 	Inventario     *inventario.InventarioHandler
+	ResenaEmpresa  *resenaEmpresa.ResenaEmpresaHandler
+	Producto       *producto.ProductoHandler
+	Pedido         *pedido.PedidoHandler
+	Pago           *pago.PagoHandler
+	Factura        *factura.FacturaHandler
 }
