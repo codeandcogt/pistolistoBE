@@ -22,6 +22,7 @@ import (
 	"pistolistoBE/internal/modules/ruta"
 
 	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/municipality"
 	"pistolistoBE/internal/modules/pago"
@@ -181,4 +182,8 @@ func (h *Handlers) GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler {
 
 func (h *Handlers) GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler {
 	return h.LogUbicacion
+}
+
+func (h *Handlers) GetFormularioHandler() *formulario.FormularioHandler {
+	return h.Formulario
 }

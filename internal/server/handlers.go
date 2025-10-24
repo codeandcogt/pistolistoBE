@@ -19,6 +19,7 @@ import (
 	"pistolistoBE/internal/modules/estadoPedido"
 	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/factura"
+	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/inventario"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
@@ -180,7 +181,6 @@ func (s *Server) initializeHandlers() *Handlers {
 	pilotoRepo := piloto.NewPilotoRepository(s.db)
 	pilotoService := piloto.NewPilotoService(pilotoRepo)
 	pilotoHandler := piloto.NewPilotoHandler(pilotoService)
-
 	// Pedido module
 	pedidoRepo := pedido.NewPedidoRepository(s.db)
 	pedidoService := pedido.NewPedidoService(pedidoRepo, carritoRepo)
@@ -214,6 +214,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	estadoRutaRepo := estadoRuta.NewEstadoRutaRepository(s.db)
 	estadoRutaService := estadoRuta.NewEstadoRutaService(estadoRutaRepo)
 	estadoRutaHandler := estadoRuta.NewEstadoRutaHandler(estadoRutaService)
+
+	// Formulario module
+	formularioRepo := formulario.NewFormularioRepository(s.db)
+	formularioService := formulario.NewFormularioService(formularioRepo)
+	formularioHandler := formulario.NewFormularioHandler(formularioService)
 
 	// LogUbicacionTiempoReal (primero)
 	logUbicacionTiempoRealRepo := logUbicacionTiempoReal.NewLogUbicacionTiempoRealRepository(s.db)
@@ -251,15 +256,15 @@ func (s *Server) initializeHandlers() *Handlers {
 		Inventario:     inventarioHandler,
 		ResenaEmpresa:  resenaEmpresaHandler,
 		Producto:       productoHandler,
+		Vehiculo:       vehiculoHandler,
+		Piloto:         pilotoHandler,
 		Pedido:         pedidoHandler,
 		Pago:           pagoHandler,
 		Factura:        facturaHandler,
-		Vehiculo:       vehiculoHandler,
-		Piloto:         pilotoHandler,
 		EstadoPedido:   estadoPedidoHandler,
 		Ruta:           rutaHandler,
 		EstadoRuta:     estadoRutaHandler,
 		LogUbicacion:   logUbicacionHandler,
+		Formulario:     formularioHandler,
 	}
-
 }

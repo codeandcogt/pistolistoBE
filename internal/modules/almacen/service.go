@@ -3,6 +3,7 @@ package almacen
 type AlmacenService interface {
 	Create(almacen *Almacen) error
 	GetByID(id uint) (*Almacen, error)
+	GetAll() ([]*Almacen, error)
 	GetAllBySucursal(sucursalId uint) ([]*Almacen, error)
 	UpdateAlmacen(id uint, updated *Almacen) (*Almacen, error)
 	DeleteAlmacen(id uint) (string, error)
@@ -22,6 +23,10 @@ func (s *almacenService) Create(almacen *Almacen) error {
 
 func (s *almacenService) GetByID(id uint) (*Almacen, error) {
 	return s.repo.GetByID(id)
+}
+
+func (s *almacenService) GetAll() ([]*Almacen, error) {
+	return s.repo.GetAll()
 }
 
 func (s *almacenService) GetAllBySucursal(IdSucursal uint) ([]*Almacen, error) {

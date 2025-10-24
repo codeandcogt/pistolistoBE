@@ -105,3 +105,13 @@ func (h *AlmacenHandler) DeleteAlmacen(w http.ResponseWriter, r *http.Request) {
 
 	common.SuccessResponse(w, common.SUCCESS_DELETED, msg, common.HTTP_OK)
 }
+
+func (h *AlmacenHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+	almacenes, err := h.service.GetAll()
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, common.ERR_DATABASE_ERROR, nil)
+		return
+	}
+
+	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, almacenes, common.HTTP_OK)
+}
