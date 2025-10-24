@@ -75,6 +75,7 @@ type RouteHandlers interface {
 	GetEstadoPedidoHandler() *estadoPedido.EstadoPedidoHandler
 	GetRutaHandler() *ruta.RutaHandler
 	GetEstadoRutaHandler() *estadoRuta.EstadoRutaHandler
+	GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
