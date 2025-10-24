@@ -136,5 +136,5 @@ func (h *PilotoHandler) DeletePiloto(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.SuccessResponse(w, common.SUCCESS_DELETED, nil, common.HTTP_OK)
+	common.SuccessResponse(w, common.SUCCESS_DELETED, common.SUCCESS_DELETED, common.HTTP_OK)
 }
