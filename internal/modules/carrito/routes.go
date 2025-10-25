@@ -25,4 +25,5 @@ func SetupCarritoRoutes(api *mux.Router, handler *CarritoHandler) {
 	carritoRouter.HandleFunc("/items", handler.AddItem).Methods("POST")
 	carritoRouter.HandleFunc("/items/{itemId}", handler.UpdateItem).Methods("PUT")
 	carritoRouter.HandleFunc("/items/{itemId}", handler.RemoveItem).Methods("DELETE")
+	carritoRouter.HandleFunc("/{clienteId}", handler.AgregarItemAlCarrito).Methods("POST")
 }

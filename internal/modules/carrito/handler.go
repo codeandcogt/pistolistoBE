@@ -248,3 +248,40 @@ func (h *CarritoHandler) GetCarritoItems(w http.ResponseWriter, r *http.Request)
 
 	common.SuccessResponse(w, common.SUCCESS_RETRIEVED, items, common.HTTP_OK)
 }
+
+func (h *CarritoHandler) AgregarItemAlCarrito(w http.ResponseWriter, r *http.Request) {
+	// Obtener el clienteID de los parámetros de la ruta
+	vars := mux.Vars(r)
+	clienteIdStr, exists := vars["clienteId"]
+	if !exists {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_REQUIRED_FIELD, nil)
+		return
+	}
+
+	clienteID, err := strconv.ParseUint(clienteIdStr, 10, 32)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_VALIDATION, nil)
+		return
+	}
+
+	// Decodificar el item del body
+	var item CarritoItem
+	if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
+		common.ErrorResponse(w, http.StatusBadRequest, common.HTTP_BAD_REQUEST, common.ERR_INVALID_JSON, nil)
+		return
+	}
+
+	// Este método creará el carrito automáticamente si no existe
+	if err := h.service.AddItemWithAutoCarrito(uint(clienteID), &item); err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, common.ERR_INTERNAL_ERROR, nil)
+		return
+	}
+
+	// Recalcular totales del carrito
+	if item.CarritoId != nil {
+		h.service.CalcularTotales(*item.CarritoId)
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	common.SuccessResponse(w, common.SUCCESS_CREATED, item, common.HTTP_CREATED)
+}

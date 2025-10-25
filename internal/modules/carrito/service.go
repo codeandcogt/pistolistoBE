@@ -14,6 +14,7 @@ type CarritoService interface {
 	RemoveItemFromCarrito(id uint) error
 	GetCarritoItems(carritoId uint) ([]*CarritoItem, error)
 	CalcularTotales(carritoId uint) error
+	AddItemWithAutoCarrito(clienteID uint, item *CarritoItem) error
 }
 
 type carritoService struct {
@@ -95,4 +96,8 @@ func (s *carritoService) CalcularTotales(carritoId uint) error {
 	carrito.Total = &total
 
 	return s.repo.Update(carritoId, carrito)
+}
+
+func (s *carritoService) AddItemWithAutoCarrito(carritoId uint, item *CarritoItem) error {
+	return s.repo.AddItemWithAutoCarrito(carritoId, item)
 }

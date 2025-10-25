@@ -1,6 +1,9 @@
 package carrito
 
 import (
+	"errors"
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -17,6 +20,7 @@ type CarritoRepository interface {
 	UpdateItem(id uint, item *CarritoItem) error
 	RemoveItem(id uint) error
 	GetItemsByCarritoID(carritoId uint) ([]*CarritoItem, error)
+	AddItemWithAutoCarrito(clienteID uint, item *CarritoItem) error
 }
 
 type carritoRepository struct {
@@ -86,4 +90,39 @@ func (r *carritoRepository) GetItemsByCarritoID(carritoId uint) ([]*CarritoItem,
 		return nil, err
 	}
 	return items, nil
+}
+
+// Agregar al final del archivo, después de GetItemsByCarritoID
+func (r *carritoRepository) AddItemWithAutoCarrito(clienteID uint, item *CarritoItem) error {
+	// Buscar carrito existente del cliente
+	carrito, err := r.GetByClienteID(clienteID)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// Crear nuevo carrito si no existe
+			estadoTrue := true
+			nuevoCarrito := &Carrito{
+				ClienteId: &clienteID,
+				Estado:    &estadoTrue,
+			}
+
+			if err := r.Create(nuevoCarrito); err != nil {
+				return err
+			}
+
+			item.CarritoId = &nuevoCarrito.IdCarrito
+		} else {
+			return err
+		}
+	} else {
+		item.CarritoId = &carrito.IdCarrito
+	}
+
+	// Asegurar que el item tenga estado true y fechas
+	estadoTrue := true
+	now := time.Now()
+	item.Estado = &estadoTrue
+	item.FechaAgregado = &now
+
+	return r.AddItem(item)
 }
