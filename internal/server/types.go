@@ -29,6 +29,7 @@ import (
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/prestamo"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -87,4 +88,5 @@ type Handlers struct {
 	EstadoRuta     *estadoRuta.EstadoRutaHandler
 	LogUbicacion   *logUbicacion.LogUbicacionHandler
 	Formulario     *formulario.FormularioHandler
+	Prestamo       *prestamo.PrestamoHandler
 }

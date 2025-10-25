@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/moneda"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/prestamo"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -100,12 +101,8 @@ func Migration() {
 		&vehiculo.Vehiculo{},
 		&piloto.Piloto{},
 		&formulario.Formulario{},
+		&prestamo.Prestamo{},
 	)
-	err = database.AutoMigrate(&auth.LogLoginAdmin{})
-
-	err = database.AutoMigrate(&formulario.Formulario{})
-	fmt.Println("Tabla formularios creada/verificada")
-
 	err = database.AutoMigrate(&auth.LogLoginAdmin{})
 
 	//err := database.AutoMigrate(&rol.Rol{})
