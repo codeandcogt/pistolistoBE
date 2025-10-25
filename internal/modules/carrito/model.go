@@ -1,6 +1,9 @@
 package carrito
 
-import "time"
+import (
+	"pistolistoBE/internal/modules/producto"
+	"time"
+)
 
 type Carrito struct {
 	IdCarrito         uint          `gorm:"primaryKey;autoIncrement;column:id_carrito" json:"idCarrito"`
@@ -29,4 +32,6 @@ type CarritoItem struct {
 	Estado            *bool      `gorm:"type:boolean;column:estado;default:true" json:"estado"`
 	FechaModificacion *time.Time `gorm:"type:timestamp;column:fecha_modificacion" json:"fechaModificacion"`
 	FechaCreacion     *time.Time `gorm:"type:timestamp;column:fecha_creacion" json:"fechaCreacion"`
+
+	Producto *producto.Producto `gorm:"foreignKey:ProductoId;references:IdProducto" json:"producto,omitempty"`
 }

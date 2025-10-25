@@ -46,7 +46,12 @@ func (r *carritoRepository) GetByID(id uint) (*Carrito, error) {
 
 func (r *carritoRepository) GetByClienteID(clienteId uint) (*Carrito, error) {
 	var carrito Carrito
-	err := r.db.Preload("Items", "estado = ?", true).Where("cliente_id = ? AND estado = ? AND pedido_id IS NULL", clienteId, true).First(&carrito).Error
+	err := r.db.
+		Preload("Items", "estado = ?", true).
+		Preload("Items.Producto", "estado = ?", true).
+		Preload("Items.Producto.Articulo", "estado = ?", true).
+		Where("cliente_id = ? AND estado = ? AND pedido_id IS NULL", clienteId, true).
+		First(&carrito).Error
 	if err != nil {
 		return nil, err
 	}
