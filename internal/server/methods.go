@@ -6,6 +6,7 @@ import (
 	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/avaluo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/carrito"
@@ -186,4 +187,8 @@ func (h *Handlers) GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler {
 
 func (h *Handlers) GetFormularioHandler() *formulario.FormularioHandler {
 	return h.Formulario
+}
+
+func (h *Handlers) GetAvaluoHandler() *avaluo.AvaluoHandler {
+	return h.Avaluo
 }

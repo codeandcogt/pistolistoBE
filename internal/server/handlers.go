@@ -7,6 +7,7 @@ import (
 	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/avaluo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/carrito"
@@ -228,6 +229,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	logUbicacionService := logUbicacion.NewLogUbicacionService(logUbicacionRepo, logUbicacionTiempoRealRepo)
 	logUbicacionHandler := logUbicacion.NewLogUbicacionHandler(logUbicacionService)
 
+	// Avaluo
+	avaluoRepo := avaluo.NewAvaluoRepository(s.db)
+	avaluoService := avaluo.NewAvaluoService(avaluoRepo, formularioRepo)
+	avaluoHandler := avaluo.NewAvaluoHandler(avaluoService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -266,5 +272,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		EstadoRuta:     estadoRutaHandler,
 		LogUbicacion:   logUbicacionHandler,
 		Formulario:     formularioHandler,
+		Avaluo:         avaluoHandler,
 	}
 }

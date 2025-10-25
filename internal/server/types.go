@@ -6,6 +6,7 @@ import (
 	almacenseccion "pistolistoBE/internal/modules/almacenSeccion"
 	"pistolistoBE/internal/modules/articulo"
 	"pistolistoBE/internal/modules/auth"
+	"pistolistoBE/internal/modules/avaluo"
 	"pistolistoBE/internal/modules/banco"
 	"pistolistoBE/internal/modules/bankAccount"
 	"pistolistoBE/internal/modules/carrito"
@@ -87,4 +88,5 @@ type Handlers struct {
 	EstadoRuta     *estadoRuta.EstadoRutaHandler
 	LogUbicacion   *logUbicacion.LogUbicacionHandler
 	Formulario     *formulario.FormularioHandler
+	Avaluo         *avaluo.AvaluoHandler
 }
