@@ -31,22 +31,6 @@ func NewPedidoService(repo PedidoRepository, carritoRepo carrito.CarritoReposito
 // Crear pedido (checkout)
 // ----------------------
 func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
-	// Generar número de pedido único
-	pedido.NumeroPedido = fmt.Sprintf("PED-%d-%04d", time.Now().Unix(), rand.Intn(10000))
-
-	// Simular cálculo de totales (en un sistema real, esto vendría del carrito)
-	if pedido.Subtotal == 0 {
-		return nil, errors.New("el subtotal no puede ser cero")
-	}
-	pedido.Impuesto = pedido.Subtotal * 0.12 // 12% IVA ejemplo
-	pedido.Total = pedido.Subtotal + pedido.Impuesto + pedido.CostoEnvio
-
-	// Estado inicial “Pendiente”
-	pedido.IdEstadoPedido = 1
-
-	if err := s.repo.Create(pedido); err != nil {
-		return nil, err
-	}
 	// 1️ Validar carrito existente
 	cart, err := s.carritoRepo.GetByID(uint(pedido.IdCarrito))
 	if err != nil {
@@ -56,7 +40,7 @@ func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
 		return nil, errors.New("el carrito está vacío")
 	}
 
-	// 2 Calcular totales
+	// 2️ Calcular totales
 	var subtotal float64
 	for _, item := range cart.Items {
 		if item.Subtotal != nil {
@@ -72,25 +56,26 @@ func (s *pedidoService) Checkout(pedido *Pedido) (*Pedido, error) {
 	costoEnvio := 50.00
 	total := subtotal - descuento + impuesto + costoEnvio
 
-	// Generar datos del pedido tomando cliente desde el carrito
+	// 3️ Validar cliente
 	if cart.ClienteId == nil {
 		return nil, errors.New("el carrito no tiene cliente asociado")
 	}
 
+	// 4️ Generar número de pedido y asignar datos
+	pedido.NumeroPedido = fmt.Sprintf("PED-%d-%04d", time.Now().Unix(), rand.Intn(10000))
 	pedido.IdCliente = int(*cart.ClienteId)
 	pedido.Subtotal = subtotal
 	pedido.Impuesto = impuesto
 	pedido.CostoEnvio = costoEnvio
 	pedido.Total = total
 	pedido.IdEstadoPedido = 1 // Pendiente
-	pedido.NumeroPedido = fmt.Sprintf("PED-%d-%04d", time.Now().Unix(), rand.Intn(10000))
 
-	// Guardar pedido
+	// 5️ Guardar pedido
 	if err := s.repo.Create(pedido); err != nil {
 		return nil, err
 	}
 
-	//  Enlazar carrito con pedido creado
+	// 6️ Enlazar carrito con el pedido creado
 	cart.PedidoId = &pedido.IdPedido
 	err = s.carritoRepo.Update(cart.IdCarrito, cart)
 	if err != nil {
@@ -117,7 +102,6 @@ func (s *pedidoService) CambiarEstado(idPedido uint, idEstadoPedido int) error {
 }
 
 func (s *pedidoService) CancelarPedido(idPedido uint, motivo string) error {
-	// En una implementación real se validaría si el pedido aún no fue enviado
 	return s.repo.UpdateEstado(idPedido, 6) // Estado “Cancelado”
 }
 

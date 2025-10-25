@@ -16,6 +16,7 @@ import (
 	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/loan"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
 	"pistolistoBE/internal/modules/pedido"
@@ -94,6 +95,7 @@ type RouteHandlers interface {
 	GetFormularioHandler() *formulario.FormularioHandler
 	GetAvaluoHandler() *avaluo.AvaluoHandler
 	GetContratoHandler() *contrato.ContratoHandler
+	GetLoanHandler() *loan.LoanHandler
 }
 
 func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
@@ -151,4 +153,5 @@ func SetupRoutes(router *mux.Router, handlers RouteHandlers) {
 	formulario.SetupFormularioRoutes(api, handlers.GetFormularioHandler())
 	avaluo.SetupAvaluoRoutes(api, handlers.GetAvaluoHandler())
 	contrato.SetupContratoRoutes(api, handlers.GetContratoHandler())
+	loan.SetupLoanRoutes(api, handlers.GetLoanHandler())
 }

@@ -20,6 +20,7 @@ import (
 	"pistolistoBE/internal/modules/estadoPedido"
 	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/loan"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/ruta"
 
@@ -91,4 +92,5 @@ type Handlers struct {
 	Formulario     *formulario.FormularioHandler
 	Avaluo         *avaluo.AvaluoHandler
 	Contrato       *contrato.ContratoHandler
+	Loan           *loan.LoanHandler
 }

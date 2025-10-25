@@ -20,6 +20,7 @@ import (
 	"pistolistoBE/internal/modules/estadoPedido"
 	"pistolistoBE/internal/modules/estadoRuta"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/loan"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/ruta"
 
@@ -196,4 +197,8 @@ func (h *Handlers) GetAvaluoHandler() *avaluo.AvaluoHandler {
 
 func (h *Handlers) GetContratoHandler() *contrato.ContratoHandler {
 	return h.Contrato
+}
+
+func (h *Handlers) GetLoanHandler() *loan.LoanHandler {
+	return h.Loan
 }

@@ -12,4 +12,5 @@ func SetupContratoRoutes(api *mux.Router, handler *ContratoHandler) {
 
 	router.HandleFunc("/all", handler.GetAll).Methods("GET")
 	router.HandleFunc("/avaluo/{avaluoId}", handler.GetByAvaluo).Methods("GET")
+	router.HandleFunc("/{id}", handler.GetByID).Methods("GET") // ✅ nuevo
 }

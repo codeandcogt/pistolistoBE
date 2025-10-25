@@ -23,6 +23,7 @@ import (
 	"pistolistoBE/internal/modules/factura"
 	"pistolistoBE/internal/modules/formulario"
 	"pistolistoBE/internal/modules/inventario"
+	"pistolistoBE/internal/modules/loan"
 	"pistolistoBE/internal/modules/logUbicacion"
 	"pistolistoBE/internal/modules/logUbicacionTiempoReal"
 	"pistolistoBE/internal/modules/moneda"
@@ -242,6 +243,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	// FORMULARIO
 	formularioHandler := formulario.NewFormularioHandler(formularioService, avaluoService)
 
+	// Loan
+	loanRepo := loan.NewLoanRepository(s.db)
+	loanService := loan.NewLoanService(loanRepo, contratoService, avaluoService)
+	loanHandler := loan.NewLoanHandler(loanService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -282,5 +288,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Formulario:     formularioHandler,
 		Avaluo:         avaluoHandler,
 		Contrato:       contratoHandler,
+		Loan:           loanHandler,
 	}
 }

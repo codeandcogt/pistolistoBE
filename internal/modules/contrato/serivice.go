@@ -8,6 +8,7 @@ import (
 type ContratoService interface {
 	CrearContratoAutomatico(idAvaluo uint, monto float64) (*Contrato, error)
 	GetByAvaluo(idAvaluo uint) (*Contrato, error)
+	GetByID(id uint) (*Contrato, error)
 	GetAll() ([]*Contrato, error)
 }
 
@@ -19,7 +20,7 @@ func NewContratoService(repo ContratoRepository) ContratoService {
 	return &contratoService{repo}
 }
 
-// Genera contrato automáticamente según el monto avaluado
+// 🔹 Crear contrato automáticamente según el avalúo
 func (s *contratoService) CrearContratoAutomatico(idAvaluo uint, monto float64) (*Contrato, error) {
 	tipo := "Contrato Estándar"
 	var condiciones string
@@ -35,15 +36,13 @@ func (s *contratoService) CrearContratoAutomatico(idAvaluo uint, monto float64) 
 		condiciones = "Garantía extendida y mantenimiento anual incluido."
 	}
 
+	now := time.Now()
 	contrato := &Contrato{
 		IdAvaluo:              int(idAvaluo),
 		TipoContrato:          tipo,
 		CondicionesEspeciales: &condiciones,
-		FechaCreacion:         new(time.Time),
+		FechaCreacion:         &now,
 	}
-
-	now := time.Now()
-	*contrato.FechaCreacion = now
 
 	if err := s.repo.Create(contrato); err != nil {
 		return nil, err
@@ -55,6 +54,10 @@ func (s *contratoService) CrearContratoAutomatico(idAvaluo uint, monto float64) 
 
 func (s *contratoService) GetByAvaluo(idAvaluo uint) (*Contrato, error) {
 	return s.repo.GetByAvaluo(idAvaluo)
+}
+
+func (s *contratoService) GetByID(id uint) (*Contrato, error) {
+	return s.repo.GetByID(id)
 }
 
 func (s *contratoService) GetAll() ([]*Contrato, error) {
