@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/contrato"
+	"pistolistoBE/internal/modules/cuota"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -201,4 +202,8 @@ func (h *Handlers) GetContratoHandler() *contrato.ContratoHandler {
 
 func (h *Handlers) GetLoanHandler() *loan.LoanHandler {
 	return h.Loan
+}
+
+func (h *Handlers) GetCuotaHandler() *cuota.CuotaHandler {
+	return h.cuota
 }

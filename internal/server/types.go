@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/contrato"
+	"pistolistoBE/internal/modules/cuota"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -93,4 +94,5 @@ type Handlers struct {
 	Avaluo         *avaluo.AvaluoHandler
 	Contrato       *contrato.ContratoHandler
 	Loan           *loan.LoanHandler
+	cuota          *cuota.CuotaHandler
 }
