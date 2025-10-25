@@ -12,6 +12,7 @@ import (
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/contrato"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -191,4 +192,8 @@ func (h *Handlers) GetFormularioHandler() *formulario.FormularioHandler {
 
 func (h *Handlers) GetAvaluoHandler() *avaluo.AvaluoHandler {
 	return h.Avaluo
+}
+
+func (h *Handlers) GetContratoHandler() *contrato.ContratoHandler {
+	return h.Contrato
 }

@@ -9,7 +9,7 @@ import (
 func SetupFormularioRoutes(api *mux.Router, handler *FormularioHandler) {
 	formularioRouter := api.PathPrefix("/formularios").Subrouter()
 
-	// Ruta pública para crear formulario (contacto)
+	// Ruta pública (crear formulario + avalúo automático)
 	formularioRouter.HandleFunc("", handler.CreateFormulario).Methods("POST")
 
 	// Rutas protegidas para administración

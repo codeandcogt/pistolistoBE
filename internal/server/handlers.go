@@ -13,6 +13,7 @@ import (
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/contrato"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -216,11 +217,6 @@ func (s *Server) initializeHandlers() *Handlers {
 	estadoRutaService := estadoRuta.NewEstadoRutaService(estadoRutaRepo)
 	estadoRutaHandler := estadoRuta.NewEstadoRutaHandler(estadoRutaService)
 
-	// Formulario module
-	formularioRepo := formulario.NewFormularioRepository(s.db)
-	formularioService := formulario.NewFormularioService(formularioRepo)
-	formularioHandler := formulario.NewFormularioHandler(formularioService)
-
 	// LogUbicacionTiempoReal (primero)
 	logUbicacionTiempoRealRepo := logUbicacionTiempoReal.NewLogUbicacionTiempoRealRepository(s.db)
 
@@ -229,10 +225,22 @@ func (s *Server) initializeHandlers() *Handlers {
 	logUbicacionService := logUbicacion.NewLogUbicacionService(logUbicacionRepo, logUbicacionTiempoRealRepo)
 	logUbicacionHandler := logUbicacion.NewLogUbicacionHandler(logUbicacionService)
 
-	// Avaluo
+	// CONTRATO
+	contratoRepo := contrato.NewContratoRepository(s.db)
+	contratoService := contrato.NewContratoService(contratoRepo)
+	contratoHandler := contrato.NewContratoHandler(contratoService)
+
+	// FORMULARIO
+	formularioRepo := formulario.NewFormularioRepository(s.db)
+	formularioService := formulario.NewFormularioService(formularioRepo)
+
+	// AVALUO
 	avaluoRepo := avaluo.NewAvaluoRepository(s.db)
-	avaluoService := avaluo.NewAvaluoService(avaluoRepo, formularioRepo)
+	avaluoService := avaluo.NewAvaluoService(avaluoRepo, formularioService, contratoService, articuloService)
 	avaluoHandler := avaluo.NewAvaluoHandler(avaluoService)
+
+	// FORMULARIO
+	formularioHandler := formulario.NewFormularioHandler(formularioService, avaluoService)
 
 	return &Handlers{
 		Cliente:        clienteHandler,
@@ -273,5 +281,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		LogUbicacion:   logUbicacionHandler,
 		Formulario:     formularioHandler,
 		Avaluo:         avaluoHandler,
+		Contrato:       contratoHandler,
 	}
 }

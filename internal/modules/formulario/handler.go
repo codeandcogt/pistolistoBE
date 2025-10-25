@@ -4,17 +4,19 @@ import (
 	"encoding/json"
 	"net/http"
 	"pistolistoBE/internal/common"
+	"pistolistoBE/internal/modules/avaluo"
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
 type FormularioHandler struct {
-	service FormularioService
+	service   FormularioService
+	avaluoSrv avaluo.AvaluoService
 }
 
-func NewFormularioHandler(service FormularioService) *FormularioHandler {
-	return &FormularioHandler{service}
+func NewFormularioHandler(service FormularioService, avaluoSrv avaluo.AvaluoService) *FormularioHandler {
+	return &FormularioHandler{service, avaluoSrv}
 }
 
 func (h *FormularioHandler) CreateFormulario(w http.ResponseWriter, r *http.Request) {
@@ -25,12 +27,37 @@ func (h *FormularioHandler) CreateFormulario(w http.ResponseWriter, r *http.Requ
 	}
 
 	if err := h.service.CreateFormulario(&formulario); err != nil {
-		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, common.ERR_INTERNAL_ERROR, nil)
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, "Error al crear formulario", nil)
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	common.SuccessResponse(w, common.SUCCESS_CREATED, formulario, common.HTTP_CREATED)
+	avaluoGenerado, err := h.avaluoSrv.CrearAvaluoAutomatico(formulario.IdFormulario)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, "Error al crear avalúo automático", nil)
+		return
+	}
+
+	contratoGenerado, err := h.avaluoSrv.GetContratoByAvaluo(avaluoGenerado.IdAvaluo)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, "Error al obtener contrato", nil)
+		return
+	}
+
+	articuloData, err := h.avaluoSrv.GetArticuloByFormulario(formulario.IdFormulario)
+	if err != nil {
+		common.ErrorResponse(w, http.StatusInternalServerError, common.HTTP_SERVER_ERROR, "Error al obtener artículo relacionado", nil)
+		return
+	}
+
+	response := map[string]interface{}{
+		"mensaje":    "Formulario, avalúo, contrato y artículo vinculados correctamente",
+		"formulario": formulario,
+		"avaluo":     avaluoGenerado,
+		"contrato":   contratoGenerado,
+		"articulo":   articuloData,
+	}
+
+	common.SuccessResponse(w, "Creado correctamente", response, common.HTTP_CREATED)
 }
 
 func (h *FormularioHandler) GetFormularioByID(w http.ResponseWriter, r *http.Request) {

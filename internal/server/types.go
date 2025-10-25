@@ -12,6 +12,7 @@ import (
 	"pistolistoBE/internal/modules/carrito"
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
+	"pistolistoBE/internal/modules/contrato"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -89,4 +90,5 @@ type Handlers struct {
 	LogUbicacion   *logUbicacion.LogUbicacionHandler
 	Formulario     *formulario.FormularioHandler
 	Avaluo         *avaluo.AvaluoHandler
+	Contrato       *contrato.ContratoHandler
 }
