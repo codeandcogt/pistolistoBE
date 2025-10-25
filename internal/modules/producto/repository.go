@@ -37,7 +37,10 @@ func (r *productoRepository) GetByID(id uint) (*Producto, error) {
 
 func (r *productoRepository) GetAll() ([]*Producto, error) {
 	var productos []*Producto
-	err := r.db.Where("estado = ?", true).Find(&productos).Error
+	err := r.db.
+		Preload("Articulo", "estado = ?", true).
+		Where("estado = ?", true).
+		Find(&productos).Error
 	if err != nil {
 		return nil, err
 	}

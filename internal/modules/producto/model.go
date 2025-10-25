@@ -1,6 +1,7 @@
 package producto
 
 import (
+	"pistolistoBE/internal/modules/articulo"
 	"time"
 )
 
@@ -15,4 +16,6 @@ type Producto struct {
 	Estado            *bool      `gorm:"type:boolean;column:estado;default:true" json:"estado"`
 	FechaModificacion *time.Time `gorm:"type:timestamp;column:fecha_modificacion;autoUpdateTime" json:"fecha_modificacion"`
 	FechaCreacion     *time.Time `gorm:"type:timestamp;column:fecha_creacion;autoCreateTime" json:"fecha_creacion"`
+
+	Articulo *articulo.Articulo `gorm:"foreignKey:IdArticulo;references:IdArticulo" json:"articulo,omitempty"`
 }
