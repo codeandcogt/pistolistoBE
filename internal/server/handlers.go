@@ -29,6 +29,7 @@ import (
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/prestamo"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -220,6 +221,11 @@ func (s *Server) initializeHandlers() *Handlers {
 	formularioService := formulario.NewFormularioService(formularioRepo)
 	formularioHandler := formulario.NewFormularioHandler(formularioService)
 
+	// Prestamo module
+	prestamoRepo := prestamo.NewPrestamoRepository(s.db)
+	prestamoService := prestamo.NewPrestamoService(prestamoRepo)
+	prestamoHandler := prestamo.NewPrestamoHandler(prestamoService)
+
 	// LogUbicacionTiempoReal (primero)
 	logUbicacionTiempoRealRepo := logUbicacionTiempoReal.NewLogUbicacionTiempoRealRepository(s.db)
 
@@ -266,5 +272,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		EstadoRuta:     estadoRutaHandler,
 		LogUbicacion:   logUbicacionHandler,
 		Formulario:     formularioHandler,
+		Prestamo:       prestamoHandler,
 	}
 }

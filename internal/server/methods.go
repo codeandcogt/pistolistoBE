@@ -29,6 +29,7 @@ import (
 	"pistolistoBE/internal/modules/pedido"
 	"pistolistoBE/internal/modules/permiso"
 	"pistolistoBE/internal/modules/piloto"
+	"pistolistoBE/internal/modules/prestamo"
 	"pistolistoBE/internal/modules/producto"
 	"pistolistoBE/internal/modules/resenaEmpresa"
 	"pistolistoBE/internal/modules/rol"
@@ -186,4 +187,8 @@ func (h *Handlers) GetLogUbicacionHandler() *logUbicacion.LogUbicacionHandler {
 
 func (h *Handlers) GetFormularioHandler() *formulario.FormularioHandler {
 	return h.Formulario
+}
+
+func (h *Handlers) GetPrestamoHandler() *prestamo.PrestamoHandler {
+	return h.Prestamo
 }
