@@ -14,6 +14,7 @@ import (
 	"pistolistoBE/internal/modules/categoria"
 	"pistolistoBE/internal/modules/cliente"
 	"pistolistoBE/internal/modules/contrato"
+	"pistolistoBE/internal/modules/cuota"
 	"pistolistoBE/internal/modules/cupon"
 	"pistolistoBE/internal/modules/departamento"
 	"pistolistoBE/internal/modules/descuento"
@@ -248,6 +249,10 @@ func (s *Server) initializeHandlers() *Handlers {
 	loanService := loan.NewLoanService(loanRepo, contratoService, avaluoService)
 	loanHandler := loan.NewLoanHandler(loanService)
 
+	cuotaRepo := cuota.NewCuotaRepository(s.db)
+	cuotaService := cuota.NewCuotaService(cuotaRepo)
+	cuotaHandler := cuota.NewCuotaHandler(cuotaService)
+
 	return &Handlers{
 		Cliente:        clienteHandler,
 		Auth:           authHandler,
@@ -289,5 +294,6 @@ func (s *Server) initializeHandlers() *Handlers {
 		Avaluo:         avaluoHandler,
 		Contrato:       contratoHandler,
 		Loan:           loanHandler,
+		cuota:          cuotaHandler,
 	}
 }
