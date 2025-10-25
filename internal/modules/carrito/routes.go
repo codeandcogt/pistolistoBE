@@ -1,7 +1,7 @@
 package carrito
 
 import (
-	"pistolistoBE/internal/middleware"
+	// "pistolistoBE/internal/middleware"
 
 	"github.com/gorilla/mux"
 )
@@ -10,7 +10,7 @@ func SetupCarritoRoutes(api *mux.Router, handler *CarritoHandler) {
 	carritoRouter := api.PathPrefix("/carritos").Subrouter()
 
 	// Rutas protegidas con middleware
-	carritoRouter.Use(middleware.AdminJWTMiddleware)
+	// carritoRouter.Use(middleware.AdminJWTMiddleware)
 
 	// Carrito CRUD
 	carritoRouter.HandleFunc("", handler.CreateCarrito).Methods("POST")
