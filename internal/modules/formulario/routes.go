@@ -14,7 +14,7 @@ func SetupFormularioRoutes(api *mux.Router, handler *FormularioHandler) {
 
 	// Rutas protegidas para administración
 	protected := formularioRouter.NewRoute().Subrouter()
-	protected.Use(middleware.AdminJWTMiddleware)
+	protected.Use(middleware.JWTMiddleware)
 
 	protected.HandleFunc("", handler.GetAll).Methods("GET")
 	protected.HandleFunc("/{id}", handler.GetFormularioByID).Methods("GET")
